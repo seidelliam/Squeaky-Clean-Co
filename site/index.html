@@ -1,0 +1,1191 @@
+<title>Squeaky Clean Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400..700&display=swap">
+
+<style>
+:root{
+  --ground:#E9F3F5; --paper:#FFFFFF;
+  --ink:#08262E; --ink-2:#4A6A73; --ink-3:#7E969C;
+  --line:#D2E4E8; --line-2:#BCD6DC;
+  --aqua:#0090B5; --aqua-deep:#046A85; --aqua-bright:#2BC5E8; --aqua-soft:#DDF3F9;
+  --sun:#FF7A1A; --sun-deep:#D95A00; --sun-soft:#FFEADB;
+  --grape:#6B4EE6; --grape-soft:#EBE5FF;
+  --ok:#0B8F63; --bad:#C6353B; --bad-soft:#FDE8E8;
+  --r:20px; --r-sm:12px; --r-xs:8px;
+  --step-0:1.0625rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem;
+  --step-4:clamp(2.5rem,6.4vw,4.2rem);
+  --pad:clamp(1.25rem,3.6vw,2.5rem); --gap:clamp(1rem,2vw,1.5rem);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:var(--step-0);line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:"Bricolage Grotesque","Hanken Grotesk",Helvetica,Arial,sans-serif;
+  font-variation-settings:"wdth" 92,"opsz" 40;
+  margin:0;line-height:1.06;letter-spacing:-.02em;text-wrap:balance;
+}
+p{margin:0}
+a{color:var(--aqua-deep)}
+img,canvas{max-width:100%}
+:focus-visible{outline:3px solid var(--grape);outline-offset:2px;border-radius:4px}
+.wrap{width:min(100% - 1.75rem,1140px);margin-inline:auto}
+.eyebrow{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--aqua-deep)}
+.eyebrow-sun{color:var(--sun-deep)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(233,243,245,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
+.logo-dot{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 32% 30%,#FFF 0 12%,var(--aqua-bright) 42%,var(--aqua) 100%);box-shadow:0 2px 0 rgba(4,106,133,.25)}
+.logo-name{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 14;font-weight:800;font-size:1.02rem;letter-spacing:-.02em}
+.nav-links{display:flex;align-items:center;gap:.25rem}
+.nav-link{font-size:.93rem;font-weight:600;text-decoration:none;color:var(--ink-2);padding:.45rem .8rem;border-radius:999px}
+.nav-link:hover{color:var(--ink);background:var(--aqua-soft)}
+.nav-link[aria-current="page"]{color:var(--aqua-deep);background:var(--aqua-soft)}
+.nav-cta{font-size:.93rem;font-weight:700;text-decoration:none;background:var(--ink);color:#fff;padding:.55rem 1.05rem;border-radius:999px;margin-left:.35rem}
+.nav-cta:hover{background:var(--aqua-deep)}
+.nav-cta[aria-current="page"]{background:var(--aqua-deep)}
+.langtog{
+  margin-left:.5rem;display:inline-flex;align-items:center;gap:.3rem;cursor:pointer;
+  font-family:"DM Mono",monospace;font-size:.74rem;letter-spacing:.09em;font-weight:500;
+  background:transparent;color:var(--ink-2);border:1.5px solid var(--line-2);
+  border-radius:999px;padding:.42rem .7rem;
+}
+.langtog:hover{border-color:var(--aqua);color:var(--aqua-deep);background:var(--paper)}
+.langtog .on{color:var(--aqua-deep);font-weight:500}
+.langtog .off{color:var(--ink-3)}
+@media (max-width:40rem){
+  .nav-link{padding:.4rem .5rem;font-size:.87rem}
+  .nav-cta{padding:.5rem .8rem;font-size:.87rem}
+  .logo-name{font-size:.92rem}
+  .langtog{padding:.38rem .55rem;font-size:.7rem;margin-left:.3rem}
+}
+
+/* shared */
+.section{padding:clamp(2.75rem,6vw,4.5rem) 0 0}
+.section-head{max-width:60ch;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.6rem}
+.section-head h2{font-size:var(--step-3);font-weight:800;font-variation-settings:"wdth" 88,"opsz" 40}
+.section-head p{color:var(--ink-2)}
+.page-head h2{font-size:var(--step-4);letter-spacing:-.035em;font-variation-settings:"wdth" 84,"opsz" 96;line-height:.96;max-width:20ch}
+.page-head .deck{font-family:"Bricolage Grotesque","Hanken Grotesk",sans-serif;font-variation-settings:"wdth" 90,"opsz" 32;font-size:var(--step-2);font-weight:700;letter-spacing:-.02em;line-height:1.16;color:var(--ink-2);max-width:26ch;margin-top:.1rem}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:"Hanken Grotesk",sans-serif;font-weight:700;font-size:1rem;
+  padding:.85rem 1.5rem;border-radius:999px;border:2px solid transparent;
+  text-decoration:none;cursor:pointer;transition:transform .13s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-sun{background:var(--sun);color:#fff;box-shadow:0 4px 0 var(--sun-deep)}
+.btn-sun:hover{background:#FF8C36}
+.btn-aqua{background:var(--aqua);color:#fff;box-shadow:0 4px 0 var(--aqua-deep)}
+.btn-aqua:hover{background:#00A3CC}
+.btn-line{background:transparent;border-color:var(--line-2);color:var(--ink)}
+.btn-line:hover{background:var(--paper);border-color:var(--aqua)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(168deg,#FFF 0%,#F2FAFC 46%,#E2F2F7 100%);border:1px solid var(--line);border-radius:var(--r);margin-top:clamp(1rem,2.5vw,1.75rem);padding:clamp(2.25rem,5vw,3.75rem) var(--pad)}
+#suds{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:1.15rem;max-width:38ch}
+.hero h1{font-size:var(--step-4);font-weight:800;font-variation-settings:"wdth" 84,"opsz" 96;letter-spacing:-.035em;line-height:.94;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--aqua)}
+.hero-lede{font-size:var(--step-1);color:var(--ink-2);max-width:36ch;line-height:1.45}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem}
+.hero-note{font-size:.9rem;color:var(--ink-3)}
+.sticker{position:relative;flex:0 0 auto;width:clamp(9.5rem,17vw,13rem);aspect-ratio:1;background:var(--sun);color:#fff;border-radius:50%;display:grid;place-content:center;text-align:center;transform:rotate(-8deg);box-shadow:0 10px 30px -12px rgba(217,90,0,.6)}
+.sticker-price{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 96;font-weight:800;font-size:clamp(2.6rem,5.4vw,3.7rem);line-height:.86;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.sticker-per{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;margin-top:.3rem;opacity:.95}
+.sticker-top{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;opacity:.9;margin-bottom:.15rem}
+@media (max-width:52rem){
+  .hero-in{grid-template-columns:1fr;justify-items:start}
+  .hero-copy{max-width:100%}
+  .sticker{transform:rotate(-5deg)}
+}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--gap)}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.35rem;display:flex;flex-direction:column;gap:.5rem}
+.tile-zero{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 40;font-weight:800;font-size:2rem;line-height:1;color:var(--aqua);font-variant-numeric:tabular-nums}
+.tile h3{font-size:1.06rem;font-weight:700;font-variation-settings:"wdth" 96,"opsz" 16}
+.tile p{font-size:.93rem;color:var(--ink-2);line-height:1.5}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--gap)}
+.stepc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem 1.35rem;display:flex;flex-direction:column;gap:.55rem}
+.step-n{width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-content:center;background:var(--grape-soft);color:var(--grape);font-family:"DM Mono",monospace;font-size:.85rem;margin-bottom:.3rem}
+.stepc h3{font-size:1.1rem;font-weight:700;font-variation-settings:"wdth" 96,"opsz" 16}
+.stepc p{font-size:.94rem;color:var(--ink-2)}
+
+/* cities */
+.cities{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:var(--gap)}
+.citycard{border-radius:var(--r);padding:1.5rem 1.35rem;color:#fff;display:flex;flex-direction:column;gap:.35rem;min-height:9.5rem;justify-content:flex-end;position:relative;overflow:hidden}
+.citycard::after{content:"";position:absolute;right:-2.5rem;top:-2.5rem;width:9rem;height:9rem;border-radius:50%;background:rgba(255,255,255,.13)}
+.city-la{background:linear-gradient(150deg,#00A3CC,#046A85)}
+.city-hou{background:linear-gradient(150deg,#FF9243,#D95A00)}
+.city-dal{background:linear-gradient(150deg,#8168F0,#5A3ECF)}
+.city-name{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 90,"opsz" 40;font-weight:800;font-size:1.7rem;letter-spacing:-.025em;position:relative}
+.city-meta{font-family:"DM Mono",monospace;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;opacity:.92;position:relative}
+
+/* band */
+.band{background:var(--ink);color:#fff;border-radius:var(--r);padding:clamp(2rem,4.5vw,3rem) var(--pad);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:clamp(1.25rem,3vw,2.5rem);align-items:center}
+.band h2{font-size:var(--step-3);font-weight:800;font-variation-settings:"wdth" 86,"opsz" 40;color:#fff}
+.band p{color:#B6D2D9;margin-top:.7rem}
+.band-actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.band a.btn-line{border-color:rgba(255,255,255,.35);color:#fff}
+.band a.btn-line:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.band-email{color:#8FD7EA;text-decoration:none;font-weight:600;border-bottom:1px solid rgba(143,215,234,.4)}
+.band-email:hover{color:#fff;border-bottom-color:#fff}
+
+/* about prose */
+.lead-para{font-size:var(--step-1);line-height:1.55;color:var(--ink-2);max-width:62ch}
+.prose{max-width:64ch;display:flex;flex-direction:column;gap:1rem;color:var(--ink-2)}
+.prose h3{font-size:var(--step-2);color:var(--ink);font-weight:800;font-variation-settings:"wdth" 90,"opsz" 32;margin-top:.6rem}
+.prose strong{color:var(--ink);font-weight:700}
+.pullquote{border-left:5px solid var(--sun);padding:.4rem 0 .4rem 1.25rem;font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 90,"opsz" 32;font-size:var(--step-2);font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.02em}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--gap)}
+.fact{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.2rem}
+.fact-n{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 40;font-weight:800;font-size:1.9rem;line-height:1;color:var(--sun);font-variant-numeric:tabular-nums}
+.fact-l{font-size:.88rem;color:var(--ink-2);margin-top:.35rem}
+
+/* form */
+.form-shell{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--gap)}
+@media (min-width:64rem){.form-shell{grid-template-columns:minmax(0,1fr) 19rem;align-items:start}}
+.fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);padding:var(--pad);margin:0 0 var(--gap)}
+.fieldset legend{padding:0 .6rem;margin-left:-.6rem;font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 92,"opsz" 24;font-weight:800;font-size:1.2rem;letter-spacing:-.02em}
+.legend-n{font-family:"DM Mono",monospace;font-size:.76rem;color:var(--aqua);margin-right:.5rem;font-weight:400}
+.fs-hint{color:var(--ink-2);font-size:.93rem;margin:.5rem 0 1.25rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem}
+.field{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.field label,.leg{font-size:.86rem;font-weight:700;color:var(--ink)}
+.req{color:var(--sun-deep)}
+.field input,.field select{font-family:"Hanken Grotesk",sans-serif;font-size:1rem;color:var(--ink);background:#FBFDFE;border:1.5px solid var(--line-2);border-radius:var(--r-xs);padding:.7rem .8rem;width:100%}
+.field input:focus,.field select:focus{background:#fff;border-color:var(--aqua);outline:none;box-shadow:0 0 0 3px var(--aqua-soft)}
+.field .help{font-size:.8rem;color:var(--ink-3)}
+.field.bad input,.field.bad select{border-color:var(--bad);background:var(--bad-soft)}
+.err{font-size:.8rem;color:var(--bad);font-weight:600;display:none}
+.field.bad .err{display:block}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.75rem}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice > span{display:flex;flex-direction:column;gap:.15rem;border:2px solid var(--line-2);border-radius:var(--r-sm);padding:.85rem .95rem;background:#FBFDFE;cursor:pointer;transition:border-color .12s ease,background .12s ease}
+.choice b{font-size:1rem;font-weight:700}
+.choice i{font-style:normal;font-size:.83rem;color:var(--ink-3)}
+.choice input:checked + span{border-color:var(--grape);background:var(--grape-soft)}
+.choice input:checked + span i{color:var(--grape)}
+.choice input:focus-visible + span{outline:3px solid var(--grape);outline-offset:2px}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.85rem}
+.term{position:relative}
+.term input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.term > span{display:flex;flex-direction:column;gap:.2rem;border:2px solid var(--line-2);border-radius:var(--r-sm);padding:1.15rem 1.2rem;background:#FBFDFE;cursor:pointer;transition:border-color .12s ease,background .12s ease}
+.term b{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 92,"opsz" 32;font-weight:800;font-size:1.6rem;letter-spacing:-.02em;line-height:1}
+.term i{font-style:normal;font-size:.88rem;color:var(--ink-2)}
+.term-tag{align-self:flex-start;margin-top:.4rem;font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;background:var(--sun-soft);color:var(--sun-deep);padding:.2rem .5rem;border-radius:999px}
+.term input:checked + span{border-color:var(--sun);background:var(--sun-soft)}
+.term input:focus-visible + span{outline:3px solid var(--grape);outline-offset:2px}
+.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.85rem}
+.drop{border:2px dashed var(--line-2);border-radius:var(--r-sm);background:#FBFDFE;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color .12s ease,background .12s ease}
+.drop.over{border-color:var(--aqua);background:var(--aqua-soft)}
+.drop.filled{border-style:solid;border-color:var(--ok);background:#F0FBF6}
+.drop-title{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:.4rem}
+.drop-sub{font-size:.8rem;color:var(--ink-3);line-height:1.45}
+.drop input[type=file]{font-size:.82rem;font-family:"Hanken Grotesk",sans-serif;color:var(--ink-2);border:0;padding:0;background:none;width:100%}
+.drop input[type=file]::file-selector-button{font-family:"Hanken Grotesk",sans-serif;font-weight:700;font-size:.82rem;border:1.5px solid var(--line-2);background:#fff;color:var(--ink);border-radius:999px;padding:.4rem .85rem;margin-right:.6rem;cursor:pointer}
+.drop input[type=file]::file-selector-button:hover{border-color:var(--aqua);color:var(--aqua-deep)}
+.filelist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.3rem}
+.filelist li{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:var(--r-xs);padding:.35rem .55rem}
+.filelist .fname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filelist .fsize{font-family:"DM Mono",monospace;font-size:.72rem;color:var(--ink-3);flex:0 0 auto}
+.filelist .fdrop{flex:0 0 auto;border:0;background:none;color:var(--bad);cursor:pointer;font-size:1rem;line-height:1;padding:.1rem .3rem;border-radius:4px;font-weight:700}
+.filelist .fdrop:hover{background:var(--bad-soft)}
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.92rem;color:var(--ink-2)}
+.consent input{margin-top:.28rem;width:1.1rem;height:1.1rem;flex:0 0 auto;accent-color:var(--grape)}
+.submit-row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.35rem}
+.form-status{font-size:.9rem;font-weight:600;color:var(--ink-2)}
+.form-status.bad{color:var(--bad)}
+.form-status.ok{color:var(--ok)}
+.aside{display:flex;flex-direction:column;gap:var(--gap);position:sticky;top:5rem}
+.aside-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.35rem}
+.aside-card h3{font-size:1.05rem;font-weight:800;font-variation-settings:"wdth" 94,"opsz" 16;margin-bottom:.6rem}
+.aside-card p,.aside-card li{font-size:.9rem;color:var(--ink-2);line-height:1.5}
+.aside-list{list-style:none;margin:.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.aside-list li{display:flex;gap:.55rem;align-items:flex-start}
+.aside-list li::before{content:"";flex:0 0 auto;width:.5rem;height:.5rem;border-radius:50%;background:var(--aqua);margin-top:.5rem}
+.privacy{background:var(--grape-soft);border-color:#D8CEFF}
+.privacy h3{color:var(--grape)}
+.done{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--ok);border-radius:var(--r);padding:var(--pad);display:flex;flex-direction:column;gap:1rem}
+.done h2{font-size:var(--step-2);font-weight:800;font-variation-settings:"wdth" 90,"opsz" 32}
+.done .refid{font-family:"DM Mono",monospace;font-size:1.05rem;background:var(--aqua-soft);color:var(--aqua-deep);padding:.5rem .8rem;border-radius:var(--r-xs);align-self:flex-start}
+.done-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);padding:1rem;overflow-x:auto;font-family:"DM Mono",monospace;font-size:.78rem;line-height:1.55;max-height:22rem;overflow-y:auto}
+.foot{margin-top:clamp(2.5rem,6vw,4rem);padding:2rem 0 3rem;border-top:1px solid var(--line-2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:flex-start;color:var(--ink-3);font-size:.86rem}
+.foot-fine{max-width:46ch;line-height:1.55;margin-top:.5rem}
+.foot a{color:var(--ink-2);text-decoration:none;font-weight:600}
+.foot a:hover{color:var(--aqua-deep)}
+.foot-links{display:flex;gap:1.1rem;flex-wrap:wrap}
+.foot-mail{display:block;margin-top:.6rem;color:var(--aqua-deep);font-weight:700}
+</style>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#/"><span class="logo-dot"></span><span class="logo-name">Squeaky Clean Co</span></a>
+    <div class="nav-links">
+      <a class="nav-link" href="#/" data-route="/" data-i18n="nav.home">Home</a>
+      <a class="nav-link" href="#/about" data-route="/about" data-i18n="nav.about">About</a>
+      <a class="nav-cta" href="#/apply" data-route="/apply" data-i18n="nav.apply">Apply</a>
+      <button class="langtog" id="langtog" type="button" aria-label="Cambiar a español">
+        <span class="on" id="langOn">EN</span><span aria-hidden="true">/</span><span class="off" id="langOff">ES</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ HOME ============ -->
+<div id="view-home">
+  <section class="hero">
+    <canvas id="suds" aria-hidden="true"></canvas>
+    <div class="hero-in">
+      <div class="hero-copy">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Los Angeles · Houston · Dallas</span>
+        <h1 data-i18n-html="hero.h1">Laundry day, <em>handled.</em></h1>
+        <p class="hero-lede" data-i18n="hero.lede">Rent a clean, fully tested electric washer and dryer set for a flat $80 a month. Delivered, installed, and repaired at no extra cost.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-sun" href="#/apply" data-i18n="hero.cta1">Start your application</a>
+          <a class="btn btn-line" href="#/about" data-i18n="hero.cta2">How it works</a>
+        </div>
+        <p class="hero-note" data-i18n="hero.note">No credit check · No big deposit · Se habla español</p>
+      </div>
+      <div class="sticker" id="sticker">
+        <div>
+          <div class="sticker-top" data-i18n="sticker.top">Only</div>
+          <div class="sticker-price">$80</div>
+          <div class="sticker-per" data-i18n="sticker.per">a month</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="home.inc.eyebrow">What the rent covers</span>
+      <h2 data-i18n="home.inc.h2">Four things other people charge for.</h2>
+      <p data-i18n="home.inc.p">Your monthly rate is the whole bill — no trip charge, no service fee, no parts invoice.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile1.h">Delivery</h3><p data-i18n="tile1.p">Brought to your door and carried in. Stairs and upper floors included.</p></div>
+      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile2.h">Installation</h3><p data-i18n="tile2.p">Hoses, venting, and your 240V connection, done properly and leak-tested.</p></div>
+      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile3.h">Repairs</h3><p data-i18n="tile3.p">Parts and labor for the entire time you rent. Something breaks, you call, we fix it.</p></div>
+      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile4.h">Haul-away</h3><p data-i18n="tile4.p">Your old washer and dryer go with us on the same trip. Nothing left in the driveway.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="band">
+      <div>
+        <h2 data-i18n="home.band.h2">Ready to get started?</h2>
+        <p data-i18n="home.band.p">The application takes about five minutes. Questions? Email us and we'll answer in English or Spanish.</p>
+        <p style="margin-top:.7rem"><a class="band-email" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
+      </div>
+      <div class="band-actions">
+        <a class="btn btn-sun" href="#/apply" data-i18n="home.band.cta">Start your application</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div id="view-about" hidden>
+  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="section-head page-head">
+      <h2 data-i18n="about.title">About us</h2>
+      <p class="deck" data-i18n="about.deck">We rent washers and dryers. That's it.</p>
+    </div>
+    <p class="lead-para" data-i18n="about.lead">Squeaky Clean Co puts a working washer and dryer in your home for a flat monthly rate, in three cities: Los Angeles, Houston, and Dallas.</p>
+  </section>
+
+  <section class="section">
+    <div class="cities">
+      <div class="citycard city-la"><span class="city-meta">California</span><span class="city-name">Los Angeles</span></div>
+      <div class="citycard city-hou"><span class="city-meta">Texas</span><span class="city-name">Houston</span></div>
+      <div class="citycard city-dal"><span class="city-meta">Texas</span><span class="city-name">Dallas</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <h3 data-i18n="about.why.h3">Why renting instead of buying</h3>
+      <p data-i18n="about.why.p1">A matched washer and dryer set is a big purchase to make all at once, and it stops being a good deal the first time something breaks. Buying means you own the repair bill too.</p>
+      <p data-i18n="about.why.p2">Renting moves that risk to us. You pay one flat rate every month. If the machine fails, we repair it or swap it, and your rate doesn't move. When you're done, we come get it.</p>
+      <div class="pullquote" data-i18n="about.pull">If it breaks, it's our problem. That's the entire pitch.</div>
+
+      <h3 data-i18n="about.get.h3">What you actually get</h3>
+      <p data-i18n-html="about.get.p1">A <strong>matched washer and dryer set</strong> — not two mismatched machines that happen to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
+      <p data-i18n-html="about.get.p2">All of our dryers are <strong>electric</strong> and need a 240V outlet. We stock both side-by-side and stacked configurations.</p>
+      <p data-i18n="about.get.p3">Delivery, installation, maintenance, repairs, and haul-away of your old set are included at no extra cost for as long as you rent.</p>
+
+      <h3 data-i18n="about.qual.h3">How we qualify people</h3>
+      <p data-i18n-html="about.qual.p1">There's <strong>no credit check</strong>. We ask for your most recent paystub, a driver's license, and a photo of your dryer outlet. That's the whole review.</p>
+      <p data-i18n-html="about.qual.p2">Terms run <strong>3 months or 6 months</strong>. Both cost the same per month; the longer term just locks the rate and the machines in for longer.</p>
+
+      <h3 data-i18n="about.es.h3">Se habla español</h3>
+      <p data-i18n="about.es.p">We serve Spanish-speaking customers in Los Angeles, Houston, and Dallas. You can switch this site to Spanish at the top of the page, apply in Spanish, and we'll answer in Spanish.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow eyebrow-sun" data-i18n="about.how.eyebrow">How it works</span>
+      <h2 data-i18n="about.how.h2">Three steps, usually inside a week.</h2>
+    </div>
+    <div class="steps">
+      <div class="stepc"><span class="step-n">1</span><h3 data-i18n="step1.h">Apply online</h3><p data-i18n="step1.p">Pick a 3- or 6-month term and attach your paystub, your ID, and a photo of your dryer outlet. It takes about five minutes.</p></div>
+      <div class="stepc"><span class="step-n">2</span><h3 data-i18n="step2.h">We confirm</h3><p data-i18n="step2.p">We check your outlet photo against what's in stock and come back to you with a delivery window.</p></div>
+      <div class="stepc"><span class="step-n">3</span><h3 data-i18n="step3.h">We install and test</h3><p data-i18n="step3.p">We connect everything, run a full cycle to check for leaks and heat, show you the controls, and take the old set.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow eyebrow-sun" data-i18n="about.facts.eyebrow">The short version</span>
+      <h2 data-i18n="about.facts.h2">The numbers that matter.</h2>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="fact-n">$80</div><div class="fact-l" data-i18n="fact1">Flat monthly rate, all included</div></div>
+      <div class="fact"><div class="fact-n">$0</div><div class="fact-l" data-i18n="fact2">Delivery, install, repairs, haul-away</div></div>
+      <div class="fact"><div class="fact-n">3</div><div class="fact-l" data-i18n="fact3">Cities served</div></div>
+      <div class="fact"><div class="fact-n">3 / 6</div><div class="fact-l" data-i18n="fact4">Month terms available</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="band">
+      <div>
+        <h2 data-i18n="about.band.h2">Ready when you are.</h2>
+        <p data-i18n="about.band.p">The application needs one paystub, a photo of your driver's license, and a photo of your dryer outlet.</p>
+        <p style="margin-top:.7rem"><a class="band-email" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
+      </div>
+      <div class="band-actions">
+        <a class="btn btn-sun" href="#/apply" data-i18n="about.band.cta">Start your application</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ APPLY ============ -->
+<div id="view-apply" hidden>
+  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="section-head page-head">
+      <h2 data-i18n="apply.title">Rental application</h2>
+      <p class="deck" data-i18n="apply.deck">Let's get a set to your door.</p>
+      <p data-i18n="apply.p">About five minutes. No credit check — we just need recent income, a photo ID, and a picture of your dryer outlet.</p>
+    </div>
+  </section>
+
+  <div class="form-shell">
+    <form id="appform" novalidate>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">01</span><span data-i18n="fs1">About you</span></legend>
+        <div class="grid2">
+          <div class="field">
+            <label for="fullName"><span data-i18n="f.name">Full name</span> <span class="req">*</span></label>
+            <input id="fullName" autocomplete="name" placeholder="First and last name" data-i18n-ph="f.name.ph">
+            <span class="err" data-i18n="f.name.err">Enter your full name.</span>
+          </div>
+          <div class="field">
+            <label for="phone"><span data-i18n="f.phone">Mobile phone</span> <span class="req">*</span></label>
+            <input id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 123-4567">
+            <span class="err" data-i18n="f.phone.err">Enter a phone number with at least 10 digits.</span>
+          </div>
+          <div class="field">
+            <label for="email"><span data-i18n="f.email">Email</span> <span class="req">*</span></label>
+            <input id="email" type="email" autocomplete="email" placeholder="you@email.com" data-i18n-ph="f.email.ph">
+            <span class="err" data-i18n="f.email.err">Enter a valid email address.</span>
+          </div>
+          <div class="field">
+            <label for="language" data-i18n="f.lang">Preferred language</label>
+            <select id="language">
+              <option value="en" data-i18n="f.lang.en">English</option>
+              <option value="es" data-i18n="f.lang.es">Spanish</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">02</span><span data-i18n="fs2">Where it's going</span></legend>
+        <div class="grid2">
+          <div class="field">
+            <label for="metro"><span data-i18n="f.city">City</span> <span class="req">*</span></label>
+            <select id="metro">
+              <option value="" data-i18n="f.city.ph">Choose a city…</option>
+              <option value="Los Angeles">Los Angeles</option>
+              <option value="Houston">Houston</option>
+              <option value="Dallas">Dallas</option>
+            </select>
+            <span class="err" data-i18n="f.city.err">Choose the city you're in.</span>
+          </div>
+          <div class="field">
+            <label for="zip"><span data-i18n="f.zip">ZIP code</span> <span class="req">*</span></label>
+            <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" placeholder="90001">
+            <span class="err" data-i18n="f.zip.err">Enter a 5-digit ZIP code.</span>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:1rem">
+          <div class="field" style="grid-column:1/-1">
+            <label for="street"><span data-i18n="f.street">Street address</span> <span class="req">*</span></label>
+            <input id="street" autocomplete="street-address" placeholder="Street, apartment or unit number" data-i18n-ph="f.street.ph">
+            <span class="err" data-i18n="f.street.err">Enter the delivery address.</span>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem">
+          <span class="leg" data-i18n="f.space">Space available</span>
+          <div class="choices" style="margin-top:.5rem">
+            <label class="choice"><input type="radio" name="space" value="side-by-side" checked><span><b data-i18n="space1.b">Side by side</b><i data-i18n="space1.i">Two machines in a row</i></span></label>
+            <label class="choice"><input type="radio" name="space" value="stacked"><span><b data-i18n="space2.b">Stacked</b><i data-i18n="space2.i">Tall, narrow closet</i></span></label>
+            <label class="choice"><input type="radio" name="space" value="unsure"><span><b data-i18n="space3.b">Not sure</b><i data-i18n="space3.i">We'll measure on arrival</i></span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">03</span><span data-i18n="fs3">Your term</span></legend>
+        <p class="fs-hint" data-i18n="term.hint">Both terms are $80 a month. The longer term locks your rate and your machines in for longer.</p>
+        <div class="terms">
+          <label class="term"><input type="radio" name="term" value="3"><span><b data-i18n="term3.b">3 months</b><i data-i18n="term3.i">$80/mo · short commitment</i></span></label>
+          <label class="term"><input type="radio" name="term" value="6" checked><span><b data-i18n="term6.b">6 months</b><i data-i18n="term6.i">$80/mo · rate locked longer</i><span class="term-tag" data-i18n="term6.tag">Most popular</span></span></label>
+        </div>
+        <div class="grid2" style="margin-top:1.25rem">
+          <div class="field">
+            <label for="startDate" data-i18n="f.date">Preferred delivery date</label>
+            <input id="startDate" type="date">
+            <span class="help" data-i18n="f.date.help">We'll confirm the closest window we have.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">04</span><span data-i18n="fs4">Income</span></legend>
+        <p class="fs-hint" data-i18n="inc.hint">No credit check. We only look at whether the monthly rate fits comfortably.</p>
+        <div class="grid2">
+          <div class="field">
+            <label for="employer"><span data-i18n="f.employer">Employer or income source</span> <span class="req">*</span></label>
+            <input id="employer" placeholder="Company name, or self-employed" data-i18n-ph="f.employer.ph">
+            <span class="err" data-i18n="f.employer.err">Tell us where your income comes from.</span>
+          </div>
+          <div class="field">
+            <label for="income"><span data-i18n="f.income">Monthly income before tax</span> <span class="req">*</span></label>
+            <input id="income" inputmode="numeric" placeholder="$ 2,400">
+            <span class="err" data-i18n="f.income.err">Enter your approximate monthly income.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">05</span><span data-i18n="fs5">Documents</span></legend>
+        <p class="fs-hint" data-i18n="docs.hint">Photos from your phone are fine. Large images are shrunk automatically before they're attached, so uploads stay fast. All three are required.</p>
+        <div class="drops">
+          <div class="drop" id="drop-paystub">
+            <span class="drop-title"><span data-i18n="d.paystub">Most recent paystub</span> <span class="req">*</span></span>
+            <span class="drop-sub" data-i18n="d.paystub.sub">Just one. Photo or PDF.</span>
+            <input type="file" id="paystub" accept="image/*,application/pdf">
+            <ul class="filelist" id="list-paystub"></ul>
+          </div>
+          <div class="drop" id="drop-license">
+            <span class="drop-title"><span data-i18n="d.license">Driver's license</span> <span class="req">*</span></span>
+            <span class="drop-sub" data-i18n="d.license.sub">Front and back, or a state ID.</span>
+            <input type="file" id="license" accept="image/*,application/pdf" multiple>
+            <ul class="filelist" id="list-license"></ul>
+          </div>
+          <div class="drop" id="drop-outlet">
+            <span class="drop-title"><span data-i18n="d.outlet">Photo of your dryer outlet</span> <span class="req">*</span></span>
+            <span class="drop-sub" data-i18n="d.outlet.sub">Make sure the dryer plug is in the photo — plug it in first if the dryer is still there, so we can see both the plug and the outlet.</span>
+            <input type="file" id="outlet" accept="image/*" multiple>
+            <ul class="filelist" id="list-outlet"></ul>
+          </div>
+        </div>
+        <span class="err" id="docsErr" style="margin-top:.8rem" data-i18n="docs.err">Attach your paystub, your driver's license, and a photo of your dryer outlet.</span>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend><span class="legend-n">06</span><span data-i18n="fs6">Confirm</span></legend>
+        <label class="consent">
+          <input type="checkbox" id="consent">
+          <span><span data-i18n="consent.txt">I confirm this information is accurate, and I authorize Squeaky Clean Co to review the documents I've attached in order to process this rental application.</span> <span class="req">*</span></span>
+        </label>
+        <span class="err" id="consentErr" data-i18n="consent.err">Please confirm to continue.</span>
+        <div class="submit-row">
+          <button class="btn btn-sun" type="submit" id="submitBtn" data-i18n="submit">Submit application</button>
+          <span class="form-status" id="status"></span>
+        </div>
+      </fieldset>
+    </form>
+
+    <aside class="aside">
+      <div class="aside-card">
+        <h3 data-i18n="aside1.h">What you'll need</h3>
+        <ul class="aside-list">
+          <li data-i18n="aside1.li1">Your most recent paystub</li>
+          <li data-i18n="aside1.li2">A driver's license or state ID</li>
+          <li data-i18n="aside1.li3">A photo of your dryer outlet, with the plug visible</li>
+          <li data-i18n="aside1.li4">The delivery address and ZIP</li>
+        </ul>
+      </div>
+      <div class="aside-card">
+        <h3 data-i18n="aside2.h">What it costs</h3>
+        <p data-i18n-html="aside2.p"><strong>$80 a month</strong>, whichever term you pick. Delivery, installation, repairs, and haul-away are included. First month is due at delivery — there's no large deposit and no credit check.</p>
+      </div>
+      <div class="aside-card privacy">
+        <h3 data-i18n="aside3.h">Your documents</h3>
+        <p data-i18n="aside3.p">Your paystub and ID are attached to this application file and go straight to us. They are used to review this application and nothing else.</p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="section" id="doneWrap" hidden>
+    <div class="done">
+      <span class="eyebrow" style="color:var(--ok)" data-i18n="done.eyebrow">Application ready</span>
+      <h2 data-i18n="done.h2">Thanks — here's your reference number.</h2>
+      <span class="refid" id="refid">SCC-000000</span>
+      <p id="doneMsg" style="color:var(--ink-2);max-width:62ch"></p>
+      <div class="done-actions">
+        <button class="btn btn-aqua" id="saveJson" type="button" data-i18n="done.save">Save application file</button>
+        <button class="btn btn-line" id="copyJson" type="button" data-i18n="done.copy">Copy as text</button>
+        <button class="btn btn-line" id="restart" type="button" data-i18n="done.restart">Start another</button>
+      </div>
+      <details>
+        <summary style="cursor:pointer;font-weight:700;font-size:.9rem" data-i18n="done.preview">Preview the data being sent</summary>
+        <pre class="json" id="jsonOut" style="margin-top:.8rem"></pre>
+      </details>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="wrap foot">
+  <div>
+    <div class="logo"><span class="logo-dot"></span><span class="logo-name">Squeaky Clean Co</span></div>
+    <p class="foot-fine" data-i18n="footer.fine">Washer and dryer rental in Los Angeles, Houston, and Dallas. $80 a month, month to month, with delivery, installation, repairs, and haul-away included.</p>
+    <a class="foot-mail" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a>
+  </div>
+  <div class="foot-links">
+    <a href="#/" data-i18n="nav.home">Home</a>
+    <a href="#/about" data-i18n="nav.about">About</a>
+    <a href="#/apply" data-i18n="nav.apply">Apply</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var CONTACT = "squeaky.clean.co.office@gmail.com";
+
+  /* ================= i18n ================= */
+  var ES = {
+    "nav.home":"Inicio","nav.about":"Nosotros","nav.apply":"Solicitar",
+
+    "hero.eyebrow":"Los Angeles · Houston · Dallas",
+    "hero.h1":"Día de lavado, <em>resuelto.</em>",
+    "hero.lede":"Renta un juego eléctrico de lavadora y secadora, limpio y probado, por $80 fijos al mes. Entrega, instalación y reparaciones sin costo extra.",
+    "hero.cta1":"Comienza tu solicitud","hero.cta2":"Cómo funciona",
+    "hero.note":"Sin revisión de crédito · Sin depósito grande · Se habla español",
+    "sticker.top":"Solo","sticker.per":"al mes",
+
+    "home.inc.eyebrow":"Lo que cubre la renta",
+    "home.inc.h2":"Cuatro cosas que otros te cobran.",
+    "home.inc.p":"Tu pago mensual es la cuenta completa: sin cargo por visita, sin cuota de servicio, sin factura de refacciones.",
+    "tile1.h":"Entrega","tile1.p":"Hasta tu puerta y adentro de la casa. Incluye escaleras y pisos altos.",
+    "tile2.h":"Instalación","tile2.p":"Mangueras, ventilación y tu conexión de 240V, bien hechas y probadas contra fugas.",
+    "tile3.h":"Reparaciones","tile3.p":"Refacciones y mano de obra todo el tiempo que rentes. Si algo falla, nos llamas y lo arreglamos.",
+    "tile4.h":"Retiro del viejo","tile4.p":"Nos llevamos tu lavadora y secadora viejas en el mismo viaje. No dejamos nada afuera.",
+
+    "home.band.h2":"¿Listo para empezar?",
+    "home.band.p":"La solicitud toma unos cinco minutos. ¿Preguntas? Escríbenos y te contestamos en inglés o en español.",
+    "home.band.cta":"Comienza tu solicitud",
+
+    "about.title":"Nosotros",
+    "about.deck":"Rentamos lavadoras y secadoras. Nada más.",
+    "about.lead":"Squeaky Clean Co pone una lavadora y secadora funcionando en tu casa por una tarifa mensual fija, en tres ciudades: Los Angeles, Houston y Dallas.",
+    "about.why.h3":"Por qué rentar en vez de comprar",
+    "about.why.p1":"Un juego de lavadora y secadora es una compra grande de un solo golpe, y deja de ser buen trato la primera vez que algo se descompone. Comprar significa que la reparación también corre por tu cuenta.",
+    "about.why.p2":"Rentar nos pasa ese riesgo a nosotros. Pagas una tarifa fija cada mes. Si la máquina falla, la reparamos o la cambiamos, y tu tarifa no se mueve. Cuando termines, la recogemos.",
+    "about.pull":"Si se descompone, es nuestro problema. Ese es todo el argumento.",
+    "about.get.h3":"Qué recibes exactamente",
+    "about.get.p1":"Un <strong>juego completo de lavadora y secadora</strong>, no dos máquinas dispares que andaban por la bodega. Cada juego se limpia y se corre un ciclo completo de prueba antes de subirlo al camión.",
+    "about.get.p2":"Todas nuestras secadoras son <strong>eléctricas</strong> y necesitan un contacto de 240V. Manejamos configuración lado a lado y apilada.",
+    "about.get.p3":"Entrega, instalación, mantenimiento, reparaciones y el retiro de tu juego viejo van incluidos sin costo extra mientras rentes.",
+    "about.qual.h3":"Cómo aprobamos a la gente",
+    "about.qual.p1":"<strong>No hay revisión de crédito</strong>. Te pedimos tu talón de pago más reciente, una licencia de conducir y una foto del contacto de tu secadora. Esa es toda la revisión.",
+    "about.qual.p2":"Los plazos son de <strong>3 o 6 meses</strong>. Cuestan lo mismo al mes; el plazo largo solo asegura tu tarifa y tus máquinas por más tiempo.",
+    "about.es.h3":"Se habla español",
+    "about.es.p":"Atendemos a clientes de habla hispana en Los Angeles, Houston y Dallas. Puedes cambiar este sitio a español arriba de la página, llenar la solicitud en español, y te contestamos en español.",
+    "about.how.eyebrow":"Cómo funciona",
+    "about.how.h2":"Tres pasos, casi siempre en menos de una semana.",
+    "step1.h":"Llena la solicitud","step1.p":"Escoge plazo de 3 o 6 meses y adjunta tu talón de pago, tu identificación y una foto del contacto de tu secadora. Toma unos cinco minutos.",
+    "step2.h":"Confirmamos","step2.p":"Revisamos tu foto contra lo que tenemos en existencia y te regresamos con una ventana de entrega.",
+    "step3.h":"Instalamos y probamos","step3.p":"Conectamos todo, corremos un ciclo completo para revisar fugas y calor, te enseñamos los controles y nos llevamos el juego viejo.",
+    "about.facts.eyebrow":"En corto","about.facts.h2":"Los números que importan.",
+    "fact1":"Tarifa mensual fija, todo incluido","fact2":"Entrega, instalación, reparaciones, retiro",
+    "fact3":"Ciudades que atendemos","fact4":"Plazos disponibles en meses",
+    "about.band.h2":"Cuando tú estés listo.",
+    "about.band.p":"La solicitud necesita un talón de pago, una foto de tu licencia de conducir y una foto del contacto de tu secadora.",
+    "about.band.cta":"Comienza tu solicitud",
+
+    "apply.title":"Solicitud de renta",
+    "apply.deck":"Llevemos un juego a tu puerta.",
+    "apply.p":"Unos cinco minutos. Sin revisión de crédito: solo necesitamos ingresos recientes, una identificación con foto y una foto del contacto de tu secadora.",
+
+    "fs1":"Sobre ti",
+    "f.name":"Nombre completo","f.name.ph":"Nombre y apellido","f.name.err":"Escribe tu nombre completo.",
+    "f.phone":"Teléfono celular","f.phone.err":"Escribe un teléfono con al menos 10 dígitos.",
+    "f.email":"Correo electrónico","f.email.ph":"tu@correo.com","f.email.err":"Escribe un correo electrónico válido.",
+    "f.lang":"Idioma preferido","f.lang.en":"Inglés","f.lang.es":"Español",
+
+    "fs2":"A dónde va",
+    "f.city":"Ciudad","f.city.ph":"Escoge una ciudad…","f.city.err":"Escoge la ciudad donde estás.",
+    "f.zip":"Código postal","f.zip.err":"Escribe un código postal de 5 dígitos.",
+    "f.street":"Dirección","f.street.ph":"Calle, número de apartamento o unidad","f.street.err":"Escribe la dirección de entrega.",
+    "f.space":"Espacio disponible",
+    "space1.b":"Lado a lado","space1.i":"Dos máquinas en fila",
+    "space2.b":"Apiladas","space2.i":"Clóset alto y angosto",
+    "space3.b":"No estoy seguro","space3.i":"Medimos al llegar",
+
+    "fs3":"Tu plazo",
+    "term.hint":"Los dos plazos cuestan $80 al mes. El plazo largo asegura tu tarifa y tus máquinas por más tiempo.",
+    "term3.b":"3 meses","term3.i":"$80/mes · compromiso corto",
+    "term6.b":"6 meses","term6.i":"$80/mes · tarifa asegurada más tiempo","term6.tag":"Más popular",
+    "f.date":"Fecha de entrega preferida","f.date.help":"Confirmamos la ventana más cercana que tengamos.",
+
+    "fs4":"Ingresos",
+    "inc.hint":"Sin revisión de crédito. Solo vemos que el pago mensual te quede cómodo.",
+    "f.employer":"Empleador o fuente de ingresos","f.employer.ph":"Nombre de la empresa, o por mi cuenta","f.employer.err":"Dinos de dónde vienen tus ingresos.",
+    "f.income":"Ingreso mensual antes de impuestos","f.income.err":"Escribe tu ingreso mensual aproximado.",
+
+    "fs5":"Documentos",
+    "docs.hint":"Las fotos de tu celular funcionan bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse. Los tres documentos son obligatorios.",
+    "d.paystub":"Talón de pago más reciente","d.paystub.sub":"Solo uno. Foto o PDF.",
+    "d.license":"Licencia de conducir","d.license.sub":"Frente y reverso, o una identificación estatal.",
+    "d.outlet":"Foto del contacto de tu secadora","d.outlet.sub":"Asegúrate de que el enchufe de la secadora salga en la foto: si la secadora sigue ahí, conéctala primero para que se vean el enchufe y el contacto.",
+    "docs.err":"Adjunta tu talón de pago, tu licencia de conducir y una foto del contacto de tu secadora.",
+
+    "fs6":"Confirmar",
+    "consent.txt":"Confirmo que esta información es correcta y autorizo a Squeaky Clean Co a revisar los documentos que adjunté para procesar esta solicitud de renta.",
+    "consent.err":"Confirma para continuar.",
+    "submit":"Enviar solicitud",
+
+    "aside1.h":"Lo que necesitas",
+    "aside1.li1":"Tu talón de pago más reciente",
+    "aside1.li2":"Licencia de conducir o identificación estatal",
+    "aside1.li3":"Una foto del contacto de tu secadora, con el enchufe visible",
+    "aside1.li4":"La dirección de entrega y el código postal",
+    "aside2.h":"Lo que cuesta",
+    "aside2.p":"<strong>$80 al mes</strong>, con cualquier plazo. Entrega, instalación, reparaciones y retiro incluidos. El primer mes se paga en la entrega: no hay depósito grande ni revisión de crédito.",
+    "aside3.h":"Tus documentos",
+    "aside3.p":"Tu talón de pago y tu identificación se adjuntan a este archivo de solicitud y llegan directo a nosotros. Se usan para revisar esta solicitud y nada más.",
+
+    "done.eyebrow":"Solicitud lista","done.h2":"Gracias, este es tu número de referencia.",
+    "done.save":"Guardar archivo de solicitud","done.copy":"Copiar como texto","done.restart":"Enviar otra",
+    "done.preview":"Ver los datos que se envían",
+
+    "footer.fine":"Renta de lavadora y secadora en Los Angeles, Houston y Dallas. $80 al mes, mes con mes, con entrega, instalación, reparaciones y retiro incluidos."
+  };
+
+  /* dynamic strings, both languages */
+  var MSG = {
+    en:{
+      "done.msg":"Save your application file and email it to " + CONTACT + ", and we'll come back to you with availability and a delivery window.",
+      "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with your paystub, ID, and outlet photo attached.",
+      "msg.fix":"Some fields still need attention — see the highlights above.",
+      "msg.pack":"Packaging your application…",
+      "msg.saved":"Saved. Email that file to " + CONTACT + " and you're done.",
+      "msg.declined":"No problem — the file wasn't saved.",
+      "msg.savefail":"That didn't save. Try Copy as text instead.",
+      "msg.nosave":"Saving isn't available here — use Copy as text instead.",
+      "msg.copied":"Copied. Paste it into an email to " + CONTACT + " and attach your documents.",
+      "msg.copyfail":"Couldn't copy automatically — select the text in the preview below.",
+      "msg.max1":"Only one file goes there. Remove it to add a different one.",
+      "msg.maxn":"You can attach up to {n} files there. Remove one to add another.",
+      "msg.read":"Couldn't read “{name}”. Try a photo of it instead.",
+      "lang.switch":"Cambiar a español"
+    },
+    es:{
+      "done.msg":"Guarda tu archivo de solicitud y envíalo por correo a " + CONTACT + ", y te regresamos con disponibilidad y una ventana de entrega.",
+      "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando tu talón de pago, tu identificación y la foto del contacto.",
+      "msg.fix":"Faltan algunos campos: revisa lo marcado arriba.",
+      "msg.pack":"Preparando tu solicitud…",
+      "msg.saved":"Guardado. Envía ese archivo a " + CONTACT + " y listo.",
+      "msg.declined":"Sin problema, el archivo no se guardó.",
+      "msg.savefail":"No se pudo guardar. Usa Copiar como texto.",
+      "msg.nosave":"Guardar no está disponible aquí. Usa Copiar como texto.",
+      "msg.copied":"Copiado. Pégalo en un correo a " + CONTACT + " y adjunta tus documentos.",
+      "msg.copyfail":"No se pudo copiar automáticamente: selecciona el texto en la vista previa.",
+      "msg.max1":"Ahí va un solo archivo. Quítalo para poner otro.",
+      "msg.maxn":"Puedes adjuntar hasta {n} archivos ahí. Quita uno para agregar otro.",
+      "msg.read":"No se pudo leer «{name}». Intenta con una foto.",
+      "lang.switch":"Switch to English"
+    }
+  };
+
+  var EN = {}, lang = "en";
+  var nodes = { text:[], html:[], ph:[] };
+
+  function captureEnglish(){
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var k = el.getAttribute("data-i18n");
+      if(!(k in EN)) EN[k] = el.textContent;
+      nodes.text.push([el,k]);
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+      var k = el.getAttribute("data-i18n-html");
+      if(!(k in EN)) EN[k] = el.innerHTML;
+      nodes.html.push([el,k]);
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function(el){
+      var k = el.getAttribute("data-i18n-ph");
+      if(!(k in EN)) EN[k] = el.getAttribute("placeholder") || "";
+      nodes.ph.push([el,k]);
+    });
+  }
+  function t(key){
+    var d = MSG[lang] || MSG.en;
+    return (key in d) ? d[key] : MSG.en[key];
+  }
+  function applyLang(next){
+    lang = (next === "es") ? "es" : "en";
+    var dict = (lang === "es") ? ES : EN;
+    function pick(k){ return (k in dict) ? dict[k] : EN[k]; }
+    nodes.text.forEach(function(p){ p[0].textContent = pick(p[1]); });
+    nodes.html.forEach(function(p){ p[0].innerHTML   = pick(p[1]); });
+    nodes.ph.forEach(function(p){ p[0].setAttribute("placeholder", pick(p[1])); });
+
+    document.getElementById("langOn").textContent  = lang.toUpperCase();
+    document.getElementById("langOff").textContent = (lang === "es") ? "EN" : "ES";
+    document.getElementById("langtog").setAttribute("aria-label", t("lang.switch"));
+    document.documentElement.lang = lang;
+
+    if(payload) setDoneMsg();
+    try{ localStorage.setItem("scc.lang", lang); }catch(e){}
+  }
+
+  /* ================= router ================= */
+  var VIEWS = {
+    "/":      document.getElementById("view-home"),
+    "/about": document.getElementById("view-about"),
+    "/apply": document.getElementById("view-apply")
+  };
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-link, .nav-cta"));
+  function route(){
+    var path = (location.hash || "#/").replace(/^#/, "");
+    if(!VIEWS[path]) path = "/";
+    Object.keys(VIEWS).forEach(function(k){ VIEWS[k].hidden = (k !== path); });
+    navLinks.forEach(function(a){
+      if(a.dataset.route === path) a.setAttribute("aria-current","page");
+      else a.removeAttribute("aria-current");
+    });
+    sizeSuds.stop = (path !== "/");
+    if(path === "/"){ sizeSuds(); seed(); }
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange", route);
+
+  /* ================= suds ================= */
+  var canvas = document.getElementById("suds"), ctx = canvas.getContext("2d");
+  var bubbles = [], W = 1, H = 1, dpr = 1;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function sizeSuds(){
+    var r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, r.width); H = Math.max(1, r.height);
+    canvas.width = Math.round(W*dpr); canvas.height = Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function seed(){
+    bubbles = [];
+    var n = Math.round(Math.min(38, Math.max(14, W/32)));
+    for(var i=0;i<n;i++) bubbles.push({
+      x:Math.random()*W, y:Math.random()*H, r:4+Math.random()*26,
+      v:.08+Math.random()*.34, drift:(Math.random()-.5)*.16, a:.10+Math.random()*.20
+    });
+  }
+  function drawBubble(b){
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+    ctx.fillStyle = "rgba(43,197,232,"+(b.a*0.5).toFixed(3)+")"; ctx.fill();
+    ctx.lineWidth = 1; ctx.strokeStyle = "rgba(0,144,181,"+(b.a*0.9).toFixed(3)+")"; ctx.stroke();
+    ctx.beginPath(); ctx.arc(b.x-b.r*0.32, b.y-b.r*0.34, Math.max(.8,b.r*0.17), 0, Math.PI*2);
+    ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fill();
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<bubbles.length;i++){
+      var b = bubbles[i];
+      b.y -= b.v; b.x += b.drift;
+      if(b.y + b.r < 0){ b.y = H + b.r; b.x = Math.random()*W; }
+      if(b.x < -b.r) b.x = W + b.r;
+      if(b.x > W + b.r) b.x = -b.r;
+      drawBubble(b);
+    }
+    if(!sizeSuds.stop) requestAnimationFrame(frame);
+    else setTimeout(function(){ requestAnimationFrame(frame); }, 500);
+  }
+  function startSuds(){
+    sizeSuds(); seed();
+    ctx.clearRect(0,0,W,H); bubbles.forEach(drawBubble);
+    if(!reduced) requestAnimationFrame(frame);
+  }
+  window.addEventListener("resize", function(){
+    sizeSuds(); seed();
+    if(reduced){ ctx.clearRect(0,0,W,H); bubbles.forEach(drawBubble); }
+  });
+
+  /* ================= sticker ================= */
+  (function(){
+    var st = document.getElementById("sticker"), pts = [], N = 20;
+    for(var i=0;i<N*2;i++){
+      var ang = Math.PI*i/N - Math.PI/2, rad = (i%2) ? 42.5 : 50;
+      pts.push((50+rad*Math.cos(ang)).toFixed(2)+"% "+(50+rad*Math.sin(ang)).toFixed(2)+"%");
+    }
+    st.style.clipPath = "polygon("+pts.join(",")+")";
+    st.style.boxShadow = "none";
+    st.style.filter = "drop-shadow(0 9px 16px rgba(217,90,0,.42))";
+  })();
+
+  /* ================= files ================= */
+  var MAX_BYTES = 170000, MAX_DIM = 1600;
+  var SLOTS = {
+    paystub:{ kind:"paystub",          max:1, el:null, list:null, drop:null, files:[] },
+    license:{ kind:"drivers_license",  max:2, el:null, list:null, drop:null, files:[] },
+    outlet: { kind:"dryer_outlet_photo", max:3, el:null, list:null, drop:null, files:[] }
+  };
+
+  function fmtSize(n){
+    if(n < 1024) return n + " B";
+    if(n < 1048576) return (n/1024).toFixed(0) + " KB";
+    return (n/1048576).toFixed(1) + " MB";
+  }
+  function blobToDataUrl(blob){
+    return new Promise(function(res, rej){
+      var fr = new FileReader();
+      fr.onload = function(){ res(fr.result); };
+      fr.onerror = function(){ rej(new Error("read")); };
+      fr.readAsDataURL(blob);
+    });
+  }
+  function loadViaImg(file){
+    return new Promise(function(res, rej){
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function(){ URL.revokeObjectURL(url); res(img); };
+      img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error("decode")); };
+      img.src = url;
+    });
+  }
+  function loadBitmap(file){
+    if(window.createImageBitmap) return createImageBitmap(file).catch(function(){ return loadViaImg(file); });
+    return loadViaImg(file);
+  }
+  function toBlob(cv, q){ return new Promise(function(res){ cv.toBlob(function(b){ res(b); }, "image/jpeg", q); }); }
+
+  async function shrinkImage(file){
+    var src = await loadBitmap(file);
+    var sw = src.width || src.naturalWidth, sh = src.height || src.naturalHeight;
+    var scale = Math.min(1, MAX_DIM/Math.max(sw,sh)), best = null;
+    for(var pass=0; pass<5; pass++){
+      var w = Math.max(1,Math.round(sw*scale)), h = Math.max(1,Math.round(sh*scale));
+      var cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+      var c2 = cv.getContext("2d");
+      c2.fillStyle = "#fff"; c2.fillRect(0,0,w,h);
+      c2.drawImage(src,0,0,w,h);
+      var qs = [0.78,0.6,0.45];
+      for(var qi=0; qi<qs.length; qi++){
+        var blob = await toBlob(cv, qs[qi]);
+        if(!blob) continue;
+        if(!best || blob.size < best.size) best = blob;
+        if(blob.size <= MAX_BYTES) return blob;
+      }
+      scale *= 0.72;
+    }
+    return best;
+  }
+
+  async function acceptFiles(key, fileList){
+    var slot = SLOTS[key], incoming = Array.prototype.slice.call(fileList);
+    for(var i=0;i<incoming.length;i++){
+      var file = incoming[i];
+      if(slot.files.length >= slot.max){
+        setStatus(slot.max === 1 ? t("msg.max1") : t("msg.maxn").replace("{n}", slot.max), "bad");
+        break;
+      }
+      var entry = { kind:slot.kind, fileName:file.name, mimeType:file.type || "application/octet-stream", byteSize:file.size, dataUrl:null };
+      try{
+        if(/^image\//.test(file.type)){
+          var small = await shrinkImage(file);
+          if(small){ entry.mimeType = "image/jpeg"; entry.byteSize = small.size; entry.dataUrl = await blobToDataUrl(small); }
+          else entry.dataUrl = await blobToDataUrl(file);
+        }else{
+          entry.dataUrl = await blobToDataUrl(file);
+        }
+      }catch(err){
+        setStatus(t("msg.read").replace("{name}", file.name), "bad");
+        continue;
+      }
+      slot.files.push(entry);
+    }
+    slot.el.value = "";
+    renderSlot(key);
+    validateDocs(true);
+  }
+
+  function renderSlot(key){
+    var slot = SLOTS[key];
+    slot.list.textContent = "";
+    slot.files.forEach(function(f, idx){
+      var li = document.createElement("li");
+      var nm = document.createElement("span"); nm.className = "fname"; nm.textContent = f.fileName;
+      var sz = document.createElement("span"); sz.className = "fsize"; sz.textContent = fmtSize(f.byteSize);
+      var rm = document.createElement("button");
+      rm.type = "button"; rm.className = "fdrop"; rm.textContent = "×";
+      rm.setAttribute("aria-label", "Remove " + f.fileName);
+      rm.addEventListener("click", function(){ slot.files.splice(idx,1); renderSlot(key); validateDocs(true); });
+      li.appendChild(nm); li.appendChild(sz); li.appendChild(rm);
+      slot.list.appendChild(li);
+    });
+    slot.drop.classList.toggle("filled", slot.files.length > 0);
+  }
+
+  Object.keys(SLOTS).forEach(function(key){
+    var slot = SLOTS[key];
+    slot.el   = document.getElementById(key);
+    slot.list = document.getElementById("list-" + key);
+    slot.drop = document.getElementById("drop-" + key);
+    slot.el.addEventListener("change", function(){ acceptFiles(key, slot.el.files); });
+    ["dragenter","dragover"].forEach(function(ev){
+      slot.drop.addEventListener(ev, function(e){ e.preventDefault(); slot.drop.classList.add("over"); });
+    });
+    ["dragleave","drop"].forEach(function(ev){
+      slot.drop.addEventListener(ev, function(e){ e.preventDefault(); slot.drop.classList.remove("over"); });
+    });
+    slot.drop.addEventListener("drop", function(e){
+      if(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) acceptFiles(key, e.dataTransfer.files);
+    });
+  });
+
+  /* ================= validation ================= */
+  var form = document.getElementById("appform");
+  var statusEl = document.getElementById("status");
+
+  function setStatus(msg, tone){
+    statusEl.textContent = msg || "";
+    statusEl.className = "form-status" + (tone ? " " + tone : "");
+  }
+  function fieldOf(id){ return document.getElementById(id).closest(".field"); }
+  function mark(id, ok){ var f = fieldOf(id); if(f) f.classList.toggle("bad", !ok); return ok; }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+  function digits(s){ return (s.match(/\d/g) || []).length; }
+
+  function validateDocs(silent){
+    var ok = SLOTS.paystub.files.length > 0 && SLOTS.license.files.length > 0 && SLOTS.outlet.files.length > 0;
+    var e = document.getElementById("docsErr");
+    if(ok){ e.style.display = "none"; e.dataset.shown = ""; }
+    else if(!silent || e.dataset.shown === "1"){ e.style.display = "block"; e.dataset.shown = "1"; }
+    return ok;
+  }
+  function validate(){
+    var ok = true;
+    ok = mark("fullName", val("fullName").length >= 2) && ok;
+    ok = mark("phone", digits(val("phone")) >= 10) && ok;
+    ok = mark("email", /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("email"))) && ok;
+    ok = mark("metro", val("metro") !== "") && ok;
+    ok = mark("zip", /^\d{5}(-\d{4})?$/.test(val("zip"))) && ok;
+    ok = mark("street", val("street").length >= 4) && ok;
+    ok = mark("employer", val("employer").length >= 2) && ok;
+    ok = mark("income", digits(val("income")) >= 2) && ok;
+    if(!validateDocs(false)) ok = false;
+    var consent = document.getElementById("consent").checked;
+    document.getElementById("consentErr").style.display = consent ? "none" : "block";
+    if(!consent) ok = false;
+    return ok;
+  }
+
+  /* ================= payload ================= */
+  var payload = null;
+
+  function makeId(){
+    var d = new Date();
+    var stamp = String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
+    return "SCC-" + stamp + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
+  }
+  function moneyNumber(s){ var n = parseFloat((s||"").replace(/[^0-9.]/g,"")); return isFinite(n) ? n : null; }
+  function radioVal(name){ var el = form.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : null; }
+
+  function buildPayload(){
+    var now = new Date().toISOString(), id = makeId(), docs = [];
+    Object.keys(SLOTS).forEach(function(k){ SLOTS[k].files.forEach(function(f){ docs.push(f); }); });
+    var term = parseInt(radioVal("term"), 10);
+    var prefLang = document.getElementById("language").value === "es" ? "Spanish" : "English";
+    var outletOk = SLOTS.outlet.files.length > 0;
+
+    return {
+      schema:"squeaky-clean.rental-application",
+      schemaVersion:2,
+      applicationId:id,
+      submittedAt:now,
+      applicant:{ fullName:val("fullName"), phone:val("phone"), email:val("email"), preferredLanguage:prefLang },
+      delivery:{ city:val("metro"), streetAddress:val("street"), zip:val("zip"), spaceType:radioVal("space"), preferredDate:val("startDate") || null },
+      lease:{ termMonths:term, monthlyRate:80, currency:"USD" },
+      income:{ employerOrSource:val("employer"), monthlyIncome:moneyNumber(val("income")) },
+      documents:docs,
+      consent:{ accepted:document.getElementById("consent").checked, acceptedAt:now,
+                statement:"Applicant confirmed accuracy and authorized review of attached documents." },
+      flatRow:{
+        "Application ID":id,
+        "Submitted At":now,
+        "Full Name":val("fullName"),
+        "Phone":val("phone"),
+        "Email":val("email"),
+        "Preferred Language":prefLang,
+        "City":val("metro"),
+        "Street Address":val("street"),
+        "ZIP":val("zip"),
+        "Space Type":radioVal("space"),
+        "Preferred Delivery Date":val("startDate") || "",
+        "Lease Term (Months)":term,
+        "Monthly Rate (USD)":80,
+        "Employer or Income Source":val("employer"),
+        "Monthly Income (USD)":moneyNumber(val("income")),
+        "Paystubs Attached":SLOTS.paystub.files.length,
+        "License Images Attached":SLOTS.license.files.length,
+        "Outlet Photo Attached":outletOk ? "Yes" : "No",
+        "Consent Accepted":document.getElementById("consent").checked ? "Yes" : "No"
+      }
+    };
+  }
+  function redacted(rec){
+    var c = JSON.parse(JSON.stringify(rec));
+    c.documents = c.documents.map(function(d){
+      return { kind:d.kind, fileName:d.fileName, mimeType:d.mimeType, byteSize:d.byteSize, dataUrl:"<base64 omitted from preview>" };
+    });
+    return c;
+  }
+  function summaryText(rec){
+    var f = rec.flatRow, lines = [];
+    Object.keys(f).forEach(function(k){ lines.push(k + ": " + (f[k] === null ? "" : f[k])); });
+    lines.push("Documents Attached: " + rec.documents.map(function(d){ return d.kind + " (" + d.fileName + ")"; }).join(", "));
+    return "SQUEAKY CLEAN CO — RENTAL APPLICATION\n\n" + lines.join("\n");
+  }
+
+  /* ================= submit ================= */
+  var doneWrap = document.getElementById("doneWrap");
+  var submitBtn = document.getElementById("submitBtn");
+  var canDownload = null;
+
+  function setDoneMsg(){
+    document.getElementById("doneMsg").textContent = (canDownload === false) ? t("done.msg.nodl") : t("done.msg");
+  }
+  function claudeUse(name){
+    try{ if(window.claude && typeof window.claude.use === "function") return window.claude.use(name); }catch(e){}
+    return Promise.resolve(null);
+  }
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    setStatus("");
+    if(!validate()){
+      setStatus(t("msg.fix"), "bad");
+      var firstBad = form.querySelector(".field.bad input, .field.bad select");
+      if(firstBad) firstBad.focus();
+      return;
+    }
+    submitBtn.disabled = true;
+    setStatus(t("msg.pack"));
+    payload = buildPayload();
+    document.getElementById("refid").textContent = payload.applicationId;
+    document.getElementById("jsonOut").textContent = JSON.stringify(redacted(payload), null, 2);
+    setDoneMsg();
+    form.hidden = true;
+    document.querySelector(".aside").hidden = true;
+    doneWrap.hidden = false;
+    submitBtn.disabled = false;
+    setStatus("");
+    doneWrap.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block:"start" });
+
+    var dl = await claudeUse("downloads");
+    canDownload = !!dl;
+    document.getElementById("saveJson").hidden = !dl;
+    setDoneMsg();
+  });
+
+  document.getElementById("saveJson").addEventListener("click", async function(){
+    if(!payload) return;
+    var dl = await claudeUse("downloads");
+    if(!dl){ setStatus(t("msg.nosave"), "bad"); return; }
+    var name = (payload.applicant.fullName || "applicant").replace(/[^A-Za-z0-9]+/g,"-").toLowerCase();
+    try{
+      await dl.save({
+        filename: payload.applicationId + "-" + name + ".json",
+        data: new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" })
+      });
+      setStatus(t("msg.saved"), "ok");
+    }catch(err){
+      setStatus(err && err.code === "declined" ? t("msg.declined") : t("msg.savefail"), err && err.code === "declined" ? "" : "bad");
+    }
+  });
+
+  document.getElementById("copyJson").addEventListener("click", async function(){
+    if(!payload) return;
+    try{
+      await navigator.clipboard.writeText(summaryText(payload));
+      setStatus(t("msg.copied"), "ok");
+    }catch(err){ setStatus(t("msg.copyfail"), "bad"); }
+  });
+
+  document.getElementById("restart").addEventListener("click", function(){
+    Object.keys(SLOTS).forEach(function(k){ SLOTS[k].files = []; renderSlot(k); });
+    form.reset();
+    Array.prototype.forEach.call(form.querySelectorAll(".field.bad"), function(f){ f.classList.remove("bad"); });
+    ["docsErr","consentErr"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
+    payload = null;
+    doneWrap.hidden = true;
+    form.hidden = false;
+    document.querySelector(".aside").hidden = false;
+    setStatus("");
+    window.scrollTo(0,0);
+  });
+
+  form.addEventListener("input", function(e){
+    var f = e.target.closest(".field");
+    if(f) f.classList.remove("bad");
+    if(e.target.id === "consent") document.getElementById("consentErr").style.display = "none";
+  });
+
+  (function(){
+    var d = new Date(), sd = document.getElementById("startDate");
+    sd.min = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  })();
+
+  /* ================= boot ================= */
+  captureEnglish();
+  var saved = null;
+  try{ saved = localStorage.getItem("scc.lang"); }catch(e){}
+  if(!saved && (navigator.language || "").toLowerCase().indexOf("es") === 0) saved = "es";
+  applyLang(saved === "es" ? "es" : "en");
+
+  document.getElementById("langtog").addEventListener("click", function(){
+    applyLang(lang === "es" ? "en" : "es");
+  });
+
+  route();
+  startSuds();
+})();
+</script>
