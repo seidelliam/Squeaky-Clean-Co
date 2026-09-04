@@ -1,88 +1,113 @@
 # Squeaky Clean Co — form → Sheet + email
 
-When someone submits the rental application, two things happen at once:
-a row is appended to your Google Sheet, and an email lands in the office
-inbox with the full record as JSON plus the applicant's documents attached.
+When someone submits the rental application, two things happen at once: a row
+is appended to the **Applications** tab of your live Google Sheet, and an email
+lands in the office inbox with the full record as JSON plus the applicant's
+documents attached.
 
 ```
-browser ──► /api/apply (Vercel) ──► Apps Script ──┬──► append row to Sheet
+browser ──► /api/apply (Vercel) ──► Apps Script ──┬──► Applications tab
                                                   └──► email + attachments
 ```
 
-The Apps Script URL and token live in Vercel environment variables, so they
-never appear in the page source.
+Approved applications are then promoted into **Renters** by hand, from a menu.
 
 ---
 
-## 1. The Sheet
+## Why applications don't write straight to Renters
 
-1. Create a Google Sheet. Name the tab **Applications**.
-2. Copy its id — the long string in the URL between `/d/` and `/edit`.
+Three reasons, all specific to how your workbook is built:
 
-Add your header row in row 1. Column **order does not matter** and neither do
-extra columns you add later: the script matches values to headers by name.
+1. **Renters puts its headers on row 2.** Row 1 is the merged title banner.
+2. **Eight Renters columns are formulas** — Vendor Name, Within Radius?, the
+   three Pmts counts, Trust Score, Trust Rating, Lifetime Paid. A normal append
+   writes across the whole row and would blank them.
+3. **Those formulas are already filled down past the data.** An append lands
+   *after* the last non-empty row, which is below where the formulas stop.
 
-If you want the default set, you can run `writeDefaultHeaders()` from the
-script editor once and it will write them for you.
+On top of that, an application has no Assigned Vendor ID and no Distance to
+Vendor — you decide those. And your Dashboard counts **Active Renters**, so
+unapproved leads sitting in Renters would inflate your numbers.
 
-## 2. The Apps Script
+So the form only ever touches the Applications tab. When you approve one, the
+menu action writes a Renters row using **only the input columns**, into the
+first row whose Renter ID is blank, leaving every formula cell untouched.
 
-1. In the Sheet: **Extensions → Apps Script**.
-2. Replace the contents of `Code.gs` with this repo's `apps-script/Code.gs`.
-3. Fill in the CONFIG block at the top:
+---
+
+## 1. Sheets setup
+
+Your workbook already lives in Google Sheets, which is exactly what this needs
+— no export, no conversion.
+
+1. Open the workbook. Copy its id from the URL, between `/d/` and `/edit`.
+2. **Extensions → Apps Script**. Delete whatever is in `Code.gs`, paste in this
+   repo's [apps-script/Code.gs](apps-script/Code.gs).
+3. Fill the CONFIG block at the top:
    - `SHEET_ID` — from step 1
    - `SHARED_TOKEN` — any long random string; you'll paste the same one into Vercel
-4. Run `testEndToEnd()` once. Google will prompt for authorization — approve
-   it. Check that a test row appeared and a test email arrived.
-5. **Deploy → New deployment → Web app**
-   - Execute as: **Me**
-   - Who has access: **Anyone**
-6. Copy the `/exec` URL.
+4. Save, then reload the spreadsheet tab. A **Squeaky Clean** menu appears.
+5. **Squeaky Clean → Set up Applications tab.** Approve the authorization prompt
+   (Google will call the script unverified — it's your own script in your own
+   account; click *Advanced → Go to project*).
+6. **Squeaky Clean → Test intake.** Confirm a row lands in Applications and a
+   test email arrives.
+7. **Deploy → New deployment → Web app**, Execute as **Me**, Who has access
+   **Anyone**. Copy the `/exec` URL.
 
-> Re-deploy after any edit to `Code.gs`, or the live endpoint keeps running
-> the old code. Use **Manage deployments → edit → Version: New version** to
-> keep the same URL.
+Optional housekeeping: the Renters, Cities, Renter Payments and Vendor Payments
+tabs still have their pink `EXAMPLE ROW — delete before use` rows. Clear those
+before going live so the Dashboard totals are real.
 
-## 3. Vercel
+## 2. Vercel
 
-1. Import this repo at vercel.com. No build step — it's a static site with
-   one serverless function.
-2. **Settings → Environment Variables**:
+1. Import this repo. No build step — static site plus one function.
+2. **Settings → Environment Variables:**
 
    | Name | Value |
    |---|---|
-   | `APPS_SCRIPT_URL` | the `/exec` URL from step 2 |
+   | `APPS_SCRIPT_URL` | the `/exec` URL from step 7 |
    | `APPS_SCRIPT_TOKEN` | the same string as `SHARED_TOKEN` |
 
 3. Redeploy so the variables take effect.
 
-## 4. Verify
+## 3. Day-to-day
 
-Submit a real application through the live site. You should get a row, an
-email, and "Application sent" on the success screen.
+A new application arrives → you get the email with the paystub, ID and outlet
+photo attached, and a row appears in Applications with **Review Status: New**.
+
+To approve: open the Applications tab, click any cell in that row, then
+**Squeaky Clean → Promote selected application to Renters**. It creates the next
+`R-###`, fills the input columns, sets Status to `Pending Delivery`, and stamps
+the application row with the new Renter ID so it can't be promoted twice.
+
+Three fields it deliberately leaves blank for you, because the form can't know
+them: **Assigned Vendor ID**, **Distance to Vendor (mi)**, and it defaults
+**My Cut** to $10 — change `DEFAULT_MY_CUT` in CONFIG if that's wrong.
 
 ---
 
 ## How it fails
 
-The form never loses data on a bad day. If the endpoint is missing, times
-out, or Apps Script errors, `sendToServer()` resolves false and the page
-falls back to its original behavior — the applicant saves the JSON file and
-emails it in. They see instructions, not an error.
+The form never loses data. If the endpoint is missing, times out, or Apps Script
+errors, the page falls back to its original behavior — the applicant saves the
+JSON file and emails it in, with instructions rather than an error.
 
-If the Sheet write fails but email still works, the email arrives flagged
-with the error at the top so you can add the row by hand.
+If the Sheet write fails but email still works, the email arrives flagged with
+the error at the top so you can add the row by hand.
 
 ## Limits worth knowing
 
-- **Vercel request body: 4.5 MB.** Images are compressed client-side to
-  ~170 KB each before attaching, so a full application runs well under 1 MB.
-- **Gmail attachment total: 25 MB**, far above what this sends.
-- **Apps Script email quota: 100 recipients/day** on a consumer Gmail
-  account, 1,500/day on Workspace.
+- **Vercel request body: 4.5 MB.** Images are compressed client-side to ~170 KB
+  each before attaching, so a full application runs well under 1 MB.
+- **Apps Script email: 100/day** on consumer Gmail, 1,500/day on Workspace.
+- Re-deploy the Apps Script after **any** edit to `Code.gs`, or the live URL
+  keeps running the old version. *Manage deployments → edit → New version*
+  keeps the same URL so Vercel doesn't need updating.
 
-## Changing the sheet format later
+## Changing columns later
 
-Add, remove, or reorder columns freely — matching is by header name.
-If a header's text differs from the payload's key, add one line to the
-`ALIASES` map in `Code.gs` instead of touching any other code.
+Applications matches by header name, so you can reorder or add columns freely.
+If you rename one, update `APPLICATION_HEADERS`. For Renters, the writable
+columns are listed in `RENTER_WRITABLE` — anything not on that list is treated
+as a formula and never written to.
