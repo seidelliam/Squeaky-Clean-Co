@@ -268,6 +268,10 @@ img{max-width:100%;display:block;height:auto}
 .prose{max-width:62ch;display:flex;flex-direction:column;gap:1rem;color:var(--ink-2)}
 .prose h3{font-size:var(--s-2);color:var(--ink);margin-top:.75rem;font-variation-settings:"wdth" 106}
 .prose strong{color:var(--ink);font-weight:700}
+.speclist{list-style:none;margin:.35rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem;max-width:60ch}
+.speclist li{position:relative;padding-left:1.15rem;line-height:1.5}
+.speclist li::before{content:"";position:absolute;left:0;top:.6em;width:.4rem;height:.4rem;background:var(--signal)}
+.speclist strong{color:var(--ink);font-weight:700}
 .pull{
   border-left:4px solid var(--signal);padding:.3rem 0 .3rem 1.25rem;color:var(--ink);
   font-size:var(--s-2);font-weight:700;line-height:1.22;letter-spacing:-.025em;font-variation-settings:"wdth" 106;
@@ -506,8 +510,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
            alt="A washer in a home laundry corner beside shelving with folded linens." data-i18n-alt="alt.room" data-reveal>
       <div class="duo-body" data-reveal>
         <h2 data-i18n="trust.h2">If it breaks, it's our problem.</h2>
-        <p data-i18n="trust.p1">Buying a set means owning the repair bill too. Renting moves that risk to us. If a machine fails, we repair it or swap it, and your rate does not move.</p>
-        <p data-i18n-html="trust.p2">You get a <strong>matched washer and dryer set</strong>, not two mismatched machines that happened to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
+        <p data-i18n="trust.p1">Buy a set and every repair is yours. Rent instead, and a breakdown is ours to fix or replace. Your rate stays $80.</p>
+        <p data-i18n-html="trust.p2">You get a <strong>matched washer and dryer set</strong>, cleaned and tested before it ships.</p>
         <p data-i18n="trust.p3">When you are done renting, we come and get it.</p>
       </div>
     </div>
@@ -554,17 +558,19 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   <section class="section" style="padding-top:clamp(1.75rem,4vw,2.75rem)">
     <div class="page-head">
       <h1 data-i18n="about.title">About us</h1>
-      <p class="deck" data-i18n="about.deck">We rent washers and dryers. That's it.</p>
+      <p class="deck" data-i18n="about.deck">The equipment, the hookups, and what's covered.</p>
     </div>
-    <p class="lede-para" data-i18n="about.lead">Squeaky Clean Co puts a working washer and dryer in your home for a flat monthly rate, in three cities: Los Angeles, Houston, and Dallas.</p>
+    <p class="lede-para" data-i18n="about.lead">Squeaky Clean Co rents matched washer and dryer sets in Los Angeles, Houston, and Dallas for a flat $80 a month. This page is the detail: what we install, what your space needs, and how service works while you rent.</p>
   </section>
 
   <section class="section">
     <div class="prose" data-reveal>
-      <h3 data-i18n="about.why.h3">Why renting instead of buying</h3>
-      <p data-i18n="about.why.p1">A matched washer and dryer set is a big purchase to make all at once, and it stops being a good deal the first time something breaks. Buying means you own the repair bill too.</p>
-      <p data-i18n="about.why.p2">Renting moves that risk to us. You pay one flat rate every month. If the machine fails, we repair it or swap it, and your rate doesn't move. When you're done, we come get it.</p>
-      <div class="pull" data-i18n="about.pull">If it breaks, it's our problem. That's the entire pitch.</div>
+      <h3 data-i18n="about.equip.h">The equipment</h3>
+      <p data-i18n-html="about.equip.p">Every rental is a <strong>matched washer and dryer set</strong> from one brand and series, sized to run as a pair. All dryers are <strong>electric</strong> and run on a 240V circuit; we do not stock gas dryers. Before a set ships it is cleaned and run through a full wash and dry cycle to check fill, drain, heat, and spin.</p>
+      <ul class="speclist" data-i18n-html="about.equip.list">
+        <li><!-- TODO: real capacity numbers -->Washer capacity around [X] cu ft; dryer around [X] cu ft.</li>
+        <li>Two layouts: <strong>side-by-side</strong>, or <strong>stacked</strong> with the dryer mounted on the washer for a tall, narrow closet.</li>
+      </ul>
     </div>
   </section>
 
@@ -573,41 +579,62 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <img src="/site/img/closet.jpg" width="900" height="1200" loading="lazy" decoding="async"
            alt="A washer fitted into a narrow laundry closet with shelving above it." data-i18n-alt="alt.closet" data-reveal>
       <div class="duo-body" data-reveal>
-        <h2 data-i18n="about.get.h3">What you actually get</h2>
-        <p data-i18n-html="about.get.p1">A <strong>matched washer and dryer set</strong>, not two mismatched machines that happen to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
-        <p data-i18n-html="about.get.p2">All of our dryers are <strong>electric</strong> and need a 240V outlet. We stock both side-by-side and stacked configurations.</p>
-        <p data-i18n="about.get.p3">Delivery, installation, maintenance, repairs, and haul-away of your old set are included at no extra cost for as long as you rent.</p>
+        <h2 data-i18n="about.space.h">What your space needs</h2>
+        <ul class="speclist" data-i18n-html="about.space.list">
+          <li>A <strong>240V dryer outlet</strong>. This is the large three- or four-prong socket a dryer plugs into, not a standard wall outlet.<!-- TODO: confirm you handle both 3-prong NEMA 10-30 and 4-prong 14-30 --></li>
+          <li>Hot and cold water valves and a drain standpipe for the washer.</li>
+          <li>A dryer vent to the outside.<!-- TODO: longest vent run you will install --></li>
+          <li><!-- TODO: real dimensions -->Clearance of about [W x D x H] side-by-side, or [W x D x H] stacked.</li>
+          <li>Stairs and upper floors are fine; the crew carries it in.</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="prose" data-reveal>
-      <h3 data-i18n="about.qual.h3">How we qualify people</h3>
-      <p data-i18n-html="about.qual.p1">There's <strong>no credit check</strong>. We ask for your most recent paystub, a driver's license, and a photo of your dryer outlet. That's the whole review.</p>
-      <p data-i18n-html="about.qual.p2">Terms run <strong>3 months or 6 months</strong>. Both cost the same per month; the longer term just locks the rate and the machines in for longer.</p>
-      <h3 data-i18n="about.es.h3">Se habla español</h3>
-      <p data-i18n="about.es.p">We serve Spanish-speaking customers in Los Angeles, Houston, and Dallas. You can switch this site to Spanish at the top of the page, apply in Spanish, and we'll answer in Spanish.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="sec-head" data-reveal><h2 data-i18n="about.facts.h2">The numbers that matter.</h2></div>
-    <div class="stats" data-reveal>
-      <div class="stat"><div class="stat-n">$80</div><div class="stat-l" data-i18n="fact1">Flat monthly rate, all included</div></div>
-      <div class="stat"><div class="stat-n">$0</div><div class="stat-l" data-i18n="fact2">Delivery, install, repairs, haul-away</div></div>
-      <div class="stat"><div class="stat-n">3</div><div class="stat-l" data-i18n="fact3">Cities served</div></div>
-      <div class="stat"><div class="stat-n">3/6</div><div class="stat-l" data-i18n="fact4">Month terms available</div></div>
+      <h3 data-i18n="about.install.h">Installation</h3>
+      <p data-i18n="about.install.p1">A two-person crew connects the water lines, the dryer vent, and the 240V power, levels both units, and runs a short cycle to check for leaks and heat before leaving. They show you the controls and take your old washer and dryer on the same trip.</p>
+      <p data-i18n="about.install.p2">Delivery is usually within a week of approval.<!-- TODO: confirm current lead time --></p>
     </div>
   </section>
 
   <section class="section">
     <div class="prose" data-reveal>
-      <h3 data-i18n="about.ready.h3">Ready when you are</h3>
-      <p data-i18n="about.ready.p">The application needs one paystub, a photo of your driver's license, and a photo of your dryer outlet. Email us first if you'd rather ask a question.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:.5rem">
+      <h3 data-i18n="about.service.h">Service while you rent</h3>
+      <p data-i18n-html="about.service.p1"><strong>Repairs and parts are included for the whole term.</strong> If a unit fails, we repair it or swap it, and your $80 rate does not change.</p>
+      <p data-i18n="about.service.p2">Report a problem by email and we schedule a visit.<!-- TODO: phone/text option and typical response window, e.g. within 2 business days --></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head" data-reveal><h2 data-i18n="about.specs.h">At a glance.</h2></div>
+    <div class="stats" data-reveal>
+      <div class="stat"><div class="stat-n">240V</div><div class="stat-l" data-i18n="spec1">Electric dryers, 240V outlet required</div></div>
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l" data-i18n="spec2">Layouts, side-by-side or stacked</div></div>
+      <div class="stat"><div class="stat-n">3/6</div><div class="stat-l" data-i18n="spec3">Month terms, same $80 rate</div></div>
+      <div class="stat"><div class="stat-n">$0</div><div class="stat-l" data-i18n="spec4">Repairs and parts, whole term</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose" data-reveal>
+      <h3 data-i18n="about.terms.h">Terms, billing, and qualifying</h3>
+      <ul class="speclist" data-i18n-html="about.terms.list">
+        <li><strong>3 or 6 months.</strong> Both are $80 a month; the longer term holds that rate and those units longer.<!-- TODO: what happens at term end (return, renew, or month-to-month) --></li>
+        <li>The first month is due at delivery. There is no large deposit.<!-- TODO: accepted payment methods / autopay --></li>
+        <li><strong>No credit check.</strong> The review is your most recent paystub, a driver's license or state ID, and a photo of your dryer outlet.<!-- TODO: state an income guideline if you use one --></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose" data-reveal>
+      <h3 data-i18n="about.area.h">Where we deliver</h3>
+      <p data-i18n="about.area.p1">Los Angeles, Houston, and Dallas.<!-- TODO: service radius or the specific areas covered in each metro --></p>
+      <p data-i18n-html="about.area.p2"><strong>Se habla español.</strong> Switch the site to Spanish at the top of the page. You can apply in Spanish and we answer in Spanish.</p>
+      <div style="margin-top:.5rem">
         <a class="btn btn-signal" href="#/apply" data-i18n="cta.apply">Start your application</a>
-        <a class="foot-mail" style="margin:0" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a>
       </div>
     </div>
   </section>
@@ -625,6 +652,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
   <div class="form-shell">
     <form id="appform" novalidate>
+      <input type="hidden" id="ref" name="ref" value="direct">
 
       <fieldset class="fieldset">
         <legend><span class="legend-n">01</span><span data-i18n="fs1">About you</span></legend>
@@ -824,6 +852,66 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
   var CONTACT = "squeaky.clean.co.office@gmail.com";
   var SUBMIT_ENDPOINT = "/api/apply";
+  var CLICK_ENDPOINT = "/api/click";
+
+  /* ================= outreach attribution =================
+     Captures ?ref= (and fbclid) on first load, persists it for this tab
+     via sessionStorage — Messenger's in-app browser gives no cross-browser
+     cookie continuity, so sessionStorage plus the URL param is all we get.
+     The URL param is always the source of truth when present. Stamps the
+     result on the hidden #ref field so it rides along with the application,
+     and fires one best-effort click beacon per session so "clicked but
+     never applied" shows up next to submitted applications. */
+  var ATTR_KEY = "scc.attr", CLICK_SENT_KEY = "scc.clickSent";
+
+  function readAttr_(){
+    try{ return JSON.parse(sessionStorage.getItem(ATTR_KEY) || "null"); }catch(e){ return null; }
+  }
+  function writeAttr_(a){
+    try{ sessionStorage.setItem(ATTR_KEY, JSON.stringify(a)); }catch(e){}
+  }
+  function captureAttribution_(){
+    var urlRef = null, fbclid = null;
+    try{
+      var params = new URLSearchParams(location.search);
+      urlRef = params.get("ref");
+      fbclid = params.get("fbclid"); // kept alongside ref, never folded into it
+    }catch(e){}
+    var prior = readAttr_(), attr;
+    if(urlRef){
+      var samePrior = prior && prior.ref === urlRef;
+      attr = {
+        ref: urlRef,
+        fbclid: fbclid || (samePrior ? prior.fbclid : null),
+        firstTouchAt: samePrior ? prior.firstTouchAt : new Date().toISOString(),
+        landingPath: samePrior ? prior.landingPath : (location.hash || "#/")
+      };
+    } else if(prior){
+      attr = prior;
+    } else {
+      attr = { ref:"direct", fbclid:fbclid, firstTouchAt:new Date().toISOString(), landingPath:(location.hash || "#/") };
+    }
+    writeAttr_(attr);
+    return attr;
+  }
+  function logClickOnce_(attr){
+    var already; try{ already = sessionStorage.getItem(CLICK_SENT_KEY); }catch(e){ already = null; }
+    if(already) return;
+    try{ sessionStorage.setItem(CLICK_SENT_KEY, "1"); }catch(e){}
+    try{
+      fetch(CLICK_ENDPOINT, {
+        method:"POST",
+        headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body: JSON.stringify({ ref:attr.ref, fbclid:attr.fbclid, landingPath:attr.landingPath, ts:attr.firstTouchAt }),
+        keepalive:true
+      });
+    }catch(e){ /* best-effort only — a beacon failure must never block the visitor */ }
+  }
+
+  var ATTR = captureAttribution_();
+  var refField = document.getElementById("ref");
+  if(refField) refField.value = ATTR.ref || "direct";
+  logClickOnce_(ATTR);
 
   /* ================= i18n ================= */
   var ES = {
@@ -851,8 +939,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
     "alt.room":"Una lavadora en un rincón de lavandería junto a repisas con ropa doblada.",
     "trust.h2":"Si se descompone, es nuestro problema.",
-    "trust.p1":"Comprar un juego significa quedarte también con la reparación. Rentar nos pasa ese riesgo a nosotros. Si una máquina falla, la reparamos o la cambiamos, y tu tarifa no se mueve.",
-    "trust.p2":"Recibes un <strong>juego completo de lavadora y secadora</strong>, no dos máquinas dispares que andaban por la bodega. Cada juego se limpia y se corre un ciclo completo de prueba antes de subirlo al camión.",
+    "trust.p1":"Compra un juego y cada reparación es tuya. Renta y una falla es nuestra, para arreglarla o cambiarla. Tu tarifa sigue en $80.",
+    "trust.p2":"Recibes un <strong>juego completo de lavadora y secadora</strong>, limpio y probado antes de enviarlo.",
     "trust.p3":"Cuando termines de rentar, la recogemos.",
 
     "how.eyebrow":"Cómo funciona","how.h2":"Tres pasos, casi siempre en menos de una semana.",
@@ -866,27 +954,31 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "cta.p":"La solicitud toma unos cinco minutos. ¿Tienes preguntas primero? Escríbenos y te contestamos en inglés o en español.",
 
     "about.title":"Nosotros",
-    "about.deck":"Rentamos lavadoras y secadoras. Nada más.",
-    "about.lead":"Squeaky Clean Co pone una lavadora y secadora funcionando en tu casa por una tarifa mensual fija, en tres ciudades: Los Angeles, Houston y Dallas.",
-    "about.why.h3":"Por qué rentar en vez de comprar",
-    "about.why.p1":"Un juego de lavadora y secadora es una compra grande de un solo golpe, y deja de ser buen trato la primera vez que algo se descompone. Comprar significa que la reparación también corre por tu cuenta.",
-    "about.why.p2":"Rentar nos pasa ese riesgo a nosotros. Pagas una tarifa fija cada mes. Si la máquina falla, la reparamos o la cambiamos, y tu tarifa no se mueve. Cuando termines, la recogemos.",
-    "about.pull":"Si se descompone, es nuestro problema. Ese es todo el argumento.",
+    "about.deck":"El equipo, las conexiones y lo que está cubierto.",
+    "about.lead":"Squeaky Clean Co renta juegos de lavadora y secadora en Los Angeles, Houston y Dallas por $80 fijos al mes. Esta página es el detalle: qué instalamos, qué necesita tu espacio y cómo funciona el servicio mientras rentas.",
     "alt.closet":"Una lavadora instalada en un clóset angosto de lavandería con repisas arriba.",
-    "about.get.h3":"Qué recibes exactamente",
-    "about.get.p1":"Un <strong>juego completo de lavadora y secadora</strong>, no dos máquinas dispares que andaban por la bodega. Cada juego se limpia y se corre un ciclo completo de prueba antes de subirlo al camión.",
-    "about.get.p2":"Todas nuestras secadoras son <strong>eléctricas</strong> y necesitan un contacto de 240V. Manejamos configuración lado a lado y apilada.",
-    "about.get.p3":"Entrega, instalación, mantenimiento, reparaciones y el retiro de tu juego viejo van incluidos sin costo extra mientras rentes.",
-    "about.qual.h3":"Cómo aprobamos a la gente",
-    "about.qual.p1":"<strong>No hay revisión de crédito</strong>. Te pedimos tu talón de pago más reciente, una licencia de conducir y una foto del contacto de tu secadora. Esa es toda la revisión.",
-    "about.qual.p2":"Los plazos son de <strong>3 o 6 meses</strong>. Cuestan lo mismo al mes; el plazo largo solo asegura tu tarifa y tus máquinas por más tiempo.",
-    "about.es.h3":"Se habla español",
-    "about.es.p":"Atendemos a clientes de habla hispana en Los Angeles, Houston y Dallas. Puedes cambiar este sitio a español arriba de la página, llenar la solicitud en español, y te contestamos en español.",
-    "about.facts.h2":"Los números que importan.",
-    "fact1":"Tarifa mensual fija, todo incluido","fact2":"Entrega, instalación, reparaciones, retiro",
-    "fact3":"Ciudades que atendemos","fact4":"Plazos disponibles en meses",
-    "about.ready.h3":"Cuando tú estés listo",
-    "about.ready.p":"La solicitud necesita un talón de pago, una foto de tu licencia de conducir y una foto del contacto de tu secadora. Si prefieres preguntar antes, escríbenos.",
+
+    "about.equip.h":"El equipo",
+    "about.equip.p":"Cada renta es un <strong>juego completo de lavadora y secadora</strong> de una misma marca y serie, del tamaño para funcionar en pareja. Todas las secadoras son <strong>eléctricas</strong> y usan un circuito de 240V; no manejamos secadoras de gas. Antes de enviar un juego, se limpia y se corre un ciclo completo de lavado y secado para revisar llenado, drenado, calor y centrifugado.",
+    "about.equip.list":"<li>Capacidad de la lavadora alrededor de [X] pies cúbicos; secadora alrededor de [X] pies cúbicos.</li><li>Dos configuraciones: <strong>lado a lado</strong>, o <strong>apiladas</strong> con la secadora montada sobre la lavadora para un clóset alto y angosto.</li>",
+    "about.space.h":"Qué necesita tu espacio",
+    "about.space.list":"<li>Un <strong>contacto de secadora de 240V</strong>. Es el contacto grande de tres o cuatro ranuras donde se enchufa una secadora, no un contacto normal de pared.</li><li>Llaves de agua fría y caliente y un tubo de drenaje para la lavadora.</li><li>Un ducto de ventilación de la secadora hacia afuera.</li><li>Espacio libre de aproximadamente [An x Pr x Al] lado a lado, o [An x Pr x Al] apiladas.</li><li>Escaleras y pisos altos no son problema; el equipo la sube.</li>",
+    "about.install.h":"Instalación",
+    "about.install.p1":"Un equipo de dos personas conecta las mangueras de agua, el ducto de la secadora y la corriente de 240V, nivela las dos máquinas y corre un ciclo corto para revisar fugas y calor antes de irse. Te enseñan los controles y se llevan tu lavadora y secadora viejas en el mismo viaje.",
+    "about.install.p2":"La entrega suele ser dentro de una semana de la aprobación.",
+    "about.service.h":"Servicio mientras rentas",
+    "about.service.p1":"<strong>Las reparaciones y las refacciones van incluidas todo el plazo.</strong> Si una máquina falla, la reparamos o la cambiamos, y tu tarifa de $80 no cambia.",
+    "about.service.p2":"Reporta un problema por correo y programamos una visita.",
+    "about.specs.h":"En resumen.",
+    "spec1":"Secadoras eléctricas, contacto de 240V",
+    "spec2":"Configuraciones, lado a lado o apiladas",
+    "spec3":"Plazos en meses, misma tarifa de $80",
+    "spec4":"Reparaciones y refacciones, todo el plazo",
+    "about.terms.h":"Plazos, pagos y requisitos",
+    "about.terms.list":"<li><strong>3 o 6 meses.</strong> Los dos son $80 al mes; el plazo largo asegura esa tarifa y esas máquinas por más tiempo.</li><li>El primer mes se paga en la entrega. No hay depósito grande.</li><li><strong>Sin revisión de crédito.</strong> La revisión es tu talón de pago más reciente, una licencia de conducir o identificación estatal, y una foto del contacto de tu secadora.</li>",
+    "about.area.h":"A dónde entregamos",
+    "about.area.p1":"Los Angeles, Houston y Dallas.",
+    "about.area.p2":"<strong>Se habla español.</strong> Cambia el sitio a español arriba de la página. Puedes llenar la solicitud en español y te contestamos en español.",
 
     "apply.title":"Solicitud de renta",
     "apply.deck":"Llevemos un juego a tu puerta.",
@@ -1262,6 +1354,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       documents:docs,
       consent:{ accepted:document.getElementById("consent").checked, acceptedAt:now,
                 statement:"Applicant confirmed accuracy and authorized review of attached documents." },
+      attribution:{ ref:val("ref") || "direct", fbclid:ATTR.fbclid || null,
+                    firstTouchAt:ATTR.firstTouchAt || null, landingPath:ATTR.landingPath || null },
       flatRow:{
         "Application ID":id,
         "Submitted At":now,
@@ -1281,7 +1375,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
         "Paystubs Attached":SLOTS.paystub.files.length,
         "License Images Attached":SLOTS.license.files.length,
         "Outlet Photo Attached":outletOk ? "Yes" : "No",
-        "Consent Accepted":document.getElementById("consent").checked ? "Yes" : "No"
+        "Consent Accepted":document.getElementById("consent").checked ? "Yes" : "No",
+        "Ref":val("ref") || "direct"
       }
     };
   }
