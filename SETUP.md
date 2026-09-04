@@ -111,3 +111,31 @@ Applications matches by header name, so you can reorder or add columns freely.
 If you rename one, update `APPLICATION_HEADERS`. For Renters, the writable
 columns are listed in `RENTER_WRITABLE` — anything not on that list is treated
 as a formula and never written to.
+
+## Messenger link attribution
+
+Every page accepts `?ref=` in the URL and remembers it for the tab via
+sessionStorage (no cookies — Messenger's in-app browser doesn't share them).
+It rides along on submission as the **Ref** column in Applications, and a
+click beacon logs to a new **Clicks** tab the moment the link loads, even if
+the visitor never applies. Facebook's link-preview crawler is filtered out
+server-side in `api/click.js` before anything is logged.
+
+**Generate a link:**
+```
+node scripts/gen-ref.js fb https://YOUR-DOMAIN
+```
+Prints the ref code and the full URL to paste into Messenger. Set
+`SITE_URL` in your shell so you can drop the second argument.
+
+**Check results:** open the Sheet → **Squeaky Clean → Build ref report**.
+Rebuilds a **Ref Report** tab: one row per ref code, click count, first
+click time, and whether it converted — so links that got clicks but no
+application stand out. File → Download → CSV from that tab to export it.
+
+One-time setup after pulling this: re-run **Squeaky Clean → Set up
+Applications tab** (safe — it only relabels row 1, your data rows are
+untouched) so the live sheet gets the new **Ref** column, and re-deploy the
+Apps Script (**Manage deployments → edit → New version**) so `doPost` picks
+up the click-handling code. No new Vercel env vars — `api/click.js` reuses
+`APPS_SCRIPT_URL` / `APPS_SCRIPT_TOKEN`.

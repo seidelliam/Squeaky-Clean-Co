@@ -10,6 +10,10 @@
  * keeps unapproved leads out of your Dashboard counts, and keeps the form away
  * from the formula columns on Renters.
  *
+ * doPost also handles click beacons from Messenger outreach links (see
+ * api/click.js) — those log to the Clicks tab instead of Applications, so
+ * "clicked but never applied" is visible via Squeaky Clean → Build ref report.
+ *
  * Deploy: Extensions > Apps Script, paste this in, fill CONFIG, run
  * setupApplicationsTab() once, then Deploy > New deployment > Web app
  * ("Execute as: Me", "Who has access: Anyone"). Put the /exec URL in Vercel.
@@ -23,6 +27,8 @@ var SHARED_TOKEN = 'b5784de3ef47a6f06aa738f346f5990884aa3c02234deb20f6911f9b05aa
 
 var APPLICATIONS_TAB = 'Applications';
 var RENTERS_TAB      = 'Renters';
+var CLICKS_TAB        = 'Clicks';
+var REF_REPORT_TAB    = 'Ref Report';
 
 /** Renters puts its column names on row 2 — row 1 is the merged title banner. */
 var RENTERS_HEADER_ROW = 2;
@@ -52,7 +58,8 @@ var APPLICATION_HEADERS = [
   'Preferred Delivery Date', 'Lease Term (Months)', 'Monthly Rate (USD)',
   'Employer or Income Source', 'Monthly Income (USD)', 'Paystubs Attached',
   'License Images Attached', 'Outlet Photo Attached', 'Consent Accepted',
-  'Review Status', 'Promoted to Renter ID'
+  'Review Status', 'Promoted to Renter ID',
+  'Ref' // outreach attribution — see the click-tracking note at the top of this file
 ];
 
 /* ===================== ENDPOINT ===================== */
@@ -63,6 +70,11 @@ function doPost(e) {
     body = JSON.parse(e.postData.contents);
     if (body.token !== SHARED_TOKEN) return reply_({ ok: false, error: 'unauthorized' });
 
+    // Click beacon from api/click.js — logs to Clicks, never touches
+    // Applications or sends mail. Kept out of the try/catch's mail-fallback
+    // below since a click has no applicant to email anything to.
+    if (body.click) return handleClick_(body.click);
+
     var rec = body.record;
     if (!rec || !rec.applicationId) return reply_({ ok: false, error: 'bad_payload' });
 
@@ -72,6 +84,17 @@ function doPost(e) {
   } catch (err) {
     // Get the operator the data even if the Sheet write failed.
     try { if (body && body.record) sendMail_(body.record, String(err)); } catch (ignored) {}
+    return reply_({ ok: false, error: String(err) });
+  }
+}
+
+function handleClick_(click) {
+  try {
+    appendClick_(click);
+    return reply_({ ok: true });
+  } catch (err) {
+    // Best-effort logging — a Sheet hiccup here must never surface to the
+    // visitor. api/click.js ignores this response either way.
     return reply_({ ok: false, error: String(err) });
   }
 }
@@ -165,6 +188,107 @@ function attachmentName_(d, i) {
   return (d.kind || 'document') + '-' + (i + 1) + '.' + ext;
 }
 
+/* ===================== CLICKS TAB (outreach attribution) ===================== */
+
+var CLICK_HEADERS = ['Ref', 'Clicked At', 'Landing Path', 'fbclid', 'User Agent'];
+
+function appendClick_(click) {
+  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(CLICKS_TAB);
+  if (!sh) sh = createClicksTab_();
+
+  sh.appendRow([
+    String((click && click.ref) || 'direct'),
+    (click && click.ts) ? new Date(click.ts) : new Date(),
+    String((click && click.landingPath) || ''),
+    String((click && click.fbclid) || ''),
+    String((click && click.ua) || '')
+  ]);
+}
+
+function createClicksTab_() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sh = ss.insertSheet(CLICKS_TAB);
+  sh.getRange(1, 1, 1, CLICK_HEADERS.length)
+    .setValues([CLICK_HEADERS])
+    .setFontWeight('bold')
+    .setBackground('#2e5c9a')
+    .setFontColor('#ffffff');
+  sh.setFrozenRows(1);
+  sh.autoResizeColumns(1, CLICK_HEADERS.length);
+  return sh;
+}
+
+/** Run from the menu if you want the tab ready before the first real click
+ *  arrives. Not required — appendClick_ creates it automatically. */
+function setupClicksTab() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  if (!ss.getSheetByName(CLICKS_TAB)) createClicksTab_();
+  SpreadsheetApp.getUi().alert('"' + CLICKS_TAB + '" is ready.');
+}
+
+/**
+ * Squeaky Clean → Build ref report. Rebuilds the "Ref Report" tab from
+ * scratch: one row per ref code seen in Clicks (plus any ref that only
+ * shows up on an Application, in case a beacon ever failed to log), with
+ * a click count, the first click time, and whether that ref converted —
+ * so "clicked but never applied" is visible at a glance. To export,
+ * open the tab and File → Download → CSV, same as any other sheet.
+ */
+function buildRefReport() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var clicksSh = ss.getSheetByName(CLICKS_TAB);
+  var appsSh = ss.getSheetByName(APPLICATIONS_TAB);
+
+  var clicks = (clicksSh && clicksSh.getLastRow() > 1)
+    ? clicksSh.getRange(2, 1, clicksSh.getLastRow() - 1, 2).getValues()
+    : [];
+
+  var submittedRefs = {};
+  if (appsSh) {
+    var appHeaders = appsSh.getRange(1, 1, 1, appsSh.getLastColumn()).getValues()[0];
+    var refCol = appHeaders.indexOf('Ref');
+    var idCol = appHeaders.indexOf('Application ID');
+    if (refCol > -1 && appsSh.getLastRow() > 1) {
+      appsSh.getRange(2, 1, appsSh.getLastRow() - 1, appsSh.getLastColumn()).getValues().forEach(function (r) {
+        var ref = String(r[refCol] || '').trim();
+        if (!ref) return;
+        (submittedRefs[ref] = submittedRefs[ref] || []).push(idCol > -1 ? r[idCol] : '');
+      });
+    }
+  }
+
+  var stats = {}; // ref -> { count, first }
+  clicks.forEach(function (r) {
+    var ref = String(r[0] || '').trim();
+    if (!ref) return;
+    var at = r[1];
+    if (!stats[ref]) stats[ref] = { count: 0, first: at };
+    stats[ref].count++;
+    if (at && (!stats[ref].first || new Date(at) < new Date(stats[ref].first))) stats[ref].first = at;
+  });
+  Object.keys(submittedRefs).forEach(function (ref) {
+    if (!stats[ref]) stats[ref] = { count: 0, first: '' };
+  });
+
+  var refs = Object.keys(stats).sort();
+  var out = [['Ref', 'Clicks', 'First Click', 'Submitted?', 'Application ID(s)']];
+  refs.forEach(function (ref) {
+    var s = stats[ref], apps = submittedRefs[ref] || [];
+    out.push([ref, s.count, s.first || '', apps.length ? 'Yes' : 'No', apps.join(', ')]);
+  });
+
+  var sh = ss.getSheetByName(REF_REPORT_TAB);
+  if (!sh) sh = ss.insertSheet(REF_REPORT_TAB);
+  sh.clear();
+  sh.getRange(1, 1, out.length, out[0].length).setValues(out);
+  sh.getRange(1, 1, 1, out[0].length)
+    .setFontWeight('bold').setBackground('#2e5c9a').setFontColor('#ffffff');
+  sh.setFrozenRows(1);
+  sh.autoResizeColumns(1, out[0].length);
+
+  SpreadsheetApp.getUi().alert('"' + REF_REPORT_TAB + '" rebuilt: ' + refs.length + ' ref code(s).');
+}
+
 /* ===================== PROMOTE TO RENTERS ===================== */
 
 function onOpen() {
@@ -172,7 +296,10 @@ function onOpen() {
     .createMenu('Squeaky Clean')
     .addItem('Promote selected application to Renters', 'promoteSelectedApplication')
     .addSeparator()
+    .addItem('Build ref report (clicks vs. applications)', 'buildRefReport')
+    .addSeparator()
     .addItem('Set up Applications tab', 'setupApplicationsTab')
+    .addItem('Set up Clicks tab', 'setupClicksTab')
     .addItem('Test intake (row + email)', 'testEndToEnd')
     .addToUi();
 }
@@ -321,7 +448,7 @@ function testEndToEnd() {
       'Full Name': 'Test Applicant', 'Phone': '(555) 555-0123',
       'Email': NOTIFY_TO, 'City': 'Houston', 'ZIP': '77520',
       'Street Address': '1 Test St', 'Lease Term (Months)': 6,
-      'Monthly Rate (USD)': 80, 'Consent Accepted': 'Yes'
+      'Monthly Rate (USD)': 80, 'Consent Accepted': 'Yes', 'Ref': 'test-0000-xxxx'
     }
   };
   appendApplication_(rec);
