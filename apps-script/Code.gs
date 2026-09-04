@@ -334,7 +334,21 @@ function promoteSelectedApplication() {
     return;
   }
 
-  var renterId = writeRenterRow_(app);
+  // Paystub and ID are optional on the form now, so this is the trust
+  // checkpoint that replaces them: a deliberate speed bump before a machine
+  // goes out to someone with no income or identity verification on file.
+  var missing = unverifiedDocs_(app);
+  if (missing.length) {
+    var resp = ui.alert(
+      'No ' + missing.join(' or ') + ' on file',
+      'This application has no ' + missing.join(' and ') + ' attached. ' +
+      'Promote to Renters anyway?',
+      ui.ButtonSet.YES_NO
+    );
+    if (resp !== ui.Button.YES) return;
+  }
+
+  var renterId = writeRenterRow_(app, missing);
 
   var promotedCol = headers.indexOf('Promoted to Renter ID') + 1;
   var statusCol = headers.indexOf('Review Status') + 1;
@@ -345,7 +359,19 @@ function promoteSelectedApplication() {
            'Still to fill in by hand: Assigned Vendor ID, Distance to Vendor (mi), My Cut.');
 }
 
-function writeRenterRow_(app) {
+/**
+ * Which of the optional trust documents are missing from an application,
+ * as human-readable labels — [] if both are on file. Reused by the promote
+ * confirm dialog and by the Notes flag it leaves behind on Renters.
+ */
+function unverifiedDocs_(app) {
+  var missing = [];
+  if (!Number(app['Paystubs Attached'])) missing.push('paystub');
+  if (!Number(app['License Images Attached'])) missing.push('ID');
+  return missing;
+}
+
+function writeRenterRow_(app, missingDocs) {
   var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(RENTERS_TAB);
   if (!sh) throw new Error('No tab named "' + RENTERS_TAB + '"');
 
@@ -354,6 +380,7 @@ function writeRenterRow_(app) {
 
   var targetRow = firstBlankRenterRow_(sh);
   var renterId = nextRenterId_(sh, headers);
+  missingDocs = missingDocs || unverifiedDocs_(app);
 
   var out = {
     'Renter ID': renterId,
@@ -373,7 +400,8 @@ function writeRenterRow_(app) {
              ' · ' + (app['Employer or Income Source'] || '') +
              ' · income ' + (app['Monthly Income (USD)'] || '?') +
              ' · space ' + (app['Space Type'] || '?') +
-             ' · lang ' + (app['Preferred Language'] || '')
+             ' · lang ' + (app['Preferred Language'] || '') +
+             (missingDocs.length ? ' · UNVERIFIED: no ' + missingDocs.join('/') + ' on file' : '')
   };
 
   // Write cell by cell, and ONLY into columns on the writable list. Anything

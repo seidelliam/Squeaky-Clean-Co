@@ -298,6 +298,7 @@ img{max-width:100%;display:block;height:auto}
 .field{display:flex;flex-direction:column;gap:.35rem;min-width:0}
 .field label,.leg{font-size:.87rem;font-weight:700;color:var(--ink)}
 .req{color:var(--signal-text)}
+.opt{color:var(--ink-3);font-weight:500;font-size:.78rem;letter-spacing:0}
 .field input,.field select{
   font-family:"Archivo",sans-serif;font-size:1rem;color:var(--ink);background:var(--ground);
   border:1.5px solid var(--line-2);border-radius:var(--r);padding:.72rem .8rem;width:100%;
@@ -524,7 +525,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <h2 data-i18n="how.h2">Three steps, usually inside a week.</h2>
     </div>
     <div class="rail" data-reveal>
-      <div class="rail-step"><span class="rail-n">01</span><h3 data-i18n="step1.h">Apply online</h3><p data-i18n="step1.p">Pick a 3- or 6-month term and attach your paystub, your ID, and a photo of your dryer outlet. It takes about five minutes.</p></div>
+      <div class="rail-step"><span class="rail-n">01</span><h3 data-i18n="step1.h">Apply online</h3><p data-i18n="step1.p">Pick a 3- or 6-month term and attach a photo of your dryer outlet. Takes about two minutes.</p></div>
       <div class="rail-step"><span class="rail-n">02</span><h3 data-i18n="step2.h">We confirm</h3><p data-i18n="step2.p">We check your outlet photo against what's in stock and come back to you with a delivery window.</p></div>
       <div class="rail-step"><span class="rail-n">03</span><h3 data-i18n="step3.h">We install and test</h3><p data-i18n="step3.p">We connect everything, run a full cycle to check for leaks and heat, show you the controls, and take the old set.</p></div>
     </div>
@@ -545,7 +546,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     <div class="cta-block" data-reveal>
       <div>
         <h2 data-i18n="cta.h2">Ready to get started?</h2>
-        <p data-i18n="cta.p">The application takes about five minutes. Questions first? Email us and we'll answer in English or Spanish.</p>
+        <p data-i18n="cta.p">The application takes about two minutes. Questions first? Email us and we'll answer in English or Spanish.</p>
         <p style="margin-top:.7rem"><a class="mailto" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
       </div>
       <div><a class="btn btn-solid" href="#/apply" data-i18n="cta.apply">Start your application</a></div>
@@ -647,7 +648,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <h1 data-i18n="apply.title">Rental application</h1>
       <p class="deck" data-i18n="apply.deck">Let's get a set to your door.</p>
     </div>
-    <p class="lede-para" data-i18n="apply.p">About five minutes. No credit check. We just need recent income, a photo ID, and a picture of your dryer outlet.</p>
+    <p class="lede-para" data-i18n="apply.p">About two minutes. No credit check. We just need a picture of your dryer outlet. A paystub and photo ID are optional and can wait until we're confirming delivery.</p>
   </section>
 
   <div class="form-shell">
@@ -753,16 +754,16 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
       <fieldset class="fieldset">
         <legend><span class="legend-n">05</span><span data-i18n="fs5">Documents</span></legend>
-        <p class="fs-hint" data-i18n="docs.hint">Photos from your phone are fine. Large images are shrunk automatically before they're attached, so uploads stay fast. All three are required.</p>
+        <p class="fs-hint" data-i18n="docs.hint">Photos from your phone are fine. Large images are shrunk automatically before they're attached, so uploads stay fast. The outlet photo is required so we know delivery is possible. The paystub and ID are optional here, but we may ask for them before we confirm a delivery window.</p>
         <div class="drops">
           <div class="drop" id="drop-paystub">
-            <span class="drop-title"><span data-i18n="d.paystub">Most recent paystub</span> <span class="req">*</span></span>
+            <span class="drop-title"><span data-i18n="d.paystub">Most recent paystub</span> <span class="opt" data-i18n="opt.tag">Optional</span></span>
             <span class="drop-sub" data-i18n="d.paystub.sub">Just one. Photo or PDF.</span>
             <input type="file" id="paystub" accept="image/*,application/pdf">
             <ul class="filelist" id="list-paystub"></ul>
           </div>
           <div class="drop" id="drop-license">
-            <span class="drop-title"><span data-i18n="d.license">Driver's license</span> <span class="req">*</span></span>
+            <span class="drop-title"><span data-i18n="d.license">Driver's license</span> <span class="opt" data-i18n="opt.tag">Optional</span></span>
             <span class="drop-sub" data-i18n="d.license.sub">Front and back, or a state ID.</span>
             <input type="file" id="license" accept="image/*,application/pdf" multiple>
             <ul class="filelist" id="list-license"></ul>
@@ -774,7 +775,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
             <ul class="filelist" id="list-outlet"></ul>
           </div>
         </div>
-        <span class="err" id="docsErr" style="margin-top:.8rem" data-i18n="docs.err">Attach your paystub, your driver's license, and a photo of your dryer outlet.</span>
+        <span class="err" id="docsErr" style="margin-top:.8rem" data-i18n="docs.err">Attach a photo of your dryer outlet to continue.</span>
       </fieldset>
 
       <fieldset class="fieldset">
@@ -795,10 +796,10 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <div class="aside-card">
         <h3 data-i18n="aside1.h">What you'll need</h3>
         <ul class="aside-list">
-          <li data-i18n="aside1.li1">Your most recent paystub</li>
-          <li data-i18n="aside1.li2">A driver's license or state ID</li>
           <li data-i18n="aside1.li3">A photo of your dryer outlet, with the plug visible</li>
           <li data-i18n="aside1.li4">The delivery address and ZIP</li>
+          <li data-i18n="aside1.li1">Your most recent paystub (optional)</li>
+          <li data-i18n="aside1.li2">A driver's license or state ID (optional)</li>
         </ul>
       </div>
       <div class="aside-card">
@@ -807,7 +808,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       </div>
       <div class="aside-card aside-secure">
         <h3 data-i18n="aside3.h">Your documents</h3>
-        <p data-i18n="aside3.p">Your paystub and ID are attached to this application file and go straight to us. They are used to review this application and nothing else.</p>
+        <p data-i18n="aside3.p">Your outlet photo tells us delivery is possible. Your paystub and ID are optional to start. If you include them, they're attached to this application and go straight to us, used only to review this application and nothing else.</p>
       </div>
     </aside>
   </div>
@@ -944,14 +945,14 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "trust.p3":"Cuando termines de rentar, la recogemos.",
 
     "how.eyebrow":"Cómo funciona","how.h2":"Tres pasos, casi siempre en menos de una semana.",
-    "step1.h":"Llena la solicitud","step1.p":"Escoge plazo de 3 o 6 meses y adjunta tu talón de pago, tu identificación y una foto del contacto de tu secadora. Toma unos cinco minutos.",
+    "step1.h":"Llena la solicitud","step1.p":"Escoge plazo de 3 o 6 meses y adjunta una foto del contacto de tu secadora. Toma unos dos minutos.",
     "step2.h":"Confirmamos","step2.p":"Revisamos tu foto contra lo que tenemos en existencia y te regresamos con una ventana de entrega.",
     "step3.h":"Instalamos y probamos","step3.p":"Conectamos todo, corremos un ciclo completo para revisar fugas y calor, te enseñamos los controles y nos llevamos el juego viejo.",
 
     "cities.h2":"A dónde entregamos.",
 
     "cta.h2":"¿Listo para empezar?",
-    "cta.p":"La solicitud toma unos cinco minutos. ¿Tienes preguntas primero? Escríbenos y te contestamos en inglés o en español.",
+    "cta.p":"La solicitud toma unos dos minutos. ¿Tienes preguntas primero? Escríbenos y te contestamos en inglés o en español.",
 
     "about.title":"Nosotros",
     "about.deck":"El equipo, las conexiones y lo que está cubierto.",
@@ -982,7 +983,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
     "apply.title":"Solicitud de renta",
     "apply.deck":"Llevemos un juego a tu puerta.",
-    "apply.p":"Unos cinco minutos. Sin revisión de crédito. Solo necesitamos ingresos recientes, una identificación con foto y una foto del contacto de tu secadora.",
+    "apply.p":"Unos dos minutos. Sin revisión de crédito. Solo necesitamos una foto del contacto de tu secadora. El talón de pago y la identificación son opcionales y pueden esperar hasta que confirmemos la entrega.",
 
     "fs1":"Sobre ti",
     "f.name":"Nombre completo","f.name.ph":"Nombre y apellido","f.name.err":"Escribe tu nombre completo.",
@@ -1011,12 +1012,13 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "f.income":"Ingreso mensual antes de impuestos","f.income.err":"Escribe tu ingreso mensual aproximado.",
 
     "fs5":"Documentos",
-    "docs.hint":"Las fotos de tu celular funcionan bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse. Los tres documentos son obligatorios.",
+    "docs.hint":"Las fotos de tu celular funcionan bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse. La foto del contacto es obligatoria para saber si la entrega es posible. El talón de pago y la identificación son opcionales aquí, pero podríamos pedirlos antes de confirmar una ventana de entrega.",
     "d.paystub":"Talón de pago más reciente","d.paystub.sub":"Solo uno. Foto o PDF.",
     "d.license":"Licencia de conducir","d.license.sub":"Frente y reverso, o una identificación estatal.",
     "d.outlet":"Foto del contacto de tu secadora",
     "d.outlet.sub":"Es el contacto grande de tres o cuatro ranuras donde se enchufa la secadora, no un contacto normal de pared. Si tu secadora vieja sigue ahí, conéctala y fotografía el enchufe junto con el contacto.",
-    "docs.err":"Adjunta tu talón de pago, tu licencia de conducir y una foto del contacto de tu secadora.",
+    "docs.err":"Adjunta una foto del contacto de tu secadora para continuar.",
+    "opt.tag":"Opcional",
 
     "fs6":"Confirmar",
     "consent.txt":"Confirmo que esta información es correcta y autorizo a Squeaky Clean Co a revisar los documentos que adjunté para procesar esta solicitud de renta.",
@@ -1024,14 +1026,14 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "submit":"Enviar solicitud",
 
     "aside1.h":"Lo que necesitas",
-    "aside1.li1":"Tu talón de pago más reciente",
-    "aside1.li2":"Licencia de conducir o identificación estatal",
     "aside1.li3":"Una foto del contacto de tu secadora, con el enchufe visible",
     "aside1.li4":"La dirección de entrega y el código postal",
+    "aside1.li1":"Tu talón de pago más reciente (opcional)",
+    "aside1.li2":"Licencia de conducir o identificación estatal (opcional)",
     "aside2.h":"Lo que cuesta",
     "aside2.p":"<strong>$80 al mes</strong>, con cualquier plazo. Entrega, instalación, reparaciones y retiro incluidos. El primer mes se paga en la entrega. No hay depósito grande ni revisión de crédito.",
     "aside3.h":"Tus documentos",
-    "aside3.p":"Tu talón de pago y tu identificación se adjuntan a este archivo de solicitud y llegan directo a nosotros. Se usan para revisar esta solicitud y nada más.",
+    "aside3.p":"La foto del contacto nos dice que la entrega es posible. Tu talón de pago y tu identificación son opcionales para empezar. Si los incluyes, se adjuntan a esta solicitud y llegan directo a nosotros, y se usan solo para revisarla.",
 
     "done.eyebrow":"Solicitud lista","done.h2":"Gracias. Este es tu número de referencia.",
     "done.save":"Guardar archivo de solicitud","done.copy":"Copiar como texto","done.restart":"Enviar otra",
@@ -1043,7 +1045,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   var MSG = {
     en:{
       "done.msg":"Save your application file and email it to " + CONTACT + ", and we'll come back to you with availability and a delivery window.",
-      "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with your paystub, ID, and outlet photo attached.",
+      "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with your outlet photo attached, plus your paystub and ID if you included them.",
       "msg.fix":"Some fields still need attention. See the highlights above.",
       "msg.pack":"Packaging your application…",
       "msg.saved":"Saved. Email that file to " + CONTACT + " and you're done.",
@@ -1062,7 +1064,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     },
     es:{
       "done.msg":"Guarda tu archivo de solicitud y envíalo por correo a " + CONTACT + ", y te regresamos con disponibilidad y una ventana de entrega.",
-      "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando tu talón de pago, tu identificación y la foto del contacto.",
+      "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando la foto del contacto, y tu talón de pago e identificación si los incluiste.",
       "msg.fix":"Faltan algunos campos. Revisa lo marcado arriba.",
       "msg.pack":"Preparando tu solicitud…",
       "msg.saved":"Guardado. Envía ese archivo a " + CONTACT + " y listo.",
@@ -1301,7 +1303,10 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   function digits(s){ return (s.match(/\d/g) || []).length; }
 
   function validateDocs(silent){
-    var ok = SLOTS.paystub.files.length > 0 && SLOTS.license.files.length > 0 && SLOTS.outlet.files.length > 0;
+    // Paystub and license are optional now — only the outlet photo blocks
+    // submission, since that's the one thing we need to know delivery is
+    // even possible. See docs.hint for why the other two are still asked for.
+    var ok = SLOTS.outlet.files.length > 0;
     var e = document.getElementById("docsErr");
     if(ok){ e.style.display = "none"; e.dataset.shown = ""; }
     else if(!silent || e.dataset.shown === "1"){ e.style.display = "block"; e.dataset.shown = "1"; }
