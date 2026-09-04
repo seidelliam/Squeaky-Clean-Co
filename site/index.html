@@ -1,9 +1,10 @@
 <meta charset="utf-8">
+<meta name="color-scheme" content="light">
 <title>Squeaky Clean Co</title>
 <meta name="description" content="Washer and dryer rental in Los Angeles, Houston, and Dallas. $80 a month with delivery, installation, repairs, and haul-away included. No credit check.">
 
-<link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/img/hero-set.jpg" as="image" fetchpriority="high">
+<link rel="preload" href="/site/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/site/img/hero-set.jpg" as="image" fetchpriority="high">
 
 <style>
 /* ============================================================
@@ -15,22 +16,22 @@
 /* --- self-hosted type (no third-party font request) --- */
 @font-face{
   font-family:"Archivo";font-style:normal;font-weight:400 900;font-stretch:75% 125%;
-  font-display:swap;src:url(/fonts/archivo-latin.woff2) format("woff2");
+  font-display:swap;src:url(/site/fonts/archivo-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
   font-family:"Archivo";font-style:normal;font-weight:400 900;font-stretch:75% 125%;
-  font-display:swap;src:url(/fonts/archivo-latin-ext.woff2) format("woff2");
+  font-display:swap;src:url(/site/fonts/archivo-latin-ext.woff2) format("woff2");
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 @font-face{
   font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;
-  src:url(/fonts/dmmono-400-latin.woff2) format("woff2");
+  src:url(/site/fonts/dmmono-400-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
   font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;
-  src:url(/fonts/dmmono-500-latin.woff2) format("woff2");
+  src:url(/site/fonts/dmmono-500-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
@@ -54,19 +55,10 @@
   --bay:clamp(3rem,7vw,5.5rem);       /* vertical rhythm between sections */
   color-scheme:light;
 }
-/* --- tokens: dark (same roles, swapped values) --- */
-@media (prefers-color-scheme:dark){
-  :root{
-    --ground:#0F1917; --paper:#16211F; --sunk:#0A1211;
-    --ink:#E8ECEA; --ink-2:#A7B5B1; --ink-3:#8296911;
-    --ink-3:#849691;
-    --line:#26332F; --line-2:#35443F;
-    --signal:#FFB302; --signal-deep:#FFC94D; --signal-text:#FFC94D; --signal-soft:#2A2214;
-    --ok:#5FD3A6; --ok-soft:#122A22;
-    --bad:#FF8A80; --bad-soft:#2C1614;
-    color-scheme:dark;
-  }
-}
+/* Light only, on purpose: the tokens above apply regardless of device
+   preference. color-scheme:light (set on :root) plus the meta tag in
+   <head> tell the browser not to auto-dark-theme form controls or UA
+   chrome even when the OS is set to dark. */
 
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -117,8 +109,6 @@ img{max-width:100%;display:block;height:auto}
 .nav-link[aria-current=page]{color:var(--ink);background:var(--sunk)}
 .nav-cta{font-size:.92rem;font-weight:700;text-decoration:none;background:var(--signal);color:var(--on-signal);padding:.5rem 1rem;border-radius:var(--r-pill);margin-left:.3rem;white-space:nowrap}
 .nav-cta:hover{background:var(--signal-deep);color:#fff}
-@media (prefers-color-scheme:dark){.nav-cta:hover{color:var(--on-signal)}}
-@media (prefers-color-scheme:dark){.nav-cta:hover{color:var(--on-signal)}}
 .langtog{
   margin-left:.4rem;display:inline-flex;align-items:center;gap:.25rem;cursor:pointer;
   font-family:"DM Mono",monospace;font-size:.73rem;letter-spacing:.06em;
@@ -145,7 +135,6 @@ img{max-width:100%;display:block;height:auto}
 .btn:active{transform:translateY(1px)}
 .btn-signal{background:var(--signal);color:var(--on-signal);border-color:var(--signal)}
 .btn-signal:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
-@media (prefers-color-scheme:dark){.btn-signal:hover{color:var(--on-signal)}}
 .btn-solid{background:var(--ink);color:var(--ground);border-color:var(--ink)}
 .btn-solid:hover{background:var(--ink-2);border-color:var(--ink-2)}
 .btn-line{background:transparent;border-color:var(--line-2);color:var(--ink)}
@@ -421,7 +410,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
         </div>
       </div>
       <figure class="hero-figure" style="margin:0">
-        <img src="/img/hero-set.jpg" width="1100" height="1416" fetchpriority="high" decoding="async"
+        <img src="/site/img/hero-set.jpg" width="1100" height="1416" fetchpriority="high" decoding="async"
              alt="A front-loading washer installed in a tiled laundry alcove with folded towels on top." data-i18n-alt="alt.hero">
         <figcaption class="price-tag">
           <span class="n">$80</span>
@@ -476,7 +465,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   <!-- family 4: image + editorial -->
   <section class="section">
     <div class="duo">
-      <img src="/img/room.jpg" width="1400" height="933" loading="lazy" decoding="async"
+      <img src="/site/img/room.jpg" width="1400" height="933" loading="lazy" decoding="async"
            alt="A washer in a home laundry corner beside shelving with folded linens." data-i18n-alt="alt.room" data-reveal>
       <div class="duo-body" data-reveal>
         <h2 data-i18n="trust.h2">If it breaks, it's our problem.</h2>
@@ -544,7 +533,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
   <section class="section">
     <div class="duo">
-      <img src="/img/closet.jpg" width="900" height="1200" loading="lazy" decoding="async"
+      <img src="/site/img/closet.jpg" width="900" height="1200" loading="lazy" decoding="async"
            alt="A washer fitted into a narrow laundry closet with shelving above it." data-i18n-alt="alt.closet" data-reveal>
       <div class="duo-body" data-reveal>
         <h2 data-i18n="about.get.h3">What you actually get</h2>
