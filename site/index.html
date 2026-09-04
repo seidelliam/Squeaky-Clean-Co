@@ -591,6 +591,9 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
   "use strict";
 
   var CONTACT = "squeaky.clean.co.office@gmail.com";
+  /* Server endpoint. Present when hosted on Vercel; absent on the Artifact,
+     where the page falls back to handing the applicant a file to email in. */
+  var SUBMIT_ENDPOINT = "/api/apply";
 
   /* ================= i18n ================= */
   var ES = {
@@ -718,6 +721,9 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       "msg.max1":"Only one file goes there. Remove it to add a different one.",
       "msg.maxn":"You can attach up to {n} files there. Remove one to add another.",
       "msg.read":"Couldn't read “{name}”. Try a photo of it instead.",
+      "msg.sending":"Sending your application…",
+      "msg.sent":"Application sent — check your email for a copy.",
+      "done.msg.sent":"We've received your application. We'll come back to you with availability and a delivery window. You can save a copy below for your own records.",
       "lang.switch":"Cambiar a español"
     },
     es:{
@@ -734,6 +740,9 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       "msg.max1":"Ahí va un solo archivo. Quítalo para poner otro.",
       "msg.maxn":"Puedes adjuntar hasta {n} archivos ahí. Quita uno para agregar otro.",
       "msg.read":"No se pudo leer «{name}». Intenta con una foto.",
+      "msg.sending":"Enviando tu solicitud…",
+      "msg.sent":"Solicitud enviada — revisa tu correo para una copia.",
+      "done.msg.sent":"Recibimos tu solicitud. Te regresamos con disponibilidad y una ventana de entrega. Abajo puedes guardar una copia para ti.",
       "lang.switch":"Switch to English"
     }
   };
@@ -1088,10 +1097,36 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
   /* ================= submit ================= */
   var doneWrap = document.getElementById("doneWrap");
   var submitBtn = document.getElementById("submitBtn");
-  var canDownload = null;
+  var canDownload = null, sentOk = false;
 
   function setDoneMsg(){
-    document.getElementById("doneMsg").textContent = (canDownload === false) ? t("done.msg.nodl") : t("done.msg");
+    var el = document.getElementById("doneMsg");
+    if(sentOk) el.textContent = t("done.msg.sent");
+    else el.textContent = (canDownload === false) ? t("done.msg.nodl") : t("done.msg");
+  }
+
+  /* Posts to our own origin. Resolves false on any failure — a missing
+     endpoint, an offline applicant, an Apps Script error — and the caller
+     falls back to the save-and-email flow rather than losing the data. */
+  async function sendToServer(rec){
+    if(!SUBMIT_ENDPOINT) return false;
+    var ctl = new AbortController();
+    var timer = setTimeout(function(){ ctl.abort(); }, 30000);
+    try{
+      var r = await fetch(SUBMIT_ENDPOINT, {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(rec),
+        signal: ctl.signal
+      });
+      if(!r.ok) return false;
+      var j = await r.json();
+      return !!(j && j.ok);
+    }catch(err){
+      return false;
+    }finally{
+      clearTimeout(timer);
+    }
   }
   function claudeUse(name){
     try{ if(window.claude && typeof window.claude.use === "function") return window.claude.use(name); }catch(e){}
@@ -1120,10 +1155,14 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     setStatus("");
     doneWrap.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block:"start" });
 
+    setStatus(t("msg.sending"));
+    sentOk = await sendToServer(payload);
+
     var dl = await claudeUse("downloads");
     canDownload = !!dl;
     document.getElementById("saveJson").hidden = !dl;
     setDoneMsg();
+    setStatus(sentOk ? t("msg.sent") : "", sentOk ? "ok" : "");
   });
 
   document.getElementById("saveJson").addEventListener("click", async function(){
@@ -1156,6 +1195,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     Array.prototype.forEach.call(form.querySelectorAll(".field.bad"), function(f){ f.classList.remove("bad"); });
     ["docsErr","consentErr"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
     payload = null;
+    sentOk = false;
     doneWrap.hidden = true;
     form.hidden = false;
     document.querySelector(".aside").hidden = false;
