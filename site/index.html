@@ -1,242 +1,397 @@
+<meta charset="utf-8">
 <title>Squeaky Clean Co</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=DM+Mono:wght@400;500&family=Hanken+Grotesk:wght@400..700&display=swap">
+<meta name="description" content="Washer and dryer rental in Los Angeles, Houston, and Dallas. $80 a month with delivery, installation, repairs, and haul-away included. No credit check.">
+
+<link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/img/hero-set.jpg" as="image" fetchpriority="high">
 
 <style>
+/* ============================================================
+   Squeaky Clean Co
+   Visual language: service utility. Appliance enamel, workwear,
+   safety signage. One accent, sharp corners, cool neutrals.
+   ============================================================ */
+
+/* --- self-hosted type (no third-party font request) --- */
+@font-face{
+  font-family:"Archivo";font-style:normal;font-weight:400 900;font-stretch:75% 125%;
+  font-display:swap;src:url(/fonts/archivo-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Archivo";font-style:normal;font-weight:400 900;font-stretch:75% 125%;
+  font-display:swap;src:url(/fonts/archivo-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url(/fonts/dmmono-400-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url(/fonts/dmmono-500-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* --- tokens: light --- */
 :root{
-  --ground:#E9F3F5; --paper:#FFFFFF;
-  --ink:#08262E; --ink-2:#4A6A73; --ink-3:#7E969C;
-  --line:#D2E4E8; --line-2:#BCD6DC;
-  --aqua:#0090B5; --aqua-deep:#046A85; --aqua-bright:#2BC5E8; --aqua-soft:#DDF3F9;
-  --sun:#FF7A1A; --sun-deep:#D95A00; --sun-soft:#FFEADB;
-  --grape:#6B4EE6; --grape-soft:#EBE5FF;
-  --ok:#0B8F63; --bad:#C6353B; --bad-soft:#FDE8E8;
-  --r:20px; --r-sm:12px; --r-xs:8px;
-  --step-0:1.0625rem; --step-1:1.25rem; --step-2:1.6rem; --step-3:2.2rem;
-  --step-4:clamp(2.5rem,6.4vw,4.2rem);
-  --pad:clamp(1.25rem,3.6vw,2.5rem); --gap:clamp(1rem,2vw,1.5rem);
+  --ground:#E8ECEA; --paper:#FFFFFF; --sunk:#DCE2DF;
+  --ink:#14201E; --ink-2:#3E4F4B; --ink-3:#566965;
+  --line:#CDD6D2; --line-2:#B4C0BB;
+  --signal:#FFB302; --signal-deep:#996B00; --signal-text:#855D00; --signal-soft:#FFF1CF;
+  --on-signal:#14201E;               /* signage contrast: ink on amber, never white */
+  --ok:#186B4C; --ok-soft:#E4F2EC;
+  --bad:#B3261E; --bad-soft:#FBE9E7;
+
+  /* shape lock: everything 4px, buttons pill, nothing else */
+  --r:4px; --r-pill:999px;
+
+  --s-0:1.0625rem; --s-1:1.1875rem; --s-2:1.5rem; --s-3:clamp(1.9rem,3.4vw,2.6rem);
+  --s-4:clamp(2.6rem,6.2vw,4.6rem);
+  --pad:clamp(1.25rem,3.4vw,2.25rem);
+  --gap:clamp(1rem,2vw,1.5rem);
+  --bay:clamp(3rem,7vw,5.5rem);       /* vertical rhythm between sections */
   color-scheme:light;
 }
+/* --- tokens: dark (same roles, swapped values) --- */
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#0F1917; --paper:#16211F; --sunk:#0A1211;
+    --ink:#E8ECEA; --ink-2:#A7B5B1; --ink-3:#8296911;
+    --ink-3:#849691;
+    --line:#26332F; --line-2:#35443F;
+    --signal:#FFB302; --signal-deep:#FFC94D; --signal-text:#FFC94D; --signal-soft:#2A2214;
+    --ok:#5FD3A6; --ok-soft:#122A22;
+    --bad:#FF8A80; --bad-soft:#2C1614;
+    color-scheme:dark;
+  }
+}
+
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
 body{
   margin:0;background:var(--ground);color:var(--ink);
-  font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size:var(--step-0);line-height:1.6;-webkit-font-smoothing:antialiased;
+  font-family:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:var(--s-0);line-height:1.58;-webkit-font-smoothing:antialiased;
+  font-variation-settings:"wdth" 100;
 }
 h1,h2,h3,h4{
-  font-family:"Bricolage Grotesque","Hanken Grotesk",Helvetica,Arial,sans-serif;
-  font-variation-settings:"wdth" 92,"opsz" 40;
-  margin:0;line-height:1.06;letter-spacing:-.02em;text-wrap:balance;
+  margin:0;font-weight:800;line-height:1.02;letter-spacing:-.025em;
+  font-variation-settings:"wdth" 112;   /* signage width axis */
+  text-wrap:balance;
 }
 p{margin:0}
-a{color:var(--aqua-deep)}
-img,canvas{max-width:100%}
-:focus-visible{outline:3px solid var(--grape);outline-offset:2px;border-radius:4px}
-.wrap{width:min(100% - 1.75rem,1140px);margin-inline:auto}
-.eyebrow{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.71rem;letter-spacing:.17em;text-transform:uppercase;color:var(--aqua-deep)}
-.eyebrow-sun{color:var(--sun-deep)}
+a{color:inherit}
+img{max-width:100%;display:block;height:auto}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:var(--r)}
+::selection{background:var(--signal);color:var(--on-signal)}
 
-/* nav */
-.nav{position:sticky;top:0;z-index:50;background:rgba(233,243,245,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
-.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
-.logo-dot{width:30px;height:30px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 32% 30%,#FFF 0 12%,var(--aqua-bright) 42%,var(--aqua) 100%);box-shadow:0 2px 0 rgba(4,106,133,.25)}
-.logo-name{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 14;font-weight:800;font-size:1.02rem;letter-spacing:-.02em}
-.nav-links{display:flex;align-items:center;gap:.25rem}
-.nav-link{font-size:.93rem;font-weight:600;text-decoration:none;color:var(--ink-2);padding:.45rem .8rem;border-radius:999px}
-.nav-link:hover{color:var(--ink);background:var(--aqua-soft)}
-.nav-link[aria-current="page"]{color:var(--aqua-deep);background:var(--aqua-soft)}
-.nav-cta{font-size:.93rem;font-weight:700;text-decoration:none;background:var(--ink);color:#fff;padding:.55rem 1.05rem;border-radius:999px;margin-left:.35rem}
-.nav-cta:hover{background:var(--aqua-deep)}
-.nav-cta[aria-current="page"]{background:var(--aqua-deep)}
+.wrap{width:min(100% - 2rem,1180px);margin-inline:auto}
+.mono{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{
+  font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;
+}
+
+/* --- reveal (IntersectionObserver, never a scroll listener) --- */
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+[data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ============ nav (one line, 64px) ============ */
+.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:64px}
+.logo{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink)}
+/* porthole mark: the drum in the door. one simple geometric form. */
+.mark{width:26px;height:26px;flex:0 0 auto;border:2.5px solid var(--ink);border-radius:var(--r);display:grid;place-content:center}
+.mark::after{content:"";width:11px;height:11px;border-radius:50%;border:2.5px solid var(--signal)}
+.logo-name{font-weight:800;font-size:1rem;letter-spacing:-.03em;font-variation-settings:"wdth" 108}
+.nav-links{display:flex;align-items:center;gap:.15rem}
+.nav-link{font-size:.92rem;font-weight:600;text-decoration:none;color:var(--ink-2);padding:.45rem .75rem;border-radius:var(--r-pill)}
+.nav-link:hover{color:var(--ink);background:var(--sunk)}
+.nav-link[aria-current=page]{color:var(--ink);background:var(--sunk)}
+.nav-cta{font-size:.92rem;font-weight:700;text-decoration:none;background:var(--signal);color:var(--on-signal);padding:.5rem 1rem;border-radius:var(--r-pill);margin-left:.3rem;white-space:nowrap}
+.nav-cta:hover{background:var(--signal-deep);color:#fff}
+@media (prefers-color-scheme:dark){.nav-cta:hover{color:var(--on-signal)}}
+@media (prefers-color-scheme:dark){.nav-cta:hover{color:var(--on-signal)}}
 .langtog{
-  margin-left:.5rem;display:inline-flex;align-items:center;gap:.3rem;cursor:pointer;
-  font-family:"DM Mono",monospace;font-size:.74rem;letter-spacing:.09em;font-weight:500;
-  background:transparent;color:var(--ink-2);border:1.5px solid var(--line-2);
-  border-radius:999px;padding:.42rem .7rem;
+  margin-left:.4rem;display:inline-flex;align-items:center;gap:.25rem;cursor:pointer;
+  font-family:"DM Mono",monospace;font-size:.73rem;letter-spacing:.06em;
+  background:transparent;color:var(--ink-3);border:1.5px solid var(--line-2);
+  border-radius:var(--r-pill);padding:.38rem .6rem;
 }
-.langtog:hover{border-color:var(--aqua);color:var(--aqua-deep);background:var(--paper)}
-.langtog .on{color:var(--aqua-deep);font-weight:500}
-.langtog .off{color:var(--ink-3)}
+.langtog:hover{border-color:var(--ink);color:var(--ink)}
+.langtog .on{color:var(--ink);font-weight:500}
 @media (max-width:40rem){
-  .nav-link{padding:.4rem .5rem;font-size:.87rem}
-  .nav-cta{padding:.5rem .8rem;font-size:.87rem}
-  .logo-name{font-size:.92rem}
-  .langtog{padding:.38rem .55rem;font-size:.7rem;margin-left:.3rem}
+  .nav-link{padding:.4rem .45rem;font-size:.86rem}
+  .nav-cta{padding:.45rem .7rem;font-size:.86rem}
+  .logo-name{display:none}
+  .langtog{padding:.34rem .5rem;font-size:.7rem}
 }
 
-/* shared */
-.section{padding:clamp(2.75rem,6vw,4.5rem) 0 0}
-.section-head{max-width:60ch;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.6rem}
-.section-head h2{font-size:var(--step-3);font-weight:800;font-variation-settings:"wdth" 88,"opsz" 40}
-.section-head p{color:var(--ink-2)}
-.page-head h2{font-size:var(--step-4);letter-spacing:-.035em;font-variation-settings:"wdth" 84,"opsz" 96;line-height:.96;max-width:20ch}
-.page-head .deck{font-family:"Bricolage Grotesque","Hanken Grotesk",sans-serif;font-variation-settings:"wdth" 90,"opsz" 32;font-size:var(--step-2);font-weight:700;letter-spacing:-.02em;line-height:1.16;color:var(--ink-2);max-width:26ch;margin-top:.1rem}
+/* ============ buttons ============ */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font-family:"Hanken Grotesk",sans-serif;font-weight:700;font-size:1rem;
-  padding:.85rem 1.5rem;border-radius:999px;border:2px solid transparent;
-  text-decoration:none;cursor:pointer;transition:transform .13s ease,background .15s ease;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;white-space:nowrap;
+  padding:.8rem 1.6rem;border-radius:var(--r-pill);border:2px solid transparent;
+  text-decoration:none;cursor:pointer;
+  transition:background .15s ease,transform .1s ease,border-color .15s ease;
 }
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:translateY(0)}
-.btn-sun{background:var(--sun);color:#fff;box-shadow:0 4px 0 var(--sun-deep)}
-.btn-sun:hover{background:#FF8C36}
-.btn-aqua{background:var(--aqua);color:#fff;box-shadow:0 4px 0 var(--aqua-deep)}
-.btn-aqua:hover{background:#00A3CC}
+.btn:active{transform:translateY(1px)}
+.btn-signal{background:var(--signal);color:var(--on-signal);border-color:var(--signal)}
+.btn-signal:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+@media (prefers-color-scheme:dark){.btn-signal:hover{color:var(--on-signal)}}
+.btn-solid{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.btn-solid:hover{background:var(--ink-2);border-color:var(--ink-2)}
 .btn-line{background:transparent;border-color:var(--line-2);color:var(--ink)}
-.btn-line:hover{background:var(--paper);border-color:var(--aqua)}
-.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+.btn-line:hover{border-color:var(--ink);background:var(--paper)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
 
-/* hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(168deg,#FFF 0%,#F2FAFC 46%,#E2F2F7 100%);border:1px solid var(--line);border-radius:var(--r);margin-top:clamp(1rem,2.5vw,1.75rem);padding:clamp(2.25rem,5vw,3.75rem) var(--pad)}
-#suds{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.5rem,4vw,3rem);align-items:center}
-.hero-copy{display:flex;flex-direction:column;gap:1.15rem;max-width:38ch}
-.hero h1{font-size:var(--step-4);font-weight:800;font-variation-settings:"wdth" 84,"opsz" 96;letter-spacing:-.035em;line-height:.94;max-width:14ch}
-.hero h1 em{font-style:normal;color:var(--aqua)}
-.hero-lede{font-size:var(--step-1);color:var(--ink-2);max-width:36ch;line-height:1.45}
+/* ============ section scaffolding ============ */
+.section{padding-top:var(--bay)}
+.sec-head{max-width:56ch;display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem}
+.sec-head h2{font-size:var(--s-3)}
+.sec-head p{color:var(--ink-2);max-width:60ch}
+.page-head{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.6rem}
+.page-head h1{font-size:var(--s-4);letter-spacing:-.04em;line-height:.94;max-width:16ch;font-variation-settings:"wdth" 108}
+.page-head .deck{font-size:var(--s-2);font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--ink-2);max-width:30ch;font-variation-settings:"wdth" 104}
+
+/* ============ FAMILY 1: split hero ============ */
+.hero{padding-top:clamp(1.75rem,4vw,2.75rem)}
+.hero-in{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:1.15rem;align-items:flex-start}
+.hero h1{font-size:var(--s-4);letter-spacing:-.045em;line-height:.92;max-width:11ch;font-variation-settings:"wdth" 116}
+.hero h1 .u{
+  /* emphasis stays in-family: same face, box-drawn underline. no serif swap. */
+  box-shadow:inset 0 -.22em 0 var(--signal);
+}
+.hero-lede{font-size:var(--s-1);color:var(--ink-2);max-width:34ch;line-height:1.45}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem}
-.hero-note{font-size:.9rem;color:var(--ink-3)}
-.sticker{position:relative;flex:0 0 auto;width:clamp(9.5rem,17vw,13rem);aspect-ratio:1;background:var(--sun);color:#fff;border-radius:50%;display:grid;place-content:center;text-align:center;transform:rotate(-8deg);box-shadow:0 10px 30px -12px rgba(217,90,0,.6)}
-.sticker-price{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 96;font-weight:800;font-size:clamp(2.6rem,5.4vw,3.7rem);line-height:.86;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.sticker-per{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;margin-top:.3rem;opacity:.95}
-.sticker-top{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;opacity:.9;margin-bottom:.15rem}
-@media (max-width:52rem){
-  .hero-in{grid-template-columns:1fr;justify-items:start}
-  .hero-copy{max-width:100%}
-  .sticker{transform:rotate(-5deg)}
+.hero-figure{position:relative}
+.hero-figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r);background:var(--sunk)}
+.price-tag{
+  position:absolute;left:-.75rem;bottom:1.5rem;background:var(--signal);color:var(--on-signal);
+  padding:.85rem 1.15rem;border-radius:var(--r);display:flex;flex-direction:column;line-height:1;
+}
+.price-tag .n{font-size:clamp(2rem,4vw,2.8rem);font-weight:900;letter-spacing:-.04em;font-variation-settings:"wdth" 112;font-variant-numeric:tabular-nums}
+.price-tag .l{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-top:.4rem}
+@media (max-width:54rem){
+  .hero-in{grid-template-columns:1fr;gap:2rem}
+  .hero h1{max-width:14ch}
+  .hero-figure img{aspect-ratio:3/2}
+  .price-tag{left:auto;right:1rem;bottom:1rem}
 }
 
-/* tiles */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--gap)}
-.tile{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.35rem;display:flex;flex-direction:column;gap:.5rem}
-.tile-zero{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 40;font-weight:800;font-size:2rem;line-height:1;color:var(--aqua);font-variant-numeric:tabular-nums}
-.tile h3{font-size:1.06rem;font-weight:700;font-variation-settings:"wdth" 96,"opsz" 16}
-.tile p{font-size:.93rem;color:var(--ink-2);line-height:1.5}
+/* ============ FAMILY 2: objection strip ============ */
+.strip{
+  margin-top:var(--bay);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(3,1fr);
+}
+.strip div{padding:1.1rem 1.25rem;border-left:1px solid var(--line)}
+.strip div:first-child{border-left:0;padding-left:0}
+.strip b{display:block;font-size:.98rem;font-weight:700;letter-spacing:-.01em}
+.strip span{display:block;font-size:.86rem;color:var(--ink-3);margin-top:.15rem}
+@media (max-width:44rem){
+  .strip{grid-template-columns:1fr}
+  .strip div{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-right:0}
+  .strip div:first-child{border-top:0}
+}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--gap)}
-.stepc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem 1.35rem;display:flex;flex-direction:column;gap:.55rem}
-.step-n{width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-content:center;background:var(--grape-soft);color:var(--grape);font-family:"DM Mono",monospace;font-size:.85rem;margin-bottom:.3rem}
-.stepc h3{font-size:1.1rem;font-weight:700;font-variation-settings:"wdth" 96,"opsz" 16}
-.stepc p{font-size:.94rem;color:var(--ink-2)}
+/* ============ FAMILY 3: the ledger ============ */
+.ledger{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:var(--pad)}
+.ledger-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.ledger-row:last-of-type{border-bottom:0}
+.ledger-row .what{display:flex;flex-direction:column}
+.ledger-row .what b{font-size:1.05rem;font-weight:700;letter-spacing:-.015em}
+.ledger-row .what span{font-size:.88rem;color:var(--ink-3);line-height:1.45;max-width:52ch}
+.ledger-row .amt{font-family:"DM Mono",monospace;font-size:1.15rem;font-weight:500;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.ledger-row.free .amt{color:var(--ok)}
+.ledger-total{
+  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
+  margin-top:.4rem;padding-top:1.15rem;border-top:2.5px solid var(--ink);
+}
+.ledger-total b{font-size:1.15rem;font-weight:800;letter-spacing:-.02em}
+.ledger-total .amt{font-family:"DM Mono",monospace;font-size:clamp(1.8rem,3.6vw,2.4rem);font-weight:500;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.ledger-note{margin-top:1rem;font-size:.88rem;color:var(--ink-3)}
 
-/* cities */
-.cities{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:var(--gap)}
-.citycard{border-radius:var(--r);padding:1.5rem 1.35rem;color:#fff;display:flex;flex-direction:column;gap:.35rem;min-height:9.5rem;justify-content:flex-end;position:relative;overflow:hidden}
-.citycard::after{content:"";position:absolute;right:-2.5rem;top:-2.5rem;width:9rem;height:9rem;border-radius:50%;background:rgba(255,255,255,.13)}
-.city-la{background:linear-gradient(150deg,#00A3CC,#046A85)}
-.city-hou{background:linear-gradient(150deg,#FF9243,#D95A00)}
-.city-dal{background:linear-gradient(150deg,#8168F0,#5A3ECF)}
-.city-name{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 90,"opsz" 40;font-weight:800;font-size:1.7rem;letter-spacing:-.025em;position:relative}
-.city-meta{font-family:"DM Mono",monospace;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;opacity:.92;position:relative}
+/* ============ FAMILY 4: image + editorial ============ */
+.duo{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.duo img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--r);background:var(--sunk)}
+.duo-body{display:flex;flex-direction:column;gap:1rem}
+.duo-body h2{font-size:var(--s-3)}
+.duo-body p{color:var(--ink-2);max-width:52ch}
+.duo-body strong{color:var(--ink);font-weight:700}
+@media (max-width:54rem){
+  .duo{grid-template-columns:1fr}
+  .duo img{aspect-ratio:3/2}
+}
 
-/* band */
-.band{background:var(--ink);color:#fff;border-radius:var(--r);padding:clamp(2rem,4.5vw,3rem) var(--pad);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:clamp(1.25rem,3vw,2.5rem);align-items:center}
-.band h2{font-size:var(--step-3);font-weight:800;font-variation-settings:"wdth" 86,"opsz" 40;color:#fff}
-.band p{color:#B6D2D9;margin-top:.7rem}
-.band-actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
-.band a.btn-line{border-color:rgba(255,255,255,.35);color:#fff}
-.band a.btn-line:hover{background:rgba(255,255,255,.1);border-color:#fff}
-.band-email{color:#8FD7EA;text-decoration:none;font-weight:600;border-bottom:1px solid rgba(143,215,234,.4)}
-.band-email:hover{color:#fff;border-bottom-color:#fff}
+/* ============ FAMILY 5: numbered rail ============ */
+.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2.5px solid var(--ink)}
+.rail-step{padding:1.5rem 1.5rem 0 0;position:relative}
+.rail-step + .rail-step{padding-left:1.5rem;border-left:1px solid var(--line)}
+.rail-n{
+  position:absolute;top:-1.05rem;left:0;background:var(--ground);padding-right:.6rem;
+  font-family:"DM Mono",monospace;font-size:.8rem;color:var(--signal-text);font-weight:500;
+}
+.rail-step + .rail-step .rail-n{left:1.5rem;padding-left:.6rem}
+.rail-step h3{font-size:1.2rem;margin-bottom:.5rem;font-variation-settings:"wdth" 106}
+.rail-step p{font-size:.94rem;color:var(--ink-2)}
+@media (max-width:44rem){
+  .rail{grid-template-columns:1fr}
+  .rail-step{padding:1.5rem 0 0}
+  .rail-step + .rail-step{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:1.25rem}
+  .rail-step + .rail-step .rail-n{left:0;padding-left:0;padding-right:.6rem;top:-.65rem}
+}
 
-/* about prose */
-.lead-para{font-size:var(--step-1);line-height:1.55;color:var(--ink-2);max-width:62ch}
-.prose{max-width:64ch;display:flex;flex-direction:column;gap:1rem;color:var(--ink-2)}
-.prose h3{font-size:var(--step-2);color:var(--ink);font-weight:800;font-variation-settings:"wdth" 90,"opsz" 32;margin-top:.6rem}
+/* ============ FAMILY 6: typographic city band ============ */
+.band-cities{border-top:1px solid var(--line);padding-top:1.25rem}
+.city-row{
+  display:grid;grid-template-columns:auto 1fr auto;gap:1.25rem;align-items:baseline;
+  padding:1.15rem 0;border-bottom:1px solid var(--line);
+}
+.city-row .n{font-family:"DM Mono",monospace;font-size:.8rem;color:var(--ink-3)}
+.city-row .name{font-size:clamp(1.6rem,4.2vw,2.5rem);font-weight:800;letter-spacing:-.035em;font-variation-settings:"wdth" 114;line-height:1}
+.city-row .st{font-family:"DM Mono",monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ============ FAMILY 7: signal CTA ============ */
+.cta-block{
+  background:var(--signal);color:var(--on-signal);border-radius:var(--r);
+  padding:clamp(2rem,5vw,3.25rem) var(--pad);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.75rem;align-items:center;
+}
+.cta-block h2{font-size:var(--s-3);color:var(--on-signal);max-width:18ch}
+.cta-block p{margin-top:.75rem;color:#3D3316;max-width:46ch}
+.cta-block a.mailto{color:var(--on-signal);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.cta-block .btn-solid{background:var(--on-signal);color:var(--signal);border-color:var(--on-signal)}
+.cta-block .btn-solid:hover{background:#000;border-color:#000}
+@media (max-width:52rem){.cta-block{grid-template-columns:1fr}}
+
+/* ============ about: prose + stats ============ */
+.lede-para{font-size:var(--s-1);line-height:1.5;color:var(--ink-2);max-width:58ch}
+.prose{max-width:62ch;display:flex;flex-direction:column;gap:1rem;color:var(--ink-2)}
+.prose h3{font-size:var(--s-2);color:var(--ink);margin-top:.75rem;font-variation-settings:"wdth" 106}
 .prose strong{color:var(--ink);font-weight:700}
-.pullquote{border-left:5px solid var(--sun);padding:.4rem 0 .4rem 1.25rem;font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 90,"opsz" 32;font-size:var(--step-2);font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.02em}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--gap)}
-.fact{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1.2rem}
-.fact-n{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 100,"opsz" 40;font-weight:800;font-size:1.9rem;line-height:1;color:var(--sun);font-variant-numeric:tabular-nums}
-.fact-l{font-size:.88rem;color:var(--ink-2);margin-top:.35rem}
+.pull{
+  border-left:4px solid var(--signal);padding:.3rem 0 .3rem 1.25rem;color:var(--ink);
+  font-size:var(--s-2);font-weight:700;line-height:1.22;letter-spacing:-.025em;font-variation-settings:"wdth" 106;
+}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:2.5px solid var(--ink)}
+.stat{padding:1.35rem 1.25rem 0 0}
+.stat + .stat{padding-left:1.25rem;border-left:1px solid var(--line)}
+.stat-n{font-family:"DM Mono",monospace;font-size:clamp(1.7rem,3.6vw,2.3rem);font-weight:500;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.stat-l{font-size:.87rem;color:var(--ink-3);margin-top:.5rem;line-height:1.4}
+@media (max-width:44rem){
+  .stats{grid-template-columns:repeat(2,1fr);gap-y:0}
+  .stat:nth-child(3),.stat:nth-child(4){margin-top:1.25rem;border-top:1px solid var(--line)}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+}
 
-/* form */
+/* ============ apply: form ============ */
 .form-shell{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--gap)}
-@media (min-width:64rem){.form-shell{grid-template-columns:minmax(0,1fr) 19rem;align-items:start}}
+@media (min-width:64rem){.form-shell{grid-template-columns:minmax(0,1fr) 18.5rem;align-items:start}}
 .fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);padding:var(--pad);margin:0 0 var(--gap)}
-.fieldset legend{padding:0 .6rem;margin-left:-.6rem;font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 92,"opsz" 24;font-weight:800;font-size:1.2rem;letter-spacing:-.02em}
-.legend-n{font-family:"DM Mono",monospace;font-size:.76rem;color:var(--aqua);margin-right:.5rem;font-weight:400}
-.fs-hint{color:var(--ink-2);font-size:.93rem;margin:.5rem 0 1.25rem}
+.fieldset legend{padding:0 .55rem;margin-left:-.55rem;font-weight:800;font-size:1.15rem;letter-spacing:-.025em;font-variation-settings:"wdth" 108}
+.legend-n{font-family:"DM Mono",monospace;font-size:.78rem;color:var(--signal-text);margin-right:.5rem;font-weight:500}
+.fs-hint{color:var(--ink-2);font-size:.92rem;margin:.55rem 0 1.25rem;max-width:60ch}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem}
 .field{display:flex;flex-direction:column;gap:.35rem;min-width:0}
-.field label,.leg{font-size:.86rem;font-weight:700;color:var(--ink)}
-.req{color:var(--sun-deep)}
-.field input,.field select{font-family:"Hanken Grotesk",sans-serif;font-size:1rem;color:var(--ink);background:#FBFDFE;border:1.5px solid var(--line-2);border-radius:var(--r-xs);padding:.7rem .8rem;width:100%}
-.field input:focus,.field select:focus{background:#fff;border-color:var(--aqua);outline:none;box-shadow:0 0 0 3px var(--aqua-soft)}
-.field .help{font-size:.8rem;color:var(--ink-3)}
+.field label,.leg{font-size:.87rem;font-weight:700;color:var(--ink)}
+.req{color:var(--signal-text)}
+.field input,.field select{
+  font-family:"Archivo",sans-serif;font-size:1rem;color:var(--ink);background:var(--ground);
+  border:1.5px solid var(--line-2);border-radius:var(--r);padding:.72rem .8rem;width:100%;
+}
+.field input::placeholder{color:var(--ink-3);opacity:1}   /* AA against --ground */
+.field input:focus,.field select:focus{background:var(--paper);border-color:var(--ink);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
+.field .help{font-size:.81rem;color:var(--ink-3)}
 .field.bad input,.field.bad select{border-color:var(--bad);background:var(--bad-soft)}
-.err{font-size:.8rem;color:var(--bad);font-weight:600;display:none}
+.err{font-size:.82rem;color:var(--bad);font-weight:600;display:none}
 .field.bad .err{display:block}
-.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.75rem}
+
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.7rem}
 .choice{position:relative}
 .choice input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
-.choice > span{display:flex;flex-direction:column;gap:.15rem;border:2px solid var(--line-2);border-radius:var(--r-sm);padding:.85rem .95rem;background:#FBFDFE;cursor:pointer;transition:border-color .12s ease,background .12s ease}
-.choice b{font-size:1rem;font-weight:700}
+.choice > span{display:flex;flex-direction:column;gap:.15rem;border:1.5px solid var(--line-2);border-radius:var(--r);padding:.8rem .9rem;background:var(--ground);cursor:pointer;transition:border-color .12s ease,background .12s ease}
+.choice b{font-size:.98rem;font-weight:700}
 .choice i{font-style:normal;font-size:.83rem;color:var(--ink-3)}
-.choice input:checked + span{border-color:var(--grape);background:var(--grape-soft)}
-.choice input:checked + span i{color:var(--grape)}
-.choice input:focus-visible + span{outline:3px solid var(--grape);outline-offset:2px}
-.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.85rem}
+.choice input:checked + span{border-color:var(--ink);background:var(--paper);box-shadow:inset 0 0 0 1px var(--ink)}
+.choice input:focus-visible + span{outline:3px solid var(--signal);outline-offset:2px}
+
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.8rem}
 .term{position:relative}
 .term input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
-.term > span{display:flex;flex-direction:column;gap:.2rem;border:2px solid var(--line-2);border-radius:var(--r-sm);padding:1.15rem 1.2rem;background:#FBFDFE;cursor:pointer;transition:border-color .12s ease,background .12s ease}
-.term b{font-family:"Bricolage Grotesque",sans-serif;font-variation-settings:"wdth" 92,"opsz" 32;font-weight:800;font-size:1.6rem;letter-spacing:-.02em;line-height:1}
-.term i{font-style:normal;font-size:.88rem;color:var(--ink-2)}
-.term-tag{align-self:flex-start;margin-top:.4rem;font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;background:var(--sun-soft);color:var(--sun-deep);padding:.2rem .5rem;border-radius:999px}
-.term input:checked + span{border-color:var(--sun);background:var(--sun-soft)}
-.term input:focus-visible + span{outline:3px solid var(--grape);outline-offset:2px}
-.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.85rem}
-.drop{border:2px dashed var(--line-2);border-radius:var(--r-sm);background:#FBFDFE;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color .12s ease,background .12s ease}
-.drop.over{border-color:var(--aqua);background:var(--aqua-soft)}
-.drop.filled{border-style:solid;border-color:var(--ok);background:#F0FBF6}
-.drop-title{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:.4rem}
-.drop-sub{font-size:.8rem;color:var(--ink-3);line-height:1.45}
-.drop input[type=file]{font-size:.82rem;font-family:"Hanken Grotesk",sans-serif;color:var(--ink-2);border:0;padding:0;background:none;width:100%}
-.drop input[type=file]::file-selector-button{font-family:"Hanken Grotesk",sans-serif;font-weight:700;font-size:.82rem;border:1.5px solid var(--line-2);background:#fff;color:var(--ink);border-radius:999px;padding:.4rem .85rem;margin-right:.6rem;cursor:pointer}
-.drop input[type=file]::file-selector-button:hover{border-color:var(--aqua);color:var(--aqua-deep)}
+.term > span{display:flex;flex-direction:column;gap:.25rem;border:1.5px solid var(--line-2);border-radius:var(--r);padding:1.1rem 1.15rem;background:var(--ground);cursor:pointer;transition:border-color .12s ease,background .12s ease}
+.term b{font-weight:800;font-size:1.5rem;letter-spacing:-.03em;line-height:1;font-variation-settings:"wdth" 110}
+.term i{font-style:normal;font-size:.87rem;color:var(--ink-2)}
+.term-tag{align-self:flex-start;margin-top:.45rem;font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;background:var(--signal);color:var(--on-signal);padding:.22rem .5rem;border-radius:var(--r)}
+.term input:checked + span{border-color:var(--ink);background:var(--paper);box-shadow:inset 0 0 0 1px var(--ink)}
+.term input:focus-visible + span{outline:3px solid var(--signal);outline-offset:2px}
+
+.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.8rem}
+.drop{border:1.5px dashed var(--line-2);border-radius:var(--r);background:var(--ground);padding:1.05rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color .12s ease,background .12s ease}
+.drop.over{border-color:var(--ink);background:var(--paper)}
+.drop.filled{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.drop-title{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:.35rem}
+.drop-sub{font-size:.81rem;color:var(--ink-3);line-height:1.45}
+.drop input[type=file]{font-size:.82rem;font-family:"Archivo",sans-serif;color:var(--ink-2);border:0;padding:0;background:none;width:100%}
+.drop input[type=file]::file-selector-button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.82rem;border:1.5px solid var(--line-2);background:var(--paper);color:var(--ink);border-radius:var(--r-pill);padding:.38rem .8rem;margin-right:.6rem;cursor:pointer}
+.drop input[type=file]::file-selector-button:hover{border-color:var(--ink)}
 .filelist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.3rem}
-.filelist li{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-radius:var(--r-xs);padding:.35rem .55rem}
+.filelist li{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:.35rem .55rem}
 .filelist .fname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .filelist .fsize{font-family:"DM Mono",monospace;font-size:.72rem;color:var(--ink-3);flex:0 0 auto}
-.filelist .fdrop{flex:0 0 auto;border:0;background:none;color:var(--bad);cursor:pointer;font-size:1rem;line-height:1;padding:.1rem .3rem;border-radius:4px;font-weight:700}
+.filelist .fdrop{flex:0 0 auto;border:0;background:none;color:var(--bad);cursor:pointer;font-size:1.05rem;line-height:1;padding:.1rem .3rem;border-radius:var(--r);font-weight:700}
 .filelist .fdrop:hover{background:var(--bad-soft)}
+
 .consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.92rem;color:var(--ink-2)}
-.consent input{margin-top:.28rem;width:1.1rem;height:1.1rem;flex:0 0 auto;accent-color:var(--grape)}
+.consent input{margin-top:.28rem;width:1.1rem;height:1.1rem;flex:0 0 auto;accent-color:var(--ink)}
 .submit-row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.35rem}
 .form-status{font-size:.9rem;font-weight:600;color:var(--ink-2)}
 .form-status.bad{color:var(--bad)}
 .form-status.ok{color:var(--ok)}
+/* button busy state: real feedback, not a spinner */
+.btn.busy{position:relative;color:transparent}
+.btn.busy::after{
+  content:"";position:absolute;width:1rem;height:1rem;border-radius:50%;
+  border:2px solid var(--on-signal);border-top-color:transparent;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 .aside{display:flex;flex-direction:column;gap:var(--gap);position:sticky;top:5rem}
-.aside-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.35rem}
-.aside-card h3{font-size:1.05rem;font-weight:800;font-variation-settings:"wdth" 94,"opsz" 16;margin-bottom:.6rem}
-.aside-card p,.aside-card li{font-size:.9rem;color:var(--ink-2);line-height:1.5}
+.aside-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:1.25rem}
+.aside-card h3{font-size:1rem;font-weight:800;margin-bottom:.6rem;font-variation-settings:"wdth" 106}
+.aside-card p,.aside-card li{font-size:.89rem;color:var(--ink-2);line-height:1.5}
+.aside-card strong{color:var(--ink);font-weight:700}
 .aside-list{list-style:none;margin:.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.5rem}
 .aside-list li{display:flex;gap:.55rem;align-items:flex-start}
-.aside-list li::before{content:"";flex:0 0 auto;width:.5rem;height:.5rem;border-radius:50%;background:var(--aqua);margin-top:.5rem}
-.privacy{background:var(--grape-soft);border-color:#D8CEFF}
-.privacy h3{color:var(--grape)}
-.done{background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--ok);border-radius:var(--r);padding:var(--pad);display:flex;flex-direction:column;gap:1rem}
-.done h2{font-size:var(--step-2);font-weight:800;font-variation-settings:"wdth" 90,"opsz" 32}
-.done .refid{font-family:"DM Mono",monospace;font-size:1.05rem;background:var(--aqua-soft);color:var(--aqua-deep);padding:.5rem .8rem;border-radius:var(--r-xs);align-self:flex-start}
+.aside-list li::before{content:"";flex:0 0 auto;width:.4rem;height:.4rem;background:var(--ink);margin-top:.52rem}
+.aside-secure{border-left:3px solid var(--ink)}
+
+.done{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:var(--r);padding:var(--pad);display:flex;flex-direction:column;gap:1rem}
+.done h2{font-size:var(--s-2)}
+.done .refid{font-family:"DM Mono",monospace;font-size:1.05rem;background:var(--ground);border:1px solid var(--line);color:var(--ink);padding:.5rem .8rem;border-radius:var(--r);align-self:flex-start}
 .done-actions{display:flex;flex-wrap:wrap;gap:.7rem}
-pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);padding:1rem;overflow-x:auto;font-family:"DM Mono",monospace;font-size:.78rem;line-height:1.55;max-height:22rem;overflow-y:auto}
-.foot{margin-top:clamp(2.5rem,6vw,4rem);padding:2rem 0 3rem;border-top:1px solid var(--line-2);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:flex-start;color:var(--ink-3);font-size:.86rem}
-.foot-fine{max-width:46ch;line-height:1.55;margin-top:.5rem}
+pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:1rem;overflow-x:auto;font-family:"DM Mono",monospace;font-size:.78rem;line-height:1.55;max-height:22rem;overflow-y:auto}
+
+/* ============ footer ============ */
+.foot{margin-top:var(--bay);padding:2rem 0 3rem;border-top:1px solid var(--line-2);display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;justify-content:space-between;align-items:flex-start;color:var(--ink-3);font-size:.86rem}
+.foot-fine{max-width:44ch;line-height:1.55;margin-top:.65rem}
 .foot a{color:var(--ink-2);text-decoration:none;font-weight:600}
-.foot a:hover{color:var(--aqua-deep)}
+.foot a:hover{color:var(--ink)}
 .foot-links{display:flex;gap:1.1rem;flex-wrap:wrap}
-.foot-mail{display:block;margin-top:.6rem;color:var(--aqua-deep);font-weight:700}
+.foot-mail{display:block;margin-top:.6rem;color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 </style>
 
 <nav class="nav">
   <div class="wrap nav-in">
-    <a class="logo" href="#/"><span class="logo-dot"></span><span class="logo-name">Squeaky Clean Co</span></a>
+    <a class="logo" href="#/"><span class="mark" aria-hidden="true"></span><span class="logo-name">Squeaky Clean Co</span></a>
     <div class="nav-links">
       <a class="nav-link" href="#/" data-route="/" data-i18n="nav.home">Home</a>
       <a class="nav-link" href="#/about" data-route="/about" data-i18n="nav.about">About</a>
@@ -250,145 +405,196 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
 
 <main class="wrap">
 
-<!-- ============ HOME ============ -->
+<!-- ==================== HOME ==================== -->
 <div id="view-home">
+
+  <!-- family 1: split hero -->
   <section class="hero">
-    <canvas id="suds" aria-hidden="true"></canvas>
     <div class="hero-in">
       <div class="hero-copy">
-        <span class="eyebrow" data-i18n="hero.eyebrow">Los Angeles · Houston · Dallas</span>
-        <h1 data-i18n-html="hero.h1">Laundry day, <em>handled.</em></h1>
-        <p class="hero-lede" data-i18n="hero.lede">Rent a clean, fully tested electric washer and dryer set for a flat $80 a month. Delivered, installed, and repaired at no extra cost.</p>
+        <span class="eyebrow" data-i18n="hero.eyebrow">Serving Los Angeles, Houston, and Dallas</span>
+        <h1 data-i18n-html="hero.h1">Laundry day, <span class="u">handled.</span></h1>
+        <p class="hero-lede" data-i18n="hero.lede">A tested washer and dryer set in your home for a flat $80 a month. Delivery, installation, and repairs included.</p>
         <div class="hero-ctas">
-          <a class="btn btn-sun" href="#/apply" data-i18n="hero.cta1">Start your application</a>
-          <a class="btn btn-line" href="#/about" data-i18n="hero.cta2">How it works</a>
+          <a class="btn btn-signal" href="#/apply" data-i18n="cta.apply">Start your application</a>
+          <a class="btn btn-line" href="#/about" data-i18n="cta.how">How it works</a>
         </div>
-        <p class="hero-note" data-i18n="hero.note">No credit check · No big deposit · Se habla español</p>
       </div>
-      <div class="sticker" id="sticker">
-        <div>
-          <div class="sticker-top" data-i18n="sticker.top">Only</div>
-          <div class="sticker-price">$80</div>
-          <div class="sticker-per" data-i18n="sticker.per">a month</div>
-        </div>
+      <figure class="hero-figure" style="margin:0">
+        <img src="/img/hero-set.jpg" width="1100" height="1416" fetchpriority="high" decoding="async"
+             alt="A front-loading washer installed in a tiled laundry alcove with folded towels on top." data-i18n-alt="alt.hero">
+        <figcaption class="price-tag">
+          <span class="n">$80</span>
+          <span class="l" data-i18n="price.per">A month, all in</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- family 2: objection strip -->
+  <section class="strip" data-reveal>
+    <div><b data-i18n="strip.1b">No credit check</b><span data-i18n="strip.1s">We look at income, not your score.</span></div>
+    <div><b data-i18n="strip.2b">No big deposit</b><span data-i18n="strip.2s">First month is due at delivery.</span></div>
+    <div><b data-i18n="strip.3b">Se habla español</b><span data-i18n="strip.3s">Apply and get answers in Spanish.</span></div>
+  </section>
+
+  <!-- family 3: the ledger -->
+  <section class="section">
+    <div class="sec-head" data-reveal>
+      <h2 data-i18n="led.h2">What $80 actually covers.</h2>
+      <p data-i18n="led.p">Your monthly rate is the whole bill. No trip charge, no service fee, no parts invoice.</p>
+    </div>
+    <div class="ledger" data-reveal>
+      <div class="ledger-row">
+        <span class="what"><b data-i18n="led.rent">Washer and dryer set</b><span data-i18n="led.rent.s">A matched pair, cleaned and run through a full test cycle before it ships.</span></span>
+        <span class="amt">$80</span>
+      </div>
+      <div class="ledger-row free">
+        <span class="what"><b data-i18n="led.del">Delivery</b><span data-i18n="led.del.s">To your door and carried in. Stairs and upper floors included.</span></span>
+        <span class="amt">$0</span>
+      </div>
+      <div class="ledger-row free">
+        <span class="what"><b data-i18n="led.ins">Installation</b><span data-i18n="led.ins.s">Hoses, venting, and your 240V connection, leak-tested before we leave.</span></span>
+        <span class="amt">$0</span>
+      </div>
+      <div class="ledger-row free">
+        <span class="what"><b data-i18n="led.rep">Repairs and parts</b><span data-i18n="led.rep.s">For the entire time you rent. Something breaks, you call, we fix it.</span></span>
+        <span class="amt">$0</span>
+      </div>
+      <div class="ledger-row free">
+        <span class="what"><b data-i18n="led.haul">Haul-away of your old set</b><span data-i18n="led.haul.s">Your old washer and dryer go with us on the same trip.</span></span>
+        <span class="amt">$0</span>
+      </div>
+      <div class="ledger-total">
+        <b data-i18n="led.total">What you pay each month</b>
+        <span class="amt">$80</span>
+      </div>
+      <p class="ledger-note" data-i18n="led.note">Same rate on a 3-month or a 6-month term. The longer term just locks it in for longer.</p>
+    </div>
+  </section>
+
+  <!-- family 4: image + editorial -->
+  <section class="section">
+    <div class="duo">
+      <img src="/img/room.jpg" width="1400" height="933" loading="lazy" decoding="async"
+           alt="A washer in a home laundry corner beside shelving with folded linens." data-i18n-alt="alt.room" data-reveal>
+      <div class="duo-body" data-reveal>
+        <h2 data-i18n="trust.h2">If it breaks, it's our problem.</h2>
+        <p data-i18n="trust.p1">Buying a set means owning the repair bill too. Renting moves that risk to us. If a machine fails, we repair it or swap it, and your rate does not move.</p>
+        <p data-i18n-html="trust.p2">You get a <strong>matched washer and dryer set</strong>, not two mismatched machines that happened to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
+        <p data-i18n="trust.p3">When you are done renting, we come and get it.</p>
       </div>
     </div>
   </section>
 
+  <!-- family 5: numbered rail -->
   <section class="section">
-    <div class="section-head">
-      <span class="eyebrow" data-i18n="home.inc.eyebrow">What the rent covers</span>
-      <h2 data-i18n="home.inc.h2">Four things other people charge for.</h2>
-      <p data-i18n="home.inc.p">Your monthly rate is the whole bill — no trip charge, no service fee, no parts invoice.</p>
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow" data-i18n="how.eyebrow">How it works</span>
+      <h2 data-i18n="how.h2">Three steps, usually inside a week.</h2>
     </div>
-    <div class="tiles">
-      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile1.h">Delivery</h3><p data-i18n="tile1.p">Brought to your door and carried in. Stairs and upper floors included.</p></div>
-      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile2.h">Installation</h3><p data-i18n="tile2.p">Hoses, venting, and your 240V connection, done properly and leak-tested.</p></div>
-      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile3.h">Repairs</h3><p data-i18n="tile3.p">Parts and labor for the entire time you rent. Something breaks, you call, we fix it.</p></div>
-      <div class="tile"><span class="tile-zero">$0</span><h3 data-i18n="tile4.h">Haul-away</h3><p data-i18n="tile4.p">Your old washer and dryer go with us on the same trip. Nothing left in the driveway.</p></div>
+    <div class="rail" data-reveal>
+      <div class="rail-step"><span class="rail-n">01</span><h3 data-i18n="step1.h">Apply online</h3><p data-i18n="step1.p">Pick a 3- or 6-month term and attach your paystub, your ID, and a photo of your dryer outlet. It takes about five minutes.</p></div>
+      <div class="rail-step"><span class="rail-n">02</span><h3 data-i18n="step2.h">We confirm</h3><p data-i18n="step2.p">We check your outlet photo against what's in stock and come back to you with a delivery window.</p></div>
+      <div class="rail-step"><span class="rail-n">03</span><h3 data-i18n="step3.h">We install and test</h3><p data-i18n="step3.p">We connect everything, run a full cycle to check for leaks and heat, show you the controls, and take the old set.</p></div>
     </div>
   </section>
 
+  <!-- family 6: typographic city band -->
   <section class="section">
-    <div class="band">
+    <div class="sec-head" data-reveal><h2 data-i18n="cities.h2">Where we deliver.</h2></div>
+    <div class="band-cities" data-reveal>
+      <div class="city-row"><span class="n">01</span><span class="name">Los Angeles</span><span class="st">California</span></div>
+      <div class="city-row"><span class="n">02</span><span class="name">Houston</span><span class="st">Texas</span></div>
+      <div class="city-row"><span class="n">03</span><span class="name">Dallas</span><span class="st">Texas</span></div>
+    </div>
+  </section>
+
+  <!-- family 7: signal CTA -->
+  <section class="section">
+    <div class="cta-block" data-reveal>
       <div>
-        <h2 data-i18n="home.band.h2">Ready to get started?</h2>
-        <p data-i18n="home.band.p">The application takes about five minutes. Questions? Email us and we'll answer in English or Spanish.</p>
-        <p style="margin-top:.7rem"><a class="band-email" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
+        <h2 data-i18n="cta.h2">Ready to get started?</h2>
+        <p data-i18n="cta.p">The application takes about five minutes. Questions first? Email us and we'll answer in English or Spanish.</p>
+        <p style="margin-top:.7rem"><a class="mailto" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
       </div>
-      <div class="band-actions">
-        <a class="btn btn-sun" href="#/apply" data-i18n="home.band.cta">Start your application</a>
-      </div>
+      <div><a class="btn btn-solid" href="#/apply" data-i18n="cta.apply">Start your application</a></div>
     </div>
   </section>
 </div>
 
-<!-- ============ ABOUT ============ -->
+<!-- ==================== ABOUT ==================== -->
 <div id="view-about" hidden>
-  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
-    <div class="section-head page-head">
-      <h2 data-i18n="about.title">About us</h2>
+  <section class="section" style="padding-top:clamp(1.75rem,4vw,2.75rem)">
+    <div class="page-head">
+      <h1 data-i18n="about.title">About us</h1>
       <p class="deck" data-i18n="about.deck">We rent washers and dryers. That's it.</p>
     </div>
-    <p class="lead-para" data-i18n="about.lead">Squeaky Clean Co puts a working washer and dryer in your home for a flat monthly rate, in three cities: Los Angeles, Houston, and Dallas.</p>
+    <p class="lede-para" data-i18n="about.lead">Squeaky Clean Co puts a working washer and dryer in your home for a flat monthly rate, in three cities: Los Angeles, Houston, and Dallas.</p>
   </section>
 
   <section class="section">
-    <div class="cities">
-      <div class="citycard city-la"><span class="city-meta">California</span><span class="city-name">Los Angeles</span></div>
-      <div class="citycard city-hou"><span class="city-meta">Texas</span><span class="city-name">Houston</span></div>
-      <div class="citycard city-dal"><span class="city-meta">Texas</span><span class="city-name">Dallas</span></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="prose">
+    <div class="prose" data-reveal>
       <h3 data-i18n="about.why.h3">Why renting instead of buying</h3>
       <p data-i18n="about.why.p1">A matched washer and dryer set is a big purchase to make all at once, and it stops being a good deal the first time something breaks. Buying means you own the repair bill too.</p>
       <p data-i18n="about.why.p2">Renting moves that risk to us. You pay one flat rate every month. If the machine fails, we repair it or swap it, and your rate doesn't move. When you're done, we come get it.</p>
-      <div class="pullquote" data-i18n="about.pull">If it breaks, it's our problem. That's the entire pitch.</div>
+      <div class="pull" data-i18n="about.pull">If it breaks, it's our problem. That's the entire pitch.</div>
+    </div>
+  </section>
 
-      <h3 data-i18n="about.get.h3">What you actually get</h3>
-      <p data-i18n-html="about.get.p1">A <strong>matched washer and dryer set</strong> — not two mismatched machines that happen to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
-      <p data-i18n-html="about.get.p2">All of our dryers are <strong>electric</strong> and need a 240V outlet. We stock both side-by-side and stacked configurations.</p>
-      <p data-i18n="about.get.p3">Delivery, installation, maintenance, repairs, and haul-away of your old set are included at no extra cost for as long as you rent.</p>
+  <section class="section">
+    <div class="duo">
+      <img src="/img/closet.jpg" width="900" height="1200" loading="lazy" decoding="async"
+           alt="A washer fitted into a narrow laundry closet with shelving above it." data-i18n-alt="alt.closet" data-reveal>
+      <div class="duo-body" data-reveal>
+        <h2 data-i18n="about.get.h3">What you actually get</h2>
+        <p data-i18n-html="about.get.p1">A <strong>matched washer and dryer set</strong>, not two mismatched machines that happen to be in the warehouse. Every set is cleaned and run through a full test cycle before it goes on the truck.</p>
+        <p data-i18n-html="about.get.p2">All of our dryers are <strong>electric</strong> and need a 240V outlet. We stock both side-by-side and stacked configurations.</p>
+        <p data-i18n="about.get.p3">Delivery, installation, maintenance, repairs, and haul-away of your old set are included at no extra cost for as long as you rent.</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="section">
+    <div class="prose" data-reveal>
       <h3 data-i18n="about.qual.h3">How we qualify people</h3>
       <p data-i18n-html="about.qual.p1">There's <strong>no credit check</strong>. We ask for your most recent paystub, a driver's license, and a photo of your dryer outlet. That's the whole review.</p>
       <p data-i18n-html="about.qual.p2">Terms run <strong>3 months or 6 months</strong>. Both cost the same per month; the longer term just locks the rate and the machines in for longer.</p>
-
       <h3 data-i18n="about.es.h3">Se habla español</h3>
       <p data-i18n="about.es.p">We serve Spanish-speaking customers in Los Angeles, Houston, and Dallas. You can switch this site to Spanish at the top of the page, apply in Spanish, and we'll answer in Spanish.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head">
-      <span class="eyebrow eyebrow-sun" data-i18n="about.how.eyebrow">How it works</span>
-      <h2 data-i18n="about.how.h2">Three steps, usually inside a week.</h2>
-    </div>
-    <div class="steps">
-      <div class="stepc"><span class="step-n">1</span><h3 data-i18n="step1.h">Apply online</h3><p data-i18n="step1.p">Pick a 3- or 6-month term and attach your paystub, your ID, and a photo of your dryer outlet. It takes about five minutes.</p></div>
-      <div class="stepc"><span class="step-n">2</span><h3 data-i18n="step2.h">We confirm</h3><p data-i18n="step2.p">We check your outlet photo against what's in stock and come back to you with a delivery window.</p></div>
-      <div class="stepc"><span class="step-n">3</span><h3 data-i18n="step3.h">We install and test</h3><p data-i18n="step3.p">We connect everything, run a full cycle to check for leaks and heat, show you the controls, and take the old set.</p></div>
+    <div class="sec-head" data-reveal><h2 data-i18n="about.facts.h2">The numbers that matter.</h2></div>
+    <div class="stats" data-reveal>
+      <div class="stat"><div class="stat-n">$80</div><div class="stat-l" data-i18n="fact1">Flat monthly rate, all included</div></div>
+      <div class="stat"><div class="stat-n">$0</div><div class="stat-l" data-i18n="fact2">Delivery, install, repairs, haul-away</div></div>
+      <div class="stat"><div class="stat-n">3</div><div class="stat-l" data-i18n="fact3">Cities served</div></div>
+      <div class="stat"><div class="stat-n">3/6</div><div class="stat-l" data-i18n="fact4">Month terms available</div></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head">
-      <span class="eyebrow eyebrow-sun" data-i18n="about.facts.eyebrow">The short version</span>
-      <h2 data-i18n="about.facts.h2">The numbers that matter.</h2>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="fact-n">$80</div><div class="fact-l" data-i18n="fact1">Flat monthly rate, all included</div></div>
-      <div class="fact"><div class="fact-n">$0</div><div class="fact-l" data-i18n="fact2">Delivery, install, repairs, haul-away</div></div>
-      <div class="fact"><div class="fact-n">3</div><div class="fact-l" data-i18n="fact3">Cities served</div></div>
-      <div class="fact"><div class="fact-n">3 / 6</div><div class="fact-l" data-i18n="fact4">Month terms available</div></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="band">
-      <div>
-        <h2 data-i18n="about.band.h2">Ready when you are.</h2>
-        <p data-i18n="about.band.p">The application needs one paystub, a photo of your driver's license, and a photo of your dryer outlet.</p>
-        <p style="margin-top:.7rem"><a class="band-email" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a></p>
-      </div>
-      <div class="band-actions">
-        <a class="btn btn-sun" href="#/apply" data-i18n="about.band.cta">Start your application</a>
+    <div class="prose" data-reveal>
+      <h3 data-i18n="about.ready.h3">Ready when you are</h3>
+      <p data-i18n="about.ready.p">The application needs one paystub, a photo of your driver's license, and a photo of your dryer outlet. Email us first if you'd rather ask a question.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:.5rem">
+        <a class="btn btn-signal" href="#/apply" data-i18n="cta.apply">Start your application</a>
+        <a class="foot-mail" style="margin:0" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ============ APPLY ============ -->
+<!-- ==================== APPLY ==================== -->
 <div id="view-apply" hidden>
-  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
-    <div class="section-head page-head">
-      <h2 data-i18n="apply.title">Rental application</h2>
+  <section class="section" style="padding-top:clamp(1.75rem,4vw,2.75rem)">
+    <div class="page-head">
+      <h1 data-i18n="apply.title">Rental application</h1>
       <p class="deck" data-i18n="apply.deck">Let's get a set to your door.</p>
-      <p data-i18n="apply.p">About five minutes. No credit check — we just need recent income, a photo ID, and a picture of your dryer outlet.</p>
     </div>
+    <p class="lede-para" data-i18n="apply.p">About five minutes. No credit check. We just need recent income, a photo ID, and a picture of your dryer outlet.</p>
   </section>
 
   <div class="form-shell">
@@ -462,8 +668,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
         <legend><span class="legend-n">03</span><span data-i18n="fs3">Your term</span></legend>
         <p class="fs-hint" data-i18n="term.hint">Both terms are $80 a month. The longer term locks your rate and your machines in for longer.</p>
         <div class="terms">
-          <label class="term"><input type="radio" name="term" value="3"><span><b data-i18n="term3.b">3 months</b><i data-i18n="term3.i">$80/mo · short commitment</i></span></label>
-          <label class="term"><input type="radio" name="term" value="6" checked><span><b data-i18n="term6.b">6 months</b><i data-i18n="term6.i">$80/mo · rate locked longer</i><span class="term-tag" data-i18n="term6.tag">Most popular</span></span></label>
+          <label class="term"><input type="radio" name="term" value="3"><span><b data-i18n="term3.b">3 months</b><i data-i18n="term3.i">$80 a month, short commitment</i></span></label>
+          <label class="term"><input type="radio" name="term" value="6" checked><span><b data-i18n="term6.b">6 months</b><i data-i18n="term6.i">$80 a month, rate locked longer</i><span class="term-tag" data-i18n="term6.tag">Most popular</span></span></label>
         </div>
         <div class="grid2" style="margin-top:1.25rem">
           <div class="field">
@@ -509,7 +715,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
           </div>
           <div class="drop" id="drop-outlet">
             <span class="drop-title"><span data-i18n="d.outlet">Photo of your dryer outlet</span> <span class="req">*</span></span>
-            <span class="drop-sub" data-i18n="d.outlet.sub">Make sure the dryer plug is in the photo — plug it in first if the dryer is still there, so we can see both the plug and the outlet.</span>
+            <span class="drop-sub" data-i18n="d.outlet.sub">This is the big three- or four-hole socket a dryer plugs into, not a normal wall outlet. If your old dryer is still there, plug it in and photograph the plug and the socket together.</span>
             <input type="file" id="outlet" accept="image/*" multiple>
             <ul class="filelist" id="list-outlet"></ul>
           </div>
@@ -525,8 +731,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
         </label>
         <span class="err" id="consentErr" data-i18n="consent.err">Please confirm to continue.</span>
         <div class="submit-row">
-          <button class="btn btn-sun" type="submit" id="submitBtn" data-i18n="submit">Submit application</button>
-          <span class="form-status" id="status"></span>
+          <button class="btn btn-signal" type="submit" id="submitBtn" data-i18n="submit">Submit application</button>
+          <span class="form-status" id="status" role="status" aria-live="polite"></span>
         </div>
       </fieldset>
     </form>
@@ -543,9 +749,9 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       </div>
       <div class="aside-card">
         <h3 data-i18n="aside2.h">What it costs</h3>
-        <p data-i18n-html="aside2.p"><strong>$80 a month</strong>, whichever term you pick. Delivery, installation, repairs, and haul-away are included. First month is due at delivery — there's no large deposit and no credit check.</p>
+        <p data-i18n-html="aside2.p"><strong>$80 a month</strong>, whichever term you pick. Delivery, installation, repairs, and haul-away are included. First month is due at delivery. There's no large deposit and no credit check.</p>
       </div>
-      <div class="aside-card privacy">
+      <div class="aside-card aside-secure">
         <h3 data-i18n="aside3.h">Your documents</h3>
         <p data-i18n="aside3.p">Your paystub and ID are attached to this application file and go straight to us. They are used to review this application and nothing else.</p>
       </div>
@@ -555,11 +761,11 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
   <section class="section" id="doneWrap" hidden>
     <div class="done">
       <span class="eyebrow" style="color:var(--ok)" data-i18n="done.eyebrow">Application ready</span>
-      <h2 data-i18n="done.h2">Thanks — here's your reference number.</h2>
+      <h2 data-i18n="done.h2">Thanks. Here's your reference number.</h2>
       <span class="refid" id="refid">SCC-000000</span>
-      <p id="doneMsg" style="color:var(--ink-2);max-width:62ch"></p>
+      <p id="doneMsg" style="color:var(--ink-2);max-width:60ch"></p>
       <div class="done-actions">
-        <button class="btn btn-aqua" id="saveJson" type="button" data-i18n="done.save">Save application file</button>
+        <button class="btn btn-solid" id="saveJson" type="button" data-i18n="done.save">Save application file</button>
         <button class="btn btn-line" id="copyJson" type="button" data-i18n="done.copy">Copy as text</button>
         <button class="btn btn-line" id="restart" type="button" data-i18n="done.restart">Start another</button>
       </div>
@@ -575,8 +781,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
 
 <footer class="wrap foot">
   <div>
-    <div class="logo"><span class="logo-dot"></span><span class="logo-name">Squeaky Clean Co</span></div>
-    <p class="foot-fine" data-i18n="footer.fine">Washer and dryer rental in Los Angeles, Houston, and Dallas. $80 a month, month to month, with delivery, installation, repairs, and haul-away included.</p>
+    <div class="logo"><span class="mark" aria-hidden="true"></span><span class="logo-name">Squeaky Clean Co</span></div>
+    <p class="foot-fine" data-i18n="footer.fine">Washer and dryer rental in Los Angeles, Houston, and Dallas. $80 a month with delivery, installation, repairs, and haul-away included.</p>
     <a class="foot-mail" href="mailto:squeaky.clean.co.office@gmail.com">squeaky.clean.co.office@gmail.com</a>
   </div>
   <div class="foot-links">
@@ -591,32 +797,47 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
   "use strict";
 
   var CONTACT = "squeaky.clean.co.office@gmail.com";
-  /* Server endpoint. Present when hosted on Vercel; absent on the Artifact,
-     where the page falls back to handing the applicant a file to email in. */
   var SUBMIT_ENDPOINT = "/api/apply";
 
   /* ================= i18n ================= */
   var ES = {
     "nav.home":"Inicio","nav.about":"Nosotros","nav.apply":"Solicitar",
 
-    "hero.eyebrow":"Los Angeles · Houston · Dallas",
-    "hero.h1":"Día de lavado, <em>resuelto.</em>",
-    "hero.lede":"Renta un juego eléctrico de lavadora y secadora, limpio y probado, por $80 fijos al mes. Entrega, instalación y reparaciones sin costo extra.",
-    "hero.cta1":"Comienza tu solicitud","hero.cta2":"Cómo funciona",
-    "hero.note":"Sin revisión de crédito · Sin depósito grande · Se habla español",
-    "sticker.top":"Solo","sticker.per":"al mes",
+    "hero.eyebrow":"Servimos Los Angeles, Houston y Dallas",
+    "hero.h1":"Día de lavado, <span class=\"u\">resuelto.</span>",
+    "hero.lede":"Un juego de lavadora y secadora probado en tu casa por $80 fijos al mes. Entrega, instalación y reparaciones incluidas.",
+    "cta.apply":"Comienza tu solicitud","cta.how":"Cómo funciona",
+    "alt.hero":"Una lavadora de carga frontal instalada en un rincón de lavandería con toallas dobladas encima.",
+    "price.per":"Al mes, todo incluido",
 
-    "home.inc.eyebrow":"Lo que cubre la renta",
-    "home.inc.h2":"Cuatro cosas que otros te cobran.",
-    "home.inc.p":"Tu pago mensual es la cuenta completa: sin cargo por visita, sin cuota de servicio, sin factura de refacciones.",
-    "tile1.h":"Entrega","tile1.p":"Hasta tu puerta y adentro de la casa. Incluye escaleras y pisos altos.",
-    "tile2.h":"Instalación","tile2.p":"Mangueras, ventilación y tu conexión de 240V, bien hechas y probadas contra fugas.",
-    "tile3.h":"Reparaciones","tile3.p":"Refacciones y mano de obra todo el tiempo que rentes. Si algo falla, nos llamas y lo arreglamos.",
-    "tile4.h":"Retiro del viejo","tile4.p":"Nos llevamos tu lavadora y secadora viejas en el mismo viaje. No dejamos nada afuera.",
+    "strip.1b":"Sin revisión de crédito","strip.1s":"Vemos tus ingresos, no tu historial.",
+    "strip.2b":"Sin depósito grande","strip.2s":"El primer mes se paga en la entrega.",
+    "strip.3b":"Se habla español","strip.3s":"Solicita y recibe respuestas en español.",
 
-    "home.band.h2":"¿Listo para empezar?",
-    "home.band.p":"La solicitud toma unos cinco minutos. ¿Preguntas? Escríbenos y te contestamos en inglés o en español.",
-    "home.band.cta":"Comienza tu solicitud",
+    "led.h2":"Lo que cubren tus $80.",
+    "led.p":"Tu pago mensual es la cuenta completa. Sin cargo por visita, sin cuota de servicio, sin factura de refacciones.",
+    "led.rent":"Juego de lavadora y secadora","led.rent.s":"Un juego completo, limpio y probado con un ciclo entero antes de salir.",
+    "led.del":"Entrega","led.del.s":"Hasta tu puerta y adentro de la casa. Incluye escaleras y pisos altos.",
+    "led.ins":"Instalación","led.ins.s":"Mangueras, ventilación y tu conexión de 240V, probadas contra fugas antes de irnos.",
+    "led.rep":"Reparaciones y refacciones","led.rep.s":"Durante todo el tiempo que rentes. Si algo falla, nos llamas y lo arreglamos.",
+    "led.haul":"Retiro de tu juego viejo","led.haul.s":"Nos llevamos tu lavadora y secadora viejas en el mismo viaje.",
+    "led.total":"Lo que pagas cada mes","led.note":"La misma tarifa en plazo de 3 o 6 meses. El plazo largo solo la asegura por más tiempo.",
+
+    "alt.room":"Una lavadora en un rincón de lavandería junto a repisas con ropa doblada.",
+    "trust.h2":"Si se descompone, es nuestro problema.",
+    "trust.p1":"Comprar un juego significa quedarte también con la reparación. Rentar nos pasa ese riesgo a nosotros. Si una máquina falla, la reparamos o la cambiamos, y tu tarifa no se mueve.",
+    "trust.p2":"Recibes un <strong>juego completo de lavadora y secadora</strong>, no dos máquinas dispares que andaban por la bodega. Cada juego se limpia y se corre un ciclo completo de prueba antes de subirlo al camión.",
+    "trust.p3":"Cuando termines de rentar, la recogemos.",
+
+    "how.eyebrow":"Cómo funciona","how.h2":"Tres pasos, casi siempre en menos de una semana.",
+    "step1.h":"Llena la solicitud","step1.p":"Escoge plazo de 3 o 6 meses y adjunta tu talón de pago, tu identificación y una foto del contacto de tu secadora. Toma unos cinco minutos.",
+    "step2.h":"Confirmamos","step2.p":"Revisamos tu foto contra lo que tenemos en existencia y te regresamos con una ventana de entrega.",
+    "step3.h":"Instalamos y probamos","step3.p":"Conectamos todo, corremos un ciclo completo para revisar fugas y calor, te enseñamos los controles y nos llevamos el juego viejo.",
+
+    "cities.h2":"A dónde entregamos.",
+
+    "cta.h2":"¿Listo para empezar?",
+    "cta.p":"La solicitud toma unos cinco minutos. ¿Tienes preguntas primero? Escríbenos y te contestamos en inglés o en español.",
 
     "about.title":"Nosotros",
     "about.deck":"Rentamos lavadoras y secadoras. Nada más.",
@@ -625,6 +846,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     "about.why.p1":"Un juego de lavadora y secadora es una compra grande de un solo golpe, y deja de ser buen trato la primera vez que algo se descompone. Comprar significa que la reparación también corre por tu cuenta.",
     "about.why.p2":"Rentar nos pasa ese riesgo a nosotros. Pagas una tarifa fija cada mes. Si la máquina falla, la reparamos o la cambiamos, y tu tarifa no se mueve. Cuando termines, la recogemos.",
     "about.pull":"Si se descompone, es nuestro problema. Ese es todo el argumento.",
+    "alt.closet":"Una lavadora instalada en un clóset angosto de lavandería con repisas arriba.",
     "about.get.h3":"Qué recibes exactamente",
     "about.get.p1":"Un <strong>juego completo de lavadora y secadora</strong>, no dos máquinas dispares que andaban por la bodega. Cada juego se limpia y se corre un ciclo completo de prueba antes de subirlo al camión.",
     "about.get.p2":"Todas nuestras secadoras son <strong>eléctricas</strong> y necesitan un contacto de 240V. Manejamos configuración lado a lado y apilada.",
@@ -634,21 +856,15 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     "about.qual.p2":"Los plazos son de <strong>3 o 6 meses</strong>. Cuestan lo mismo al mes; el plazo largo solo asegura tu tarifa y tus máquinas por más tiempo.",
     "about.es.h3":"Se habla español",
     "about.es.p":"Atendemos a clientes de habla hispana en Los Angeles, Houston y Dallas. Puedes cambiar este sitio a español arriba de la página, llenar la solicitud en español, y te contestamos en español.",
-    "about.how.eyebrow":"Cómo funciona",
-    "about.how.h2":"Tres pasos, casi siempre en menos de una semana.",
-    "step1.h":"Llena la solicitud","step1.p":"Escoge plazo de 3 o 6 meses y adjunta tu talón de pago, tu identificación y una foto del contacto de tu secadora. Toma unos cinco minutos.",
-    "step2.h":"Confirmamos","step2.p":"Revisamos tu foto contra lo que tenemos en existencia y te regresamos con una ventana de entrega.",
-    "step3.h":"Instalamos y probamos","step3.p":"Conectamos todo, corremos un ciclo completo para revisar fugas y calor, te enseñamos los controles y nos llevamos el juego viejo.",
-    "about.facts.eyebrow":"En corto","about.facts.h2":"Los números que importan.",
+    "about.facts.h2":"Los números que importan.",
     "fact1":"Tarifa mensual fija, todo incluido","fact2":"Entrega, instalación, reparaciones, retiro",
     "fact3":"Ciudades que atendemos","fact4":"Plazos disponibles en meses",
-    "about.band.h2":"Cuando tú estés listo.",
-    "about.band.p":"La solicitud necesita un talón de pago, una foto de tu licencia de conducir y una foto del contacto de tu secadora.",
-    "about.band.cta":"Comienza tu solicitud",
+    "about.ready.h3":"Cuando tú estés listo",
+    "about.ready.p":"La solicitud necesita un talón de pago, una foto de tu licencia de conducir y una foto del contacto de tu secadora. Si prefieres preguntar antes, escríbenos.",
 
     "apply.title":"Solicitud de renta",
     "apply.deck":"Llevemos un juego a tu puerta.",
-    "apply.p":"Unos cinco minutos. Sin revisión de crédito: solo necesitamos ingresos recientes, una identificación con foto y una foto del contacto de tu secadora.",
+    "apply.p":"Unos cinco minutos. Sin revisión de crédito. Solo necesitamos ingresos recientes, una identificación con foto y una foto del contacto de tu secadora.",
 
     "fs1":"Sobre ti",
     "f.name":"Nombre completo","f.name.ph":"Nombre y apellido","f.name.err":"Escribe tu nombre completo.",
@@ -667,8 +883,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
 
     "fs3":"Tu plazo",
     "term.hint":"Los dos plazos cuestan $80 al mes. El plazo largo asegura tu tarifa y tus máquinas por más tiempo.",
-    "term3.b":"3 meses","term3.i":"$80/mes · compromiso corto",
-    "term6.b":"6 meses","term6.i":"$80/mes · tarifa asegurada más tiempo","term6.tag":"Más popular",
+    "term3.b":"3 meses","term3.i":"$80 al mes, compromiso corto",
+    "term6.b":"6 meses","term6.i":"$80 al mes, tarifa asegurada más tiempo","term6.tag":"Más popular",
     "f.date":"Fecha de entrega preferida","f.date.help":"Confirmamos la ventana más cercana que tengamos.",
 
     "fs4":"Ingresos",
@@ -680,7 +896,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     "docs.hint":"Las fotos de tu celular funcionan bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse. Los tres documentos son obligatorios.",
     "d.paystub":"Talón de pago más reciente","d.paystub.sub":"Solo uno. Foto o PDF.",
     "d.license":"Licencia de conducir","d.license.sub":"Frente y reverso, o una identificación estatal.",
-    "d.outlet":"Foto del contacto de tu secadora","d.outlet.sub":"Asegúrate de que el enchufe de la secadora salga en la foto: si la secadora sigue ahí, conéctala primero para que se vean el enchufe y el contacto.",
+    "d.outlet":"Foto del contacto de tu secadora",
+    "d.outlet.sub":"Es el contacto grande de tres o cuatro ranuras donde se enchufa la secadora, no un contacto normal de pared. Si tu secadora vieja sigue ahí, conéctala y fotografía el enchufe junto con el contacto.",
     "docs.err":"Adjunta tu talón de pago, tu licencia de conducir y una foto del contacto de tu secadora.",
 
     "fs6":"Confirmar",
@@ -694,61 +911,60 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     "aside1.li3":"Una foto del contacto de tu secadora, con el enchufe visible",
     "aside1.li4":"La dirección de entrega y el código postal",
     "aside2.h":"Lo que cuesta",
-    "aside2.p":"<strong>$80 al mes</strong>, con cualquier plazo. Entrega, instalación, reparaciones y retiro incluidos. El primer mes se paga en la entrega: no hay depósito grande ni revisión de crédito.",
+    "aside2.p":"<strong>$80 al mes</strong>, con cualquier plazo. Entrega, instalación, reparaciones y retiro incluidos. El primer mes se paga en la entrega. No hay depósito grande ni revisión de crédito.",
     "aside3.h":"Tus documentos",
     "aside3.p":"Tu talón de pago y tu identificación se adjuntan a este archivo de solicitud y llegan directo a nosotros. Se usan para revisar esta solicitud y nada más.",
 
-    "done.eyebrow":"Solicitud lista","done.h2":"Gracias, este es tu número de referencia.",
+    "done.eyebrow":"Solicitud lista","done.h2":"Gracias. Este es tu número de referencia.",
     "done.save":"Guardar archivo de solicitud","done.copy":"Copiar como texto","done.restart":"Enviar otra",
     "done.preview":"Ver los datos que se envían",
 
-    "footer.fine":"Renta de lavadora y secadora en Los Angeles, Houston y Dallas. $80 al mes, mes con mes, con entrega, instalación, reparaciones y retiro incluidos."
+    "footer.fine":"Renta de lavadora y secadora en Los Angeles, Houston y Dallas. $80 al mes, con entrega, instalación, reparaciones y retiro incluidos."
   };
 
-  /* dynamic strings, both languages */
   var MSG = {
     en:{
       "done.msg":"Save your application file and email it to " + CONTACT + ", and we'll come back to you with availability and a delivery window.",
       "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with your paystub, ID, and outlet photo attached.",
-      "msg.fix":"Some fields still need attention — see the highlights above.",
+      "msg.fix":"Some fields still need attention. See the highlights above.",
       "msg.pack":"Packaging your application…",
       "msg.saved":"Saved. Email that file to " + CONTACT + " and you're done.",
-      "msg.declined":"No problem — the file wasn't saved.",
+      "msg.declined":"No problem, the file wasn't saved.",
       "msg.savefail":"That didn't save. Try Copy as text instead.",
-      "msg.nosave":"Saving isn't available here — use Copy as text instead.",
+      "msg.nosave":"Saving isn't available here. Use Copy as text instead.",
       "msg.copied":"Copied. Paste it into an email to " + CONTACT + " and attach your documents.",
-      "msg.copyfail":"Couldn't copy automatically — select the text in the preview below.",
+      "msg.copyfail":"Couldn't copy automatically. Select the text in the preview below.",
       "msg.max1":"Only one file goes there. Remove it to add a different one.",
       "msg.maxn":"You can attach up to {n} files there. Remove one to add another.",
       "msg.read":"Couldn't read “{name}”. Try a photo of it instead.",
       "msg.sending":"Sending your application…",
-      "msg.sent":"Application sent — check your email for a copy.",
+      "msg.sent":"Application sent. Check your email for a copy.",
       "done.msg.sent":"We've received your application. We'll come back to you with availability and a delivery window. You can save a copy below for your own records.",
       "lang.switch":"Cambiar a español"
     },
     es:{
       "done.msg":"Guarda tu archivo de solicitud y envíalo por correo a " + CONTACT + ", y te regresamos con disponibilidad y una ventana de entrega.",
       "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando tu talón de pago, tu identificación y la foto del contacto.",
-      "msg.fix":"Faltan algunos campos: revisa lo marcado arriba.",
+      "msg.fix":"Faltan algunos campos. Revisa lo marcado arriba.",
       "msg.pack":"Preparando tu solicitud…",
       "msg.saved":"Guardado. Envía ese archivo a " + CONTACT + " y listo.",
       "msg.declined":"Sin problema, el archivo no se guardó.",
       "msg.savefail":"No se pudo guardar. Usa Copiar como texto.",
       "msg.nosave":"Guardar no está disponible aquí. Usa Copiar como texto.",
       "msg.copied":"Copiado. Pégalo en un correo a " + CONTACT + " y adjunta tus documentos.",
-      "msg.copyfail":"No se pudo copiar automáticamente: selecciona el texto en la vista previa.",
+      "msg.copyfail":"No se pudo copiar automáticamente. Selecciona el texto en la vista previa.",
       "msg.max1":"Ahí va un solo archivo. Quítalo para poner otro.",
       "msg.maxn":"Puedes adjuntar hasta {n} archivos ahí. Quita uno para agregar otro.",
       "msg.read":"No se pudo leer «{name}». Intenta con una foto.",
       "msg.sending":"Enviando tu solicitud…",
-      "msg.sent":"Solicitud enviada — revisa tu correo para una copia.",
+      "msg.sent":"Solicitud enviada. Revisa tu correo para una copia.",
       "done.msg.sent":"Recibimos tu solicitud. Te regresamos con disponibilidad y una ventana de entrega. Abajo puedes guardar una copia para ti.",
       "lang.switch":"Switch to English"
     }
   };
 
-  var EN = {}, lang = "en";
-  var nodes = { text:[], html:[], ph:[] };
+  var EN = {}, EN_ALT = {}, lang = "en";
+  var nodes = { text:[], html:[], ph:[], alt:[] };
 
   function captureEnglish(){
     document.querySelectorAll("[data-i18n]").forEach(function(el){
@@ -766,6 +982,11 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       if(!(k in EN)) EN[k] = el.getAttribute("placeholder") || "";
       nodes.ph.push([el,k]);
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function(el){
+      var k = el.getAttribute("data-i18n-alt");
+      if(!(k in EN_ALT)) EN_ALT[k] = el.getAttribute("alt") || "";
+      nodes.alt.push([el,k]);
+    });
   }
   function t(key){
     var d = MSG[lang] || MSG.en;
@@ -778,6 +999,10 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     nodes.text.forEach(function(p){ p[0].textContent = pick(p[1]); });
     nodes.html.forEach(function(p){ p[0].innerHTML   = pick(p[1]); });
     nodes.ph.forEach(function(p){ p[0].setAttribute("placeholder", pick(p[1])); });
+    nodes.alt.forEach(function(p){
+      var altDict = (lang === "es") ? ES : EN_ALT;
+      p[0].setAttribute("alt", (p[1] in altDict) ? altDict[p[1]] : EN_ALT[p[1]]);
+    });
 
     document.getElementById("langOn").textContent  = lang.toUpperCase();
     document.getElementById("langOff").textContent = (lang === "es") ? "EN" : "ES";
@@ -803,73 +1028,27 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       if(a.dataset.route === path) a.setAttribute("aria-current","page");
       else a.removeAttribute("aria-current");
     });
-    sizeSuds.stop = (path !== "/");
-    if(path === "/"){ sizeSuds(); seed(); }
     window.scrollTo(0,0);
+    observeReveals();
   }
   window.addEventListener("hashchange", route);
 
-  /* ================= suds ================= */
-  var canvas = document.getElementById("suds"), ctx = canvas.getContext("2d");
-  var bubbles = [], W = 1, H = 1, dpr = 1;
+  /* ================= scroll reveal (IntersectionObserver only) ================= */
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function sizeSuds(){
-    var r = canvas.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = Math.max(1, r.width); H = Math.max(1, r.height);
-    canvas.width = Math.round(W*dpr); canvas.height = Math.round(H*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  function seed(){
-    bubbles = [];
-    var n = Math.round(Math.min(38, Math.max(14, W/32)));
-    for(var i=0;i<n;i++) bubbles.push({
-      x:Math.random()*W, y:Math.random()*H, r:4+Math.random()*26,
-      v:.08+Math.random()*.34, drift:(Math.random()-.5)*.16, a:.10+Math.random()*.20
+  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold:0.2, rootMargin:"0px 0px -8% 0px" }) : null;
+  function observeReveals(){
+    if(reduced){
+      document.querySelectorAll("[data-reveal]").forEach(function(el){ el.classList.add("in"); });
+      return;
+    }
+    document.querySelectorAll("[data-reveal]:not(.in)").forEach(function(el){
+      if(io) io.observe(el); else el.classList.add("in");
     });
   }
-  function drawBubble(b){
-    ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-    ctx.fillStyle = "rgba(43,197,232,"+(b.a*0.5).toFixed(3)+")"; ctx.fill();
-    ctx.lineWidth = 1; ctx.strokeStyle = "rgba(0,144,181,"+(b.a*0.9).toFixed(3)+")"; ctx.stroke();
-    ctx.beginPath(); ctx.arc(b.x-b.r*0.32, b.y-b.r*0.34, Math.max(.8,b.r*0.17), 0, Math.PI*2);
-    ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fill();
-  }
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    for(var i=0;i<bubbles.length;i++){
-      var b = bubbles[i];
-      b.y -= b.v; b.x += b.drift;
-      if(b.y + b.r < 0){ b.y = H + b.r; b.x = Math.random()*W; }
-      if(b.x < -b.r) b.x = W + b.r;
-      if(b.x > W + b.r) b.x = -b.r;
-      drawBubble(b);
-    }
-    if(!sizeSuds.stop) requestAnimationFrame(frame);
-    else setTimeout(function(){ requestAnimationFrame(frame); }, 500);
-  }
-  function startSuds(){
-    sizeSuds(); seed();
-    ctx.clearRect(0,0,W,H); bubbles.forEach(drawBubble);
-    if(!reduced) requestAnimationFrame(frame);
-  }
-  window.addEventListener("resize", function(){
-    sizeSuds(); seed();
-    if(reduced){ ctx.clearRect(0,0,W,H); bubbles.forEach(drawBubble); }
-  });
-
-  /* ================= sticker ================= */
-  (function(){
-    var st = document.getElementById("sticker"), pts = [], N = 20;
-    for(var i=0;i<N*2;i++){
-      var ang = Math.PI*i/N - Math.PI/2, rad = (i%2) ? 42.5 : 50;
-      pts.push((50+rad*Math.cos(ang)).toFixed(2)+"% "+(50+rad*Math.sin(ang)).toFixed(2)+"%");
-    }
-    st.style.clipPath = "polygon("+pts.join(",")+")";
-    st.style.boxShadow = "none";
-    st.style.filter = "drop-shadow(0 9px 16px rgba(217,90,0,.42))";
-  })();
 
   /* ================= files ================= */
   var MAX_BYTES = 170000, MAX_DIM = 1600;
@@ -1091,7 +1270,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     var f = rec.flatRow, lines = [];
     Object.keys(f).forEach(function(k){ lines.push(k + ": " + (f[k] === null ? "" : f[k])); });
     lines.push("Documents Attached: " + rec.documents.map(function(d){ return d.kind + " (" + d.fileName + ")"; }).join(", "));
-    return "SQUEAKY CLEAN CO — RENTAL APPLICATION\n\n" + lines.join("\n");
+    return "SQUEAKY CLEAN CO, RENTAL APPLICATION\n\n" + lines.join("\n");
   }
 
   /* ================= submit ================= */
@@ -1105,8 +1284,8 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     else el.textContent = (canDownload === false) ? t("done.msg.nodl") : t("done.msg");
   }
 
-  /* Posts to our own origin. Resolves false on any failure — a missing
-     endpoint, an offline applicant, an Apps Script error — and the caller
+  /* Posts to our own origin. Resolves false on any failure, a missing
+     endpoint, an offline applicant, an Apps Script error, and the caller
      falls back to the save-and-email flow rather than losing the data. */
   async function sendToServer(rec){
     if(!SUBMIT_ENDPOINT) return false;
@@ -1143,6 +1322,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
       return;
     }
     submitBtn.disabled = true;
+    submitBtn.classList.add("busy");
     setStatus(t("msg.pack"));
     payload = buildPayload();
     document.getElementById("refid").textContent = payload.applicationId;
@@ -1152,6 +1332,7 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
     document.querySelector(".aside").hidden = true;
     doneWrap.hidden = false;
     submitBtn.disabled = false;
+    submitBtn.classList.remove("busy");
     setStatus("");
     doneWrap.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block:"start" });
 
@@ -1226,6 +1407,5 @@ pre.json{margin:0;background:#08262E;color:#CFE9EF;border-radius:var(--r-sm);pad
   });
 
   route();
-  startSuds();
 })();
 </script>
