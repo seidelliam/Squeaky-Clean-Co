@@ -369,6 +369,41 @@ img{max-width:100%;display:block;height:auto}
 .done-actions{display:flex;flex-wrap:wrap;gap:.7rem}
 pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:1rem;overflow-x:auto;font-family:"DM Mono",monospace;font-size:.78rem;line-height:1.55;max-height:22rem;overflow-y:auto}
 
+/* ---- apply form: phone layout ---- */
+@media (max-width:44rem){
+  .form-shell{gap:1.15rem}
+  .fieldset{padding:1.15rem 1rem;scroll-margin-top:4.5rem}   /* clear the sticky nav on focus jump */
+  .fieldset legend{font-size:1.05rem}
+  .field{scroll-margin-top:4.5rem}
+  .fs-hint{margin:.5rem 0 1rem}
+  .grid2,.choices,.terms,.drops{gap:.7rem}
+
+  /* ~46px touch targets on text fields */
+  .field input,.field select{padding:.85rem}
+
+  /* option cards: even padding, number dialled back a touch */
+  .choice > span{padding:.85rem .9rem}
+  .term > span{padding:.95rem 1rem}
+  .term b{font-size:1.3rem}
+
+  /* uploaded-file rows: roomier, bigger remove hit area */
+  .filelist li{padding:.5rem .4rem .5rem .6rem}
+  .filelist .fdrop{font-size:1.2rem;padding:.35rem .55rem}
+
+  /* one clear full-width action, status beneath it */
+  .submit-row{margin-top:1.1rem;gap:.55rem}
+  .submit-row .btn{width:100%}
+  .form-status{width:100%;text-align:center}
+
+  /* supporting cards just flow below the form */
+  .aside{position:static;gap:.85rem}
+  .aside-card{padding:1.05rem}
+
+  /* confirmation screen: stack the actions */
+  .done-actions{gap:.55rem}
+  .done-actions .btn{width:100%}
+}
+
 /* ============ footer ============ */
 .foot{margin-top:var(--bay);padding:2rem 0 3rem;border-top:1px solid var(--line-2);display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;justify-content:space-between;align-items:flex-start;color:var(--ink-3);font-size:.86rem}
 .foot-fine{max-width:44ch;line-height:1.55;margin-top:.65rem}

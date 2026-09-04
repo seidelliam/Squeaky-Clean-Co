@@ -17,9 +17,9 @@
 
 /* ===================== CONFIG ===================== */
 
-var SHEET_ID     = 'PASTE_SHEET_ID_HERE';   // long id in the Sheet's URL
+var SHEET_ID     = '1qXDexIzX9wiROynCKTa-yL8EdxmDImIHziB-gzCjBg0';   // long id in the Sheet's URL
 var NOTIFY_TO    = 'squeaky.clean.co.office@gmail.com';
-var SHARED_TOKEN = 'PASTE_A_LONG_RANDOM_STRING_HERE'; // must match Vercel's APPS_SCRIPT_TOKEN
+var SHARED_TOKEN = 'b5784de3ef47a6f06aa738f346f5990884aa3c02234deb20f6911f9b05aadb30'; // must match Vercel's APPS_SCRIPT_TOKEN
 
 var APPLICATIONS_TAB = 'Applications';
 var RENTERS_TAB      = 'Renters';
