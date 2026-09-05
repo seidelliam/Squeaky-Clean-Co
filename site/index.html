@@ -464,7 +464,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
   <!-- family 2: objection strip -->
   <section class="strip" data-reveal>
-    <div><b data-i18n="strip.1b">No credit check</b><span data-i18n="strip.1s">We look at income, not your score.</span></div>
+    <div><b data-i18n="strip.1b">No credit check</b><span data-i18n="strip.1s">No credit pull, no pay stubs, no income proof.</span></div>
     <div><b data-i18n="strip.2b">No big deposit</b><span data-i18n="strip.2s">First month is due at delivery.</span></div>
     <div><b data-i18n="strip.3b">Se habla español</b><span data-i18n="strip.3s">Apply and get answers in Spanish.</span></div>
   </section>
@@ -570,7 +570,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <p data-i18n-html="about.equip.p">Every rental is a <strong>matched washer and dryer set</strong> from one brand and series, sized to run as a pair. All dryers are <strong>electric</strong> and run on a 240V circuit; we do not stock gas dryers. Before a set ships it is cleaned and run through a full wash and dry cycle to check fill, drain, heat, and spin.</p>
       <ul class="speclist" data-i18n-html="about.equip.list">
         <li><!-- TODO: real capacity numbers -->Washer capacity around [X] cu ft; dryer around [X] cu ft.</li>
-        <li>Two layouts: <strong>side-by-side</strong>, or <strong>stacked</strong> with the dryer mounted on the washer for a tall, narrow closet.</li>
+        <li>The pair installs <strong>side-by-side</strong> (two units in a row). We don't do stacked units.</li>
       </ul>
     </div>
   </section>
@@ -585,7 +585,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
           <li>A <strong>240V dryer outlet</strong>. This is the large three- or four-prong socket a dryer plugs into, not a standard wall outlet.<!-- TODO: confirm you handle both 3-prong NEMA 10-30 and 4-prong 14-30 --></li>
           <li>Hot and cold water valves and a drain standpipe for the washer.</li>
           <li>A dryer vent to the outside.<!-- TODO: longest vent run you will install --></li>
-          <li><!-- TODO: real dimensions -->Clearance of about [W x D x H] side-by-side, or [W x D x H] stacked.</li>
+          <li><!-- TODO: real dimensions -->Floor space of about [W x D x H] for the two units side-by-side.</li>
           <li>Stairs and upper floors are fine; the crew carries it in.</li>
         </ul>
       </div>
@@ -612,7 +612,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     <div class="sec-head" data-reveal><h2 data-i18n="about.specs.h">At a glance.</h2></div>
     <div class="stats" data-reveal>
       <div class="stat"><div class="stat-n">240V</div><div class="stat-l" data-i18n="spec1">Electric dryers, 240V outlet required</div></div>
-      <div class="stat"><div class="stat-n">2</div><div class="stat-l" data-i18n="spec2">Layouts, side-by-side or stacked</div></div>
+      <div class="stat"><div class="stat-n">No</div><div class="stat-l" data-i18n="spec2">Credit check or income proof</div></div>
       <div class="stat"><div class="stat-n">3/6</div><div class="stat-l" data-i18n="spec3">Month terms, same $80 rate</div></div>
       <div class="stat"><div class="stat-n">$0</div><div class="stat-l" data-i18n="spec4">Repairs and parts, whole term</div></div>
     </div>
@@ -624,7 +624,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <ul class="speclist" data-i18n-html="about.terms.list">
         <li><strong>3 or 6 months.</strong> Both are $80 a month; the longer term holds that rate and those units longer.<!-- TODO: what happens at term end (return, renew, or month-to-month) --></li>
         <li>The first month is due at delivery. There is no large deposit.<!-- TODO: accepted payment methods / autopay --></li>
-        <li><strong>No credit check.</strong> The review is your most recent paystub, a driver's license or state ID, and a photo of your dryer outlet.<!-- TODO: state an income guideline if you use one --></li>
+        <li><strong>No credit check and no income proof.</strong> To apply, all we need is a photo of your dryer outlet. You show a valid driver's license or state ID in person when the machines are delivered.</li>
       </ul>
     </div>
   </section>
@@ -648,7 +648,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       <h1 data-i18n="apply.title">Rental application</h1>
       <p class="deck" data-i18n="apply.deck">Let's get a set to your door.</p>
     </div>
-    <p class="lede-para" data-i18n="apply.p">About two minutes. No credit check. We just need a picture of your dryer outlet. A paystub and photo ID are optional and can wait until we're confirming delivery.</p>
+    <p class="lede-para" data-i18n="apply.p">About two minutes. No credit check, no income proof. We just need a picture of your dryer outlet. You'll show a driver's license or state ID in person at delivery.</p>
   </section>
 
   <div class="form-shell">
@@ -710,10 +710,9 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
           </div>
         </div>
         <div style="margin-top:1.25rem">
-          <span class="leg" data-i18n="f.space">Space available</span>
+          <span class="leg" data-i18n="f.space">Room for a side-by-side washer and dryer?</span>
           <div class="choices" style="margin-top:.5rem">
-            <label class="choice"><input type="radio" name="space" value="side-by-side" checked><span><b data-i18n="space1.b">Side by side</b><i data-i18n="space1.i">Two machines in a row</i></span></label>
-            <label class="choice"><input type="radio" name="space" value="stacked"><span><b data-i18n="space2.b">Stacked</b><i data-i18n="space2.i">Tall, narrow closet</i></span></label>
+            <label class="choice"><input type="radio" name="space" value="side-by-side" checked><span><b data-i18n="space1.b">Yes</b><i data-i18n="space1.i">Space for two machines in a row</i></span></label>
             <label class="choice"><input type="radio" name="space" value="unsure"><span><b data-i18n="space3.b">Not sure</b><i data-i18n="space3.i">We'll measure on arrival</i></span></label>
           </div>
         </div>
@@ -736,38 +735,9 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       </fieldset>
 
       <fieldset class="fieldset">
-        <legend><span class="legend-n">04</span><span data-i18n="fs4">Income</span></legend>
-        <p class="fs-hint" data-i18n="inc.hint">No credit check. We only look at whether the monthly rate fits comfortably.</p>
-        <div class="grid2">
-          <div class="field">
-            <label for="employer"><span data-i18n="f.employer">Employer or income source</span> <span class="req">*</span></label>
-            <input id="employer" placeholder="Company name, or self-employed" data-i18n-ph="f.employer.ph">
-            <span class="err" data-i18n="f.employer.err">Tell us where your income comes from.</span>
-          </div>
-          <div class="field">
-            <label for="income"><span data-i18n="f.income">Monthly income before tax</span> <span class="req">*</span></label>
-            <input id="income" inputmode="numeric" placeholder="$ 2,400">
-            <span class="err" data-i18n="f.income.err">Enter your approximate monthly income.</span>
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="fieldset">
-        <legend><span class="legend-n">05</span><span data-i18n="fs5">Documents</span></legend>
-        <p class="fs-hint" data-i18n="docs.hint">Photos from your phone are fine. Large images are shrunk automatically before they're attached, so uploads stay fast. The outlet photo is required so we know delivery is possible. The paystub and ID are optional here, but we may ask for them before we confirm a delivery window.</p>
+        <legend><span class="legend-n">04</span><span data-i18n="fs5">Dryer outlet photo</span></legend>
+        <p class="fs-hint" data-i18n="docs.hint">A photo from your phone is fine. Large images are shrunk automatically before they're attached, so the upload stays fast.</p>
         <div class="drops">
-          <div class="drop" id="drop-paystub">
-            <span class="drop-title"><span data-i18n="d.paystub">Most recent paystub</span> <span class="opt" data-i18n="opt.tag">Optional</span></span>
-            <span class="drop-sub" data-i18n="d.paystub.sub">Just one. Photo or PDF.</span>
-            <input type="file" id="paystub" accept="image/*,application/pdf">
-            <ul class="filelist" id="list-paystub"></ul>
-          </div>
-          <div class="drop" id="drop-license">
-            <span class="drop-title"><span data-i18n="d.license">Driver's license</span> <span class="opt" data-i18n="opt.tag">Optional</span></span>
-            <span class="drop-sub" data-i18n="d.license.sub">Front and back, or a state ID.</span>
-            <input type="file" id="license" accept="image/*,application/pdf" multiple>
-            <ul class="filelist" id="list-license"></ul>
-          </div>
           <div class="drop" id="drop-outlet">
             <span class="drop-title"><span data-i18n="d.outlet">Photo of your dryer outlet</span> <span class="req">*</span></span>
             <span class="drop-sub" data-i18n="d.outlet.sub">This is the big three- or four-hole socket a dryer plugs into, not a normal wall outlet. If your old dryer is still there, plug it in and photograph the plug and the socket together.</span>
@@ -779,12 +749,17 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       </fieldset>
 
       <fieldset class="fieldset">
-        <legend><span class="legend-n">06</span><span data-i18n="fs6">Confirm</span></legend>
+        <legend><span class="legend-n">05</span><span data-i18n="fs6">Confirm</span></legend>
         <label class="consent">
           <input type="checkbox" id="consent">
-          <span><span data-i18n="consent.txt">I confirm this information is accurate, and I authorize Squeaky Clean Co to review the documents I've attached in order to process this rental application.</span> <span class="req">*</span></span>
+          <span><span data-i18n="consent.txt">I confirm this information is accurate and authorize Squeaky Clean Co to contact me about this rental application.</span> <span class="req">*</span></span>
         </label>
         <span class="err" id="consentErr" data-i18n="consent.err">Please confirm to continue.</span>
+        <label class="consent" style="margin-top:.9rem">
+          <input type="checkbox" id="idack">
+          <span><span data-i18n="idack.txt">I understand I'll need to show a valid driver's license or state ID in person when the machines are delivered.</span> <span class="req">*</span></span>
+        </label>
+        <span class="err" id="idackErr" data-i18n="idack.err">Please confirm to continue.</span>
         <div class="submit-row">
           <button class="btn btn-signal" type="submit" id="submitBtn" data-i18n="submit">Submit application</button>
           <span class="form-status" id="status" role="status" aria-live="polite"></span>
@@ -798,8 +773,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
         <ul class="aside-list">
           <li data-i18n="aside1.li3">A photo of your dryer outlet, with the plug visible</li>
           <li data-i18n="aside1.li4">The delivery address and ZIP</li>
-          <li data-i18n="aside1.li1">Your most recent paystub (optional)</li>
-          <li data-i18n="aside1.li2">A driver's license or state ID (optional)</li>
+          <li data-i18n="aside1.li2">A driver's license or state ID to show at delivery</li>
         </ul>
       </div>
       <div class="aside-card">
@@ -807,8 +781,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
         <p data-i18n-html="aside2.p"><strong>$80 a month</strong>, whichever term you pick. Delivery, installation, repairs, and haul-away are included. First month is due at delivery. There's no large deposit and no credit check.</p>
       </div>
       <div class="aside-card aside-secure">
-        <h3 data-i18n="aside3.h">Your documents</h3>
-        <p data-i18n="aside3.p">Your outlet photo tells us delivery is possible. Your paystub and ID are optional to start. If you include them, they're attached to this application and go straight to us, used only to review this application and nothing else.</p>
+        <h3 data-i18n="aside3.h">ID check</h3>
+        <p data-i18n="aside3.p">You don't upload any ID here. The only file is the photo of your dryer outlet, which tells us delivery is possible. You show a valid driver's license or state ID in person when the crew arrives with the machines.</p>
       </div>
     </aside>
   </div>
@@ -961,9 +935,9 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
 
     "about.equip.h":"El equipo",
     "about.equip.p":"Cada renta es un <strong>juego completo de lavadora y secadora</strong> de una misma marca y serie, del tamaño para funcionar en pareja. Todas las secadoras son <strong>eléctricas</strong> y usan un circuito de 240V; no manejamos secadoras de gas. Antes de enviar un juego, se limpia y se corre un ciclo completo de lavado y secado para revisar llenado, drenado, calor y centrifugado.",
-    "about.equip.list":"<li>Capacidad de la lavadora alrededor de [X] pies cúbicos; secadora alrededor de [X] pies cúbicos.</li><li>Dos configuraciones: <strong>lado a lado</strong>, o <strong>apiladas</strong> con la secadora montada sobre la lavadora para un clóset alto y angosto.</li>",
+    "about.equip.list":"<li>Capacidad de la lavadora alrededor de [X] pies cúbicos; secadora alrededor de [X] pies cúbicos.</li><li>El juego se instala <strong>lado a lado</strong> (dos máquinas en fila). No manejamos máquinas apiladas.</li>",
     "about.space.h":"Qué necesita tu espacio",
-    "about.space.list":"<li>Un <strong>contacto de secadora de 240V</strong>. Es el contacto grande de tres o cuatro ranuras donde se enchufa una secadora, no un contacto normal de pared.</li><li>Llaves de agua fría y caliente y un tubo de drenaje para la lavadora.</li><li>Un ducto de ventilación de la secadora hacia afuera.</li><li>Espacio libre de aproximadamente [An x Pr x Al] lado a lado, o [An x Pr x Al] apiladas.</li><li>Escaleras y pisos altos no son problema; el equipo la sube.</li>",
+    "about.space.list":"<li>Un <strong>contacto de secadora de 240V</strong>. Es el contacto grande de tres o cuatro ranuras donde se enchufa una secadora, no un contacto normal de pared.</li><li>Llaves de agua fría y caliente y un tubo de drenaje para la lavadora.</li><li>Un ducto de ventilación de la secadora hacia afuera.</li><li>Espacio de piso de aproximadamente [An x Pr x Al] para las dos máquinas lado a lado.</li><li>Escaleras y pisos altos no son problema; el equipo la sube.</li>",
     "about.install.h":"Instalación",
     "about.install.p1":"Un equipo de dos personas conecta las mangueras de agua, el ducto de la secadora y la corriente de 240V, nivela las dos máquinas y corre un ciclo corto para revisar fugas y calor antes de irse. Te enseñan los controles y se llevan tu lavadora y secadora viejas en el mismo viaje.",
     "about.install.p2":"La entrega suele ser dentro de una semana de la aprobación.",
@@ -972,18 +946,18 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "about.service.p2":"Reporta un problema por correo y programamos una visita.",
     "about.specs.h":"En resumen.",
     "spec1":"Secadoras eléctricas, contacto de 240V",
-    "spec2":"Configuraciones, lado a lado o apiladas",
+    "spec2":"Revisión de crédito o comprobante de ingresos",
     "spec3":"Plazos en meses, misma tarifa de $80",
     "spec4":"Reparaciones y refacciones, todo el plazo",
     "about.terms.h":"Plazos, pagos y requisitos",
-    "about.terms.list":"<li><strong>3 o 6 meses.</strong> Los dos son $80 al mes; el plazo largo asegura esa tarifa y esas máquinas por más tiempo.</li><li>El primer mes se paga en la entrega. No hay depósito grande.</li><li><strong>Sin revisión de crédito.</strong> La revisión es tu talón de pago más reciente, una licencia de conducir o identificación estatal, y una foto del contacto de tu secadora.</li>",
+    "about.terms.list":"<li><strong>3 o 6 meses.</strong> Los dos son $80 al mes; el plazo largo asegura esa tarifa y esas máquinas por más tiempo.</li><li>El primer mes se paga en la entrega. No hay depósito grande.</li><li><strong>Sin revisión de crédito ni comprobante de ingresos.</strong> Para solicitar, solo necesitamos una foto del contacto de tu secadora. Muestras una licencia de conducir o identificación estatal válida en persona cuando entregan las máquinas.</li>",
     "about.area.h":"A dónde entregamos",
     "about.area.p1":"Los Angeles, Houston y Dallas.",
     "about.area.p2":"<strong>Se habla español.</strong> Cambia el sitio a español arriba de la página. Puedes llenar la solicitud en español y te contestamos en español.",
 
     "apply.title":"Solicitud de renta",
     "apply.deck":"Llevemos un juego a tu puerta.",
-    "apply.p":"Unos dos minutos. Sin revisión de crédito. Solo necesitamos una foto del contacto de tu secadora. El talón de pago y la identificación son opcionales y pueden esperar hasta que confirmemos la entrega.",
+    "apply.p":"Unos dos minutos. Sin revisión de crédito ni comprobante de ingresos. Solo necesitamos una foto del contacto de tu secadora. Muestras una licencia de conducir o identificación estatal en persona en la entrega.",
 
     "fs1":"Sobre ti",
     "f.name":"Nombre completo","f.name.ph":"Nombre y apellido","f.name.err":"Escribe tu nombre completo.",
@@ -995,9 +969,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "f.city":"Ciudad","f.city.ph":"Escoge una ciudad…","f.city.err":"Escoge la ciudad donde estás.",
     "f.zip":"Código postal","f.zip.err":"Escribe un código postal de 5 dígitos.",
     "f.street":"Dirección","f.street.ph":"Calle, número de apartamento o unidad","f.street.err":"Escribe la dirección de entrega.",
-    "f.space":"Espacio disponible",
-    "space1.b":"Lado a lado","space1.i":"Dos máquinas en fila",
-    "space2.b":"Apiladas","space2.i":"Clóset alto y angosto",
+    "f.space":"¿Tienes espacio para lavadora y secadora lado a lado?",
+    "space1.b":"Sí","space1.i":"Espacio para dos máquinas en fila",
     "space3.b":"No estoy seguro","space3.i":"Medimos al llegar",
 
     "fs3":"Tu plazo",
@@ -1006,34 +979,27 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     "term6.b":"6 meses","term6.i":"$80 al mes, tarifa asegurada más tiempo","term6.tag":"Más popular",
     "f.date":"Fecha de entrega preferida","f.date.help":"Confirmamos la ventana más cercana que tengamos.",
 
-    "fs4":"Ingresos",
-    "inc.hint":"Sin revisión de crédito. Solo vemos que el pago mensual te quede cómodo.",
-    "f.employer":"Empleador o fuente de ingresos","f.employer.ph":"Nombre de la empresa, o por mi cuenta","f.employer.err":"Dinos de dónde vienen tus ingresos.",
-    "f.income":"Ingreso mensual antes de impuestos","f.income.err":"Escribe tu ingreso mensual aproximado.",
-
-    "fs5":"Documentos",
-    "docs.hint":"Las fotos de tu celular funcionan bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse. La foto del contacto es obligatoria para saber si la entrega es posible. El talón de pago y la identificación son opcionales aquí, pero podríamos pedirlos antes de confirmar una ventana de entrega.",
-    "d.paystub":"Talón de pago más reciente","d.paystub.sub":"Solo uno. Foto o PDF.",
-    "d.license":"Licencia de conducir","d.license.sub":"Frente y reverso, o una identificación estatal.",
+    "fs5":"Foto del contacto de la secadora",
+    "docs.hint":"Una foto de tu celular funciona bien. Las imágenes grandes se reducen automáticamente antes de adjuntarse, así la subida es rápida.",
     "d.outlet":"Foto del contacto de tu secadora",
     "d.outlet.sub":"Es el contacto grande de tres o cuatro ranuras donde se enchufa la secadora, no un contacto normal de pared. Si tu secadora vieja sigue ahí, conéctala y fotografía el enchufe junto con el contacto.",
     "docs.err":"Adjunta una foto del contacto de tu secadora para continuar.",
-    "opt.tag":"Opcional",
 
     "fs6":"Confirmar",
-    "consent.txt":"Confirmo que esta información es correcta y autorizo a Squeaky Clean Co a revisar los documentos que adjunté para procesar esta solicitud de renta.",
+    "consent.txt":"Confirmo que esta información es correcta y autorizo a Squeaky Clean Co a contactarme sobre esta solicitud de renta.",
     "consent.err":"Confirma para continuar.",
+    "idack.txt":"Entiendo que debo mostrar una licencia de conducir o identificación estatal válida en persona cuando entreguen las máquinas.",
+    "idack.err":"Confirma para continuar.",
     "submit":"Enviar solicitud",
 
     "aside1.h":"Lo que necesitas",
     "aside1.li3":"Una foto del contacto de tu secadora, con el enchufe visible",
     "aside1.li4":"La dirección de entrega y el código postal",
-    "aside1.li1":"Tu talón de pago más reciente (opcional)",
-    "aside1.li2":"Licencia de conducir o identificación estatal (opcional)",
+    "aside1.li2":"Una licencia de conducir o identificación estatal para mostrar en la entrega",
     "aside2.h":"Lo que cuesta",
     "aside2.p":"<strong>$80 al mes</strong>, con cualquier plazo. Entrega, instalación, reparaciones y retiro incluidos. El primer mes se paga en la entrega. No hay depósito grande ni revisión de crédito.",
-    "aside3.h":"Tus documentos",
-    "aside3.p":"La foto del contacto nos dice que la entrega es posible. Tu talón de pago y tu identificación son opcionales para empezar. Si los incluyes, se adjuntan a esta solicitud y llegan directo a nosotros, y se usan solo para revisarla.",
+    "aside3.h":"Verificación de identidad",
+    "aside3.p":"Aquí no subes ninguna identificación. El único archivo es la foto del contacto de tu secadora, que nos dice si la entrega es posible. Muestras una licencia de conducir o identificación estatal válida en persona cuando el equipo llega con las máquinas.",
 
     "done.eyebrow":"Solicitud lista","done.h2":"Gracias. Este es tu número de referencia.",
     "done.save":"Guardar archivo de solicitud","done.copy":"Copiar como texto","done.restart":"Enviar otra",
@@ -1045,7 +1011,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   var MSG = {
     en:{
       "done.msg":"Save your application file and email it to " + CONTACT + ", and we'll come back to you with availability and a delivery window.",
-      "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with your outlet photo attached, plus your paystub and ID if you included them.",
+      "done.msg.nodl":"Copy your application below and email it to " + CONTACT + " with the photo of your dryer outlet attached.",
       "msg.fix":"Some fields still need attention. See the highlights above.",
       "msg.pack":"Packaging your application…",
       "msg.saved":"Saved. Email that file to " + CONTACT + " and you're done.",
@@ -1064,7 +1030,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     },
     es:{
       "done.msg":"Guarda tu archivo de solicitud y envíalo por correo a " + CONTACT + ", y te regresamos con disponibilidad y una ventana de entrega.",
-      "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando la foto del contacto, y tu talón de pago e identificación si los incluiste.",
+      "done.msg.nodl":"Copia tu solicitud aquí abajo y envíala por correo a " + CONTACT + " adjuntando la foto del contacto de tu secadora.",
       "msg.fix":"Faltan algunos campos. Revisa lo marcado arriba.",
       "msg.pack":"Preparando tu solicitud…",
       "msg.saved":"Guardado. Envía ese archivo a " + CONTACT + " y listo.",
@@ -1173,8 +1139,6 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   /* ================= files ================= */
   var MAX_BYTES = 170000, MAX_DIM = 1600;
   var SLOTS = {
-    paystub:{ kind:"paystub",          max:1, el:null, list:null, drop:null, files:[] },
-    license:{ kind:"drivers_license",  max:2, el:null, list:null, drop:null, files:[] },
     outlet: { kind:"dryer_outlet_photo", max:3, el:null, list:null, drop:null, files:[] }
   };
 
@@ -1303,9 +1267,8 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
   function digits(s){ return (s.match(/\d/g) || []).length; }
 
   function validateDocs(silent){
-    // Paystub and license are optional now — only the outlet photo blocks
-    // submission, since that's the one thing we need to know delivery is
-    // even possible. See docs.hint for why the other two are still asked for.
+    // The dryer outlet photo is the only file the form asks for. ID is
+    // shown in person at delivery (see the idack checkbox), not uploaded.
     var ok = SLOTS.outlet.files.length > 0;
     var e = document.getElementById("docsErr");
     if(ok){ e.style.display = "none"; e.dataset.shown = ""; }
@@ -1320,12 +1283,13 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     ok = mark("metro", val("metro") !== "") && ok;
     ok = mark("zip", /^\d{5}(-\d{4})?$/.test(val("zip"))) && ok;
     ok = mark("street", val("street").length >= 4) && ok;
-    ok = mark("employer", val("employer").length >= 2) && ok;
-    ok = mark("income", digits(val("income")) >= 2) && ok;
     if(!validateDocs(false)) ok = false;
     var consent = document.getElementById("consent").checked;
     document.getElementById("consentErr").style.display = consent ? "none" : "block";
     if(!consent) ok = false;
+    var idack = document.getElementById("idack").checked;
+    document.getElementById("idackErr").style.display = idack ? "none" : "block";
+    if(!idack) ok = false;
     return ok;
   }
 
@@ -1337,7 +1301,6 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     var stamp = String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
     return "SCC-" + stamp + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
   }
-  function moneyNumber(s){ var n = parseFloat((s||"").replace(/[^0-9.]/g,"")); return isFinite(n) ? n : null; }
   function radioVal(name){ var el = form.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : null; }
 
   function buildPayload(){
@@ -1355,10 +1318,11 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
       applicant:{ fullName:val("fullName"), phone:val("phone"), email:val("email"), preferredLanguage:prefLang },
       delivery:{ city:val("metro"), streetAddress:val("street"), zip:val("zip"), spaceType:radioVal("space"), preferredDate:val("startDate") || null },
       lease:{ termMonths:term, monthlyRate:80, currency:"USD" },
-      income:{ employerOrSource:val("employer"), monthlyIncome:moneyNumber(val("income")) },
       documents:docs,
       consent:{ accepted:document.getElementById("consent").checked, acceptedAt:now,
-                statement:"Applicant confirmed accuracy and authorized review of attached documents." },
+                statement:"Applicant confirmed accuracy and authorized contact about this application." },
+      idCheck:{ acknowledged:document.getElementById("idack").checked, acknowledgedAt:now,
+                statement:"Applicant understands a valid driver's license or state ID must be shown in person at delivery." },
       attribution:{ ref:val("ref") || "direct", fbclid:ATTR.fbclid || null,
                     firstTouchAt:ATTR.firstTouchAt || null, landingPath:ATTR.landingPath || null },
       flatRow:{
@@ -1375,12 +1339,9 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
         "Preferred Delivery Date":val("startDate") || "",
         "Lease Term (Months)":term,
         "Monthly Rate (USD)":80,
-        "Employer or Income Source":val("employer"),
-        "Monthly Income (USD)":moneyNumber(val("income")),
-        "Paystubs Attached":SLOTS.paystub.files.length,
-        "License Images Attached":SLOTS.license.files.length,
         "Outlet Photo Attached":outletOk ? "Yes" : "No",
         "Consent Accepted":document.getElementById("consent").checked ? "Yes" : "No",
+        "ID Check Acknowledged":document.getElementById("idack").checked ? "Yes" : "No",
         "Ref":val("ref") || "direct"
       }
     };
@@ -1500,7 +1461,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     Object.keys(SLOTS).forEach(function(k){ SLOTS[k].files = []; renderSlot(k); });
     form.reset();
     Array.prototype.forEach.call(form.querySelectorAll(".field.bad"), function(f){ f.classList.remove("bad"); });
-    ["docsErr","consentErr"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
+    ["docsErr","consentErr","idackErr"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
     payload = null;
     sentOk = false;
     doneWrap.hidden = true;
@@ -1514,6 +1475,7 @@ pre.json{margin:0;background:var(--sunk);color:var(--ink-2);border:1px solid var
     var f = e.target.closest(".field");
     if(f) f.classList.remove("bad");
     if(e.target.id === "consent") document.getElementById("consentErr").style.display = "none";
+    if(e.target.id === "idack") document.getElementById("idackErr").style.display = "none";
   });
 
   (function(){

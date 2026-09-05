@@ -56,8 +56,7 @@ var APPLICATION_HEADERS = [
   'Application ID', 'Submitted At', 'Full Name', 'Phone', 'Email',
   'Preferred Language', 'City', 'Street Address', 'ZIP', 'Space Type',
   'Preferred Delivery Date', 'Lease Term (Months)', 'Monthly Rate (USD)',
-  'Employer or Income Source', 'Monthly Income (USD)', 'Paystubs Attached',
-  'License Images Attached', 'Outlet Photo Attached', 'Consent Accepted',
+  'Outlet Photo Attached', 'Consent Accepted', 'ID Check Acknowledged',
   'Review Status', 'Promoted to Renter ID',
   'Ref' // outreach attribution — see the click-tracking note at the top of this file
 ];
@@ -334,21 +333,22 @@ function promoteSelectedApplication() {
     return;
   }
 
-  // Paystub and ID are optional on the form now, so this is the trust
-  // checkpoint that replaces them: a deliberate speed bump before a machine
-  // goes out to someone with no income or identity verification on file.
-  var missing = unverifiedDocs_(app);
-  if (missing.length) {
+  // No documents are uploaded anymore. The renter shows a driver's license
+  // or state ID in person at delivery; the form only records that they
+  // agreed to that (the "ID Check Acknowledged" column), and that flag
+  // carries into the renter's Notes below. If it somehow reads anything
+  // other than "Yes", warn before a machine goes out.
+  if (String(app['ID Check Acknowledged']).toLowerCase() !== 'yes') {
     var resp = ui.alert(
-      'No ' + missing.join(' or ') + ' on file',
-      'This application has no ' + missing.join(' and ') + ' attached. ' +
+      'ID check not acknowledged',
+      'This application does not have the delivery ID check acknowledged. ' +
       'Promote to Renters anyway?',
       ui.ButtonSet.YES_NO
     );
     if (resp !== ui.Button.YES) return;
   }
 
-  var renterId = writeRenterRow_(app, missing);
+  var renterId = writeRenterRow_(app);
 
   var promotedCol = headers.indexOf('Promoted to Renter ID') + 1;
   var statusCol = headers.indexOf('Review Status') + 1;
@@ -356,22 +356,11 @@ function promoteSelectedApplication() {
   if (statusCol > 0) apps.getRange(rowNum, statusCol).setValue('Approved');
 
   ui.alert('Added ' + renterId + ' to ' + RENTERS_TAB + '.\n\n' +
+           'Verify the driver\'s license / ID at delivery.\n' +
            'Still to fill in by hand: Assigned Vendor ID, Distance to Vendor (mi), My Cut.');
 }
 
-/**
- * Which of the optional trust documents are missing from an application,
- * as human-readable labels — [] if both are on file. Reused by the promote
- * confirm dialog and by the Notes flag it leaves behind on Renters.
- */
-function unverifiedDocs_(app) {
-  var missing = [];
-  if (!Number(app['Paystubs Attached'])) missing.push('paystub');
-  if (!Number(app['License Images Attached'])) missing.push('ID');
-  return missing;
-}
-
-function writeRenterRow_(app, missingDocs) {
+function writeRenterRow_(app) {
   var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(RENTERS_TAB);
   if (!sh) throw new Error('No tab named "' + RENTERS_TAB + '"');
 
@@ -380,7 +369,6 @@ function writeRenterRow_(app, missingDocs) {
 
   var targetRow = firstBlankRenterRow_(sh);
   var renterId = nextRenterId_(sh, headers);
-  missingDocs = missingDocs || unverifiedDocs_(app);
 
   var out = {
     'Renter ID': renterId,
@@ -397,11 +385,10 @@ function writeRenterRow_(app, missingDocs) {
     'Status': NEW_RENTER_STATUS,
     'Notes': 'From ' + app['Application ID'] +
              ' · ' + (app['Lease Term (Months)'] || '?') + ' mo term' +
-             ' · ' + (app['Employer or Income Source'] || '') +
-             ' · income ' + (app['Monthly Income (USD)'] || '?') +
              ' · space ' + (app['Space Type'] || '?') +
              ' · lang ' + (app['Preferred Language'] || '') +
-             (missingDocs.length ? ' · UNVERIFIED: no ' + missingDocs.join('/') + ' on file' : '')
+             ' · ID check ' +
+               (String(app['ID Check Acknowledged']).toLowerCase() === 'yes' ? 'acknowledged, verify at delivery' : 'NOT acknowledged')
   };
 
   // Write cell by cell, and ONLY into columns on the writable list. Anything
@@ -476,7 +463,8 @@ function testEndToEnd() {
       'Full Name': 'Test Applicant', 'Phone': '(555) 555-0123',
       'Email': NOTIFY_TO, 'City': 'Houston', 'ZIP': '77520',
       'Street Address': '1 Test St', 'Lease Term (Months)': 6,
-      'Monthly Rate (USD)': 80, 'Consent Accepted': 'Yes', 'Ref': 'test-0000-xxxx'
+      'Monthly Rate (USD)': 80, 'Consent Accepted': 'Yes',
+      'ID Check Acknowledged': 'Yes', 'Ref': 'test-0000-xxxx'
     }
   };
   appendApplication_(rec);
