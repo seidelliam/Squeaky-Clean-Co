@@ -1,0 +1,334 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Partner with Squeaky Clean Co</title>
+<meta name="description" content="Supplier and service-partner intake for Squeaky Clean Co washer and dryer rentals in Los Angeles, Houston, and Dallas.">
+
+<style>
+/* Squeaky Clean Co — vendor / partner intake. Same visual language as the
+   main site, trimmed down to just this one short form. */
+:root{
+  --ground:#E8ECEA; --paper:#FFFFFF; --sunk:#DCE2DF;
+  --ink:#14201E; --ink-2:#3E4F4B; --ink-3:#566965;
+  --line:#CDD6D2; --line-2:#B4C0BB;
+  --signal:#FFB302; --signal-deep:#996B00; --signal-text:#855D00; --signal-soft:#FFF1CF;
+  --on-signal:#14201E;
+  --ok:#186B4C; --bad:#B3261E; --bad-soft:#FBE9E7;
+  --r:4px; --r-pill:999px;
+  --s-0:1.0625rem; --s-2:1.5rem; --s-4:clamp(2rem,5vw,3rem);
+  --pad:clamp(1.25rem,3.4vw,2rem);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:var(--s-0);line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2{margin:0;font-weight:800;line-height:1.05;letter-spacing:-.025em;text-wrap:balance}
+p{margin:0}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:var(--r)}
+.wrap{width:min(100% - 2rem,720px);margin-inline:auto;padding:clamp(1.5rem,5vw,3rem) 0 4rem}
+
+.top{display:inline-flex;align-items:center;gap:.55rem;margin-bottom:2rem;text-decoration:none}
+.mark{width:26px;height:26px;flex:0 0 auto;border:2.5px solid var(--ink);border-radius:var(--r);display:grid;place-content:center}
+.mark::after{content:"";width:11px;height:11px;border-radius:50%;border:2.5px solid var(--signal)}
+.top b{font-weight:800;font-size:1rem;letter-spacing:-.03em}
+
+.head h1{font-size:var(--s-4);max-width:18ch}
+.head p{margin-top:.9rem;color:var(--ink-2);max-width:54ch}
+
+.fieldset{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);padding:var(--pad);margin:1.25rem 0 0}
+.fieldset legend{padding:0 .5rem;margin-left:-.5rem;font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+.legend-n{font-family:ui-monospace,Menlo,monospace;font-size:.78rem;color:var(--signal-text);margin-right:.5rem;font-weight:600}
+.hint{color:var(--ink-2);font-size:.92rem;margin:.5rem 0 1.1rem;max-width:58ch}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem}
+.field{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.field + .field,.grid2 + .field,.field + .grid2{margin-top:1rem}
+.field label{font-size:.87rem;font-weight:700}
+.req{color:var(--signal-text)}
+.opt{color:var(--ink-3);font-weight:500;font-size:.78rem}
+.field input,.field select,.field textarea{
+  font:inherit;font-size:1rem;color:var(--ink);background:var(--ground);
+  border:1.5px solid var(--line-2);border-radius:var(--r);padding:.8rem .85rem;width:100%;
+}
+.field textarea{min-height:7rem;resize:vertical;line-height:1.5}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-3);opacity:1}
+.field input:focus,.field select:focus,.field textarea:focus{background:var(--paper);border-color:var(--ink);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
+.field.bad input,.field.bad select{border-color:var(--bad);background:var(--bad-soft)}
+.err{font-size:.82rem;color:var(--bad);font-weight:600;display:none}
+.field.bad .err{display:block}
+
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.6rem;margin-top:.4rem}
+.check{display:flex;gap:.6rem;align-items:flex-start;border:1.5px solid var(--line-2);border-radius:var(--r);padding:.7rem .8rem;background:var(--ground);cursor:pointer}
+.check input{margin-top:.15rem;width:1.05rem;height:1.05rem;flex:0 0 auto;accent-color:var(--ink)}
+.check span{font-size:.92rem}
+
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-size:.92rem;color:var(--ink-2);margin-top:.4rem}
+.consent input{margin-top:.25rem;width:1.1rem;height:1.1rem;flex:0 0 auto;accent-color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:700;font-size:1rem;
+  padding:.8rem 1.6rem;border-radius:var(--r-pill);border:2px solid transparent;cursor:pointer;text-decoration:none;
+  transition:background .15s ease,transform .1s ease,border-color .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn-signal{background:var(--signal);color:var(--on-signal);border-color:var(--signal)}
+.btn-signal:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+.btn-line{background:transparent;border-color:var(--line-2);color:var(--ink)}
+.btn-line:hover{border-color:var(--ink);background:var(--paper)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.busy{position:relative;color:transparent}
+.btn.busy::after{content:"";position:absolute;width:1rem;height:1rem;border-radius:50%;
+  border:2px solid var(--on-signal);border-top-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.submit-row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.35rem}
+.status{font-size:.9rem;font-weight:600;color:var(--ink-2)}
+.status.bad{color:var(--bad)}
+.status.ok{color:var(--ok)}
+
+.done{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:var(--r);padding:var(--pad);display:flex;flex-direction:column;gap:1rem;margin-top:1.25rem}
+.done .refid{font-family:ui-monospace,Menlo,monospace;font-size:1.05rem;background:var(--ground);border:1px solid var(--line);padding:.5rem .8rem;border-radius:var(--r);align-self:flex-start}
+.done-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+
+@media (max-width:44rem){
+  .fieldset{padding:1.15rem 1rem}
+  .field input,.field select,.field textarea{padding:.85rem}
+  .submit-row .btn{width:100%}
+  .status{width:100%;text-align:center}
+  .done-actions .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+<main class="wrap">
+  <a class="top" href="/"><span class="mark" aria-hidden="true"></span><b>Squeaky Clean Co</b></a>
+
+  <div class="head">
+    <h1>Partner with Squeaky Clean Co</h1>
+    <p>We place washer and dryer sets in homes across Los Angeles, Houston, and Dallas. If you supply, deliver, install, or service machines in one of those metros, tell us about your operation. Every arrangement is set up individually, so keep this short. We follow up by phone or email.</p>
+  </div>
+
+  <form id="vform" novalidate>
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">01</span>You</legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="name">Name or business name <span class="req">*</span></label>
+          <input id="name" autocomplete="organization" placeholder="Your name or company">
+          <span class="err">Enter a name we can reach you by.</span>
+        </div>
+        <div class="field">
+          <label for="phone">Phone <span class="req">*</span></label>
+          <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567">
+          <span class="err">Enter a phone number with at least 10 digits.</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">Email <span class="req">*</span></label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@email.com">
+        <span class="err">Enter a valid email address.</span>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">02</span>Coverage</legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="city">Primary metro <span class="req">*</span></label>
+          <select id="city">
+            <option value="">Choose a metro&hellip;</option>
+            <option>Los Angeles</option>
+            <option>Houston</option>
+            <option>Dallas</option>
+            <option>Other</option>
+          </select>
+          <span class="err">Pick the metro you work in.</span>
+        </div>
+        <div class="field">
+          <label for="zip">Base ZIP <span class="opt">optional</span></label>
+          <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" placeholder="90001">
+        </div>
+      </div>
+      <div class="field">
+        <label for="radius">How far will you travel? <span class="opt">optional</span></label>
+        <input id="radius" placeholder="e.g. 25 miles, or all of Harris County">
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">03</span>What you can do</legend>
+      <p class="hint">Check anything that applies. Nothing here is required.</p>
+      <div class="checks">
+        <label class="check"><input type="checkbox" name="svc" value="Supply sets"><span>Supply washer/dryer sets</span></label>
+        <label class="check"><input type="checkbox" name="svc" value="Delivery &amp; install"><span>Delivery &amp; installation</span></label>
+        <label class="check"><input type="checkbox" name="svc" value="Repairs"><span>Repairs &amp; service calls</span></label>
+        <label class="check"><input type="checkbox" name="svc" value="Haul-away"><span>Haul away old units</span></label>
+        <label class="check"><input type="checkbox" name="svc" value="Storage"><span>Storage / warehousing</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">04</span>Notes &amp; requirements</legend>
+      <p class="hint">Optional. Anything we should know: your rates, capacity, scheduling limits, insurance, the exact areas you cover, or what you'd need from us to make this work.</p>
+      <div class="field">
+        <label for="notes" class="opt" style="font-weight:500">Free text</label>
+        <textarea id="notes" placeholder="Type as much or as little as you want."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">05</span>Send</legend>
+      <label class="consent">
+        <input type="checkbox" id="ok">
+        <span>I'd like to partner with Squeaky Clean Co and I'm OK being contacted about it. <span class="req">*</span></span>
+      </label>
+      <span class="err" id="okErr">Please check the box to continue.</span>
+      <div class="submit-row">
+        <button class="btn btn-signal" type="submit" id="sendBtn">Send</button>
+        <span class="status" id="status" role="status" aria-live="polite"></span>
+      </div>
+    </fieldset>
+  </form>
+
+  <section class="done" id="done" hidden>
+    <h2>Got it. Thanks.</h2>
+    <span class="refid" id="refid">SCV-000000</span>
+    <p id="doneMsg" style="color:var(--ink-2)"></p>
+    <div class="done-actions">
+      <a class="btn btn-line" id="saveBtn" href="#" download>Save a copy</a>
+      <button class="btn btn-line" id="copyBtn" type="button">Copy as text</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var ENDPOINT = "/api/vendor";
+  var CONTACT = "squeaky.clean.co.office@gmail.com";
+  var TIMEOUT = 25000;
+
+  var form = document.getElementById("vform");
+  var sendBtn = document.getElementById("sendBtn");
+  var statusEl = document.getElementById("status");
+  var done = document.getElementById("done");
+  var record = null;
+
+  function setStatus(msg, tone){ statusEl.textContent = msg || ""; statusEl.className = "status" + (tone ? " " + tone : ""); }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+  function digits(s){ return (s.match(/\d/g) || []).length; }
+  function fieldOf(id){ return document.getElementById(id).closest(".field"); }
+  function mark(id, ok){ var f = fieldOf(id); if(f) f.classList.toggle("bad", !ok); return ok; }
+
+  function makeId(){
+    var d = new Date();
+    var stamp = String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
+    return "SCV-" + stamp + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
+  }
+  function services(){
+    return Array.prototype.slice.call(form.querySelectorAll('input[name="svc"]:checked'))
+      .map(function(c){ return c.value.replace(/&amp;/g, "&"); }).join(", ");
+  }
+
+  function validate(){
+    var ok = true;
+    ok = mark("name", val("name").length >= 2) && ok;
+    ok = mark("phone", digits(val("phone")) >= 10) && ok;
+    ok = mark("email", /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("email"))) && ok;
+    ok = mark("city", val("city") !== "") && ok;
+    var okBox = document.getElementById("ok").checked;
+    document.getElementById("okErr").style.display = okBox ? "none" : "block";
+    if(!okBox) ok = false;
+    return ok;
+  }
+
+  function build(){
+    var now = new Date().toISOString(), id = makeId();
+    return {
+      submissionId: id,
+      submittedAt: now,
+      flatRow: {
+        "Submission ID": id,
+        "Submitted At": now,
+        "Name / Business": val("name"),
+        "Phone": val("phone"),
+        "Email": val("email"),
+        "Primary City": val("city"),
+        "Base ZIP": val("zip"),
+        "Travel / Radius": val("radius"),
+        "Services": services(),
+        "Notes & Requirements": val("notes")
+      }
+    };
+  }
+  function summaryText(r){
+    var f = r.flatRow, lines = ["SQUEAKY CLEAN CO, VENDOR INQUIRY", ""];
+    Object.keys(f).forEach(function(k){ lines.push(k + ": " + (f[k] || "")); });
+    return lines.join("\n");
+  }
+
+  async function send(r){
+    var ctl = new AbortController(), timer = setTimeout(function(){ ctl.abort(); }, TIMEOUT);
+    try{
+      var res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(r),
+        signal: ctl.signal
+      });
+      var j = await res.json().catch(function(){ return null; });
+      return !!(j && j.ok);
+    }catch(e){ return false; }
+    finally{ clearTimeout(timer); }
+  }
+
+  form.addEventListener("input", function(e){
+    var f = e.target.closest(".field"); if(f) f.classList.remove("bad");
+    if(e.target.id === "ok") document.getElementById("okErr").style.display = "none";
+  });
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    setStatus("");
+    if(!validate()){
+      setStatus("A few fields need attention.", "bad");
+      var bad = form.querySelector(".field.bad input, .field.bad select");
+      if(bad) bad.focus();
+      return;
+    }
+    sendBtn.disabled = true; sendBtn.classList.add("busy"); setStatus("Sending…");
+    record = build();
+
+    document.getElementById("refid").textContent = record.submissionId;
+    var blob = new Blob([JSON.stringify(record, null, 2)], { type: "application/json" });
+    var saveBtn = document.getElementById("saveBtn");
+    saveBtn.href = URL.createObjectURL(blob);
+    saveBtn.setAttribute("download", record.submissionId + ".json");
+
+    var ok = await send(record);
+
+    form.hidden = true;
+    done.hidden = false;
+    sendBtn.disabled = false; sendBtn.classList.remove("busy");
+    setStatus("");
+    document.getElementById("doneMsg").textContent = ok
+      ? "We've received your info and we'll reach out. Keep a copy below for your records if you want one."
+      : "We couldn't submit that automatically. Please email the copy below to " + CONTACT + ".";
+    done.scrollIntoView({ block: "start" });
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", async function(){
+    if(!record) return;
+    try{
+      await navigator.clipboard.writeText(summaryText(record));
+      setStatus("Copied. Paste it into an email to " + CONTACT + ".", "ok");
+    }catch(e){ setStatus("Couldn't copy. Select the text manually.", "bad"); }
+  });
+})();
+</script>

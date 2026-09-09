@@ -10,9 +10,12 @@
  * keeps unapproved leads out of your Dashboard counts, and keeps the form away
  * from the formula columns on Renters.
  *
- * doPost also handles click beacons from Messenger outreach links (see
- * api/click.js) — those log to the Clicks tab instead of Applications, so
- * "clicked but never applied" is visible via Squeaky Clean → Build ref report.
+ * doPost also handles two other posters:
+ *   - click beacons from Messenger outreach links (api/click.js) log to the
+ *     Clicks tab; see Squeaky Clean → Build ref report.
+ *   - partner intake from the /vendor form (api/vendor.js) lands in the
+ *     Vendor Leads tab with a plain email. It never touches the real
+ *     Vendors tab — copy a lead across by hand when you onboard them.
  *
  * Deploy: Extensions > Apps Script, paste this in, fill CONFIG, run
  * setupApplicationsTab() once, then Deploy > New deployment > Web app
@@ -29,6 +32,7 @@ var APPLICATIONS_TAB = 'Applications';
 var RENTERS_TAB      = 'Renters';
 var CLICKS_TAB        = 'Clicks';
 var REF_REPORT_TAB    = 'Ref Report';
+var VENDOR_LEADS_TAB  = 'Vendor Leads';   // partner intake from /vendor — leads only, never the real Vendors tab
 
 /** Renters puts its column names on row 2 — row 1 is the merged title banner. */
 var RENTERS_HEADER_ROW = 2;
@@ -61,6 +65,12 @@ var APPLICATION_HEADERS = [
   'Ref' // outreach attribution — see the click-tracking note at the top of this file
 ];
 
+var VENDOR_LEAD_HEADERS = [
+  'Submission ID', 'Submitted At', 'Name / Business', 'Phone', 'Email',
+  'Primary City', 'Base ZIP', 'Travel / Radius', 'Services',
+  'Notes & Requirements', 'Review Status'
+];
+
 /* ===================== ENDPOINT ===================== */
 
 function doPost(e) {
@@ -73,6 +83,10 @@ function doPost(e) {
     // Applications or sends mail. Kept out of the try/catch's mail-fallback
     // below since a click has no applicant to email anything to.
     if (body.click) return handleClick_(body.click);
+
+    // Partner intake from api/vendor.js — its own leads tab and its own
+    // (plain, no-attachment) email.
+    if (body.vendor) return handleVendor_(body.vendor);
 
     var rec = body.record;
     if (!rec || !rec.applicationId) return reply_({ ok: false, error: 'bad_payload' });
@@ -288,6 +302,77 @@ function buildRefReport() {
   SpreadsheetApp.getUi().alert('"' + REF_REPORT_TAB + '" rebuilt: ' + refs.length + ' ref code(s).');
 }
 
+/* ===================== VENDOR LEADS (partner intake) ===================== */
+
+function handleVendor_(v) {
+  try {
+    if (!v || !v.submissionId) return reply_({ ok: false, error: 'bad_payload' });
+    var row = appendVendorLead_(v);
+    sendVendorMail_(v);
+    return reply_({ ok: true, submissionId: v.submissionId, row: row });
+  } catch (err) {
+    // Get the operator the data even if the Sheet write failed.
+    try { if (v) sendVendorMail_(v, String(err)); } catch (ignored) {}
+    return reply_({ ok: false, error: String(err) });
+  }
+}
+
+function appendVendorLead_(v) {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sh = ss.getSheetByName(VENDOR_LEADS_TAB) || createVendorLeadsTab_();
+
+  var headers = sh.getRange(1, 1, 1, Math.max(1, sh.getLastColumn())).getValues()[0];
+  var flat = v.flatRow || {};
+  var row = headers.map(function (h) {
+    var key = String(h).trim();
+    if (key === 'Review Status') return 'New';
+    if (Object.prototype.hasOwnProperty.call(flat, key)) return flat[key];
+    return '';
+  });
+
+  sh.appendRow(row);
+  return sh.getLastRow();
+}
+
+function createVendorLeadsTab_() {
+  var sh = SpreadsheetApp.openById(SHEET_ID).insertSheet(VENDOR_LEADS_TAB);
+  sh.getRange(1, 1, 1, VENDOR_LEAD_HEADERS.length)
+    .setValues([VENDOR_LEAD_HEADERS])
+    .setFontWeight('bold')
+    .setBackground('#2e5c9a')
+    .setFontColor('#ffffff');
+  sh.setFrozenRows(1);
+  sh.autoResizeColumns(1, VENDOR_LEAD_HEADERS.length);
+  return sh;
+}
+
+/** Run from the menu if you want the tab ready first. Not required —
+ *  appendVendorLead_ creates it automatically on the first submission. */
+function setupVendorLeadsTab() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  if (!ss.getSheetByName(VENDOR_LEADS_TAB)) createVendorLeadsTab_();
+  SpreadsheetApp.getUi().alert('"' + VENDOR_LEADS_TAB + '" is ready.');
+}
+
+function sendVendorMail_(v, warning) {
+  var flat = v.flatRow || {};
+  var lines = Object.keys(flat).map(function (k) {
+    return k + ': ' + (flat[k] === null || flat[k] === undefined ? '' : flat[k]);
+  });
+  var body = 'New vendor / partner inquiry\n\n' + lines.join('\n');
+  if (warning) {
+    body = '!! The Vendor Leads row could NOT be written: ' + warning +
+           '\n!! The data below is intact — add it by hand.\n\n' + body;
+  }
+  MailApp.sendEmail({
+    to: NOTIFY_TO,
+    replyTo: flat['Email'] || NOTIFY_TO,
+    subject: 'Vendor inquiry — ' + (flat['Name / Business'] || 'unknown') +
+             ' (' + (flat['Primary City'] || '?') + ')',
+    body: body
+  });
+}
+
 /* ===================== PROMOTE TO RENTERS ===================== */
 
 function onOpen() {
@@ -299,6 +384,7 @@ function onOpen() {
     .addSeparator()
     .addItem('Set up Applications tab', 'setupApplicationsTab')
     .addItem('Set up Clicks tab', 'setupClicksTab')
+    .addItem('Set up Vendor Leads tab', 'setupVendorLeadsTab')
     .addItem('Test intake (row + email)', 'testEndToEnd')
     .addToUi();
 }
