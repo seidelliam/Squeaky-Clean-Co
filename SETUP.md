@@ -139,3 +139,37 @@ untouched) so the live sheet gets the new **Ref** column, and re-deploy the
 Apps Script (**Manage deployments → edit → New version**) so `doPost` picks
 up the click-handling code. No new Vercel env vars — `api/click.js` reuses
 `APPS_SCRIPT_URL` / `APPS_SCRIPT_TOKEN`.
+
+## Vendor / partner intake — `/vendor`
+
+A short standalone form for recruiting suppliers and service partners:
+[site/vendor/index.html](site/vendor/index.html) → `api/vendor.js` →
+Apps Script → the **Vendor Leads** tab (creates itself on first submit,
+or **Squeaky Clean → Set up Vendor Leads tab**). Plain notification
+email, no attachments. It never writes to your real Vendors tab — copy a
+lead across by hand when you onboard someone. Reuses the same
+`APPS_SCRIPT_URL` / `APPS_SCRIPT_TOKEN`, no new env vars. Share the link
+as `https://YOUR-DOMAIN/vendor`.
+
+## Internal dashboard — `/internal`
+
+A read-only view of **Renters**, **Applications**, and **Vendor Leads**,
+pulled live from the Sheet. Table or board (grouped by status), search,
+and a Refresh button. You still make edits in the Sheet itself.
+
+Flow: [site/internal/index.html](site/internal/index.html) →
+`api/internal.js` (checks the passphrase) → Apps Script `doGet` (checks
+it again) → JSON snapshot. Nothing writes.
+
+**Setup:**
+1. In Vercel, add env var **`INTERNAL_KEY`** =
+   `f9e979869a435f4a086c39baee27de19c47a00631ef5c664` (Production), then
+   redeploy. It must match `INTERNAL_KEY` in `Code.gs`.
+2. Re-deploy the Apps Script (**Manage deployments → edit → New
+   version**) so `doGet` goes live.
+3. Open `https://YOUR-DOMAIN/internal`, enter the key once. It's stored
+   in that browser only; **Lock** clears it. Anyone without the key gets
+   nothing — the data never leaves the server unauthenticated.
+
+Change the key later by updating it in both places (`INTERNAL_KEY` in
+`Code.gs` + the Vercel env var) and redeploying both.

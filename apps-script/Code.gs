@@ -27,6 +27,7 @@
 var SHEET_ID     = '1qXDexIzX9wiROynCKTa-yL8EdxmDImIHziB-gzCjBg0';   // long id in the Sheet's URL
 var NOTIFY_TO    = 'squeaky.clean.co.office@gmail.com';
 var SHARED_TOKEN = 'b5784de3ef47a6f06aa738f346f5990884aa3c02234deb20f6911f9b05aadb30'; // must match Vercel's APPS_SCRIPT_TOKEN
+var INTERNAL_KEY = 'f9e979869a435f4a086c39baee27de19c47a00631ef5c664'; // read-only dashboard passphrase; must match Vercel's INTERNAL_KEY
 
 var APPLICATIONS_TAB = 'Applications';
 var RENTERS_TAB      = 'Renters';
@@ -115,6 +116,62 @@ function handleClick_(click) {
 function reply_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ===================== INTERNAL READ (doGet) ===================== */
+
+/**
+ * Read-only snapshot for the internal dashboard (site/internal, via
+ * api/internal.js). Gated by INTERNAL_KEY passed as ?key=. Returns
+ * Renters, Applications, and Vendor Leads as arrays of plain objects.
+ * A bare visit with no key just gets {ok:false} — harmless.
+ */
+function doGet(e) {
+  try {
+    var key = (e && e.parameter && e.parameter.key) || '';
+    if (key !== INTERNAL_KEY) return reply_({ ok: false, error: 'unauthorized' });
+
+    return reply_({
+      ok: true,
+      generatedAt: new Date().toISOString(),
+      renters:      readTab_(RENTERS_TAB,      RENTERS_HEADER_ROW, RENTERS_FIRST_DATA_ROW, 'Renter ID'),
+      applications: readTab_(APPLICATIONS_TAB, 1, 2, 'Application ID'),
+      vendorLeads:  readTab_(VENDOR_LEADS_TAB, 1, 2, 'Submission ID')
+    });
+  } catch (err) {
+    return reply_({ ok: false, error: String(err) });
+  }
+}
+
+/**
+ * One tab as an array of objects keyed by its header row. Rows whose
+ * keyField cell is blank are skipped — Renters keeps its formulas filled
+ * down past the real data. Dates come back as ISO strings so they survive
+ * JSON.
+ */
+function readTab_(name, headerRow, firstDataRow, keyField) {
+  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(name);
+  if (!sh) return [];
+  var lastRow = sh.getLastRow(), lastCol = sh.getLastColumn();
+  if (lastRow < firstDataRow || lastCol < 1) return [];
+
+  var headers = sh.getRange(headerRow, 1, 1, lastCol).getValues()[0]
+    .map(function (h) { return String(h).trim(); });
+  var keyIdx = headers.indexOf(keyField);
+  var rows = sh.getRange(firstDataRow, 1, lastRow - firstDataRow + 1, lastCol).getValues();
+
+  var out = [];
+  rows.forEach(function (r) {
+    if (keyIdx > -1 && String(r[keyIdx]).trim() === '') return;
+    var obj = {};
+    headers.forEach(function (h, i) {
+      if (!h) return;
+      var v = r[i];
+      obj[h] = (v instanceof Date) ? v.toISOString() : v;
+    });
+    out.push(obj);
+  });
+  return out;
 }
 
 /* ===================== APPLICATIONS TAB ===================== */
