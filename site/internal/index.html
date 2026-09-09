@@ -180,11 +180,11 @@ td.clip{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsi
     {
       id:"vendorLeads", label:"Vendor Leads", dataKey:"vendorLeads",
       status:"Review Status", date:"Submitted At",
-      columns:["Submission ID","Submitted At","Name / Business","Phone","Email","Primary City","Services","Review Status","Notes & Requirements"],
+      columns:["Submission ID","Submitted At","Name / Business","Phone","Email","Cities Serviced","Services","Dryer Types","Monthly Rental Price","Delivery / Install Fee","Wants Leads Now","Review Status","Other Requirements"],
       order:["New","Contacted","Onboarded","Passed"],
       card:function(r){ return {
         title:r["Name / Business"]||r["Submission ID"], id:r["Submission ID"],
-        lines:[r["Primary City"], r["Phone"], r["Services"], r["Notes & Requirements"]]
+        lines:[r["Cities Serviced"], r["Phone"], r["Services"], r["Monthly Rental Price"], r["Wants Leads Now"]==="Yes"?"leads now: yes":""]
       };}
     }
   ];

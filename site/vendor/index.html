@@ -137,33 +137,35 @@ a{color:var(--ink)}
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend><span class="legend-n">02</span>Coverage</legend>
-      <div class="grid2">
+      <legend><span class="legend-n">02</span>Where you work</legend>
+      <div class="field">
+        <label>Cities you service <span class="req">*</span></label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="city" value="Los Angeles"><span>Los Angeles</span></label>
+          <label class="check"><input type="checkbox" name="city" value="Houston"><span>Houston</span></label>
+          <label class="check"><input type="checkbox" name="city" value="Dallas"><span>Dallas</span></label>
+        </div>
+        <span class="err" id="cityErr">Pick at least one city.</span>
+      </div>
+      <div class="grid2" style="margin-top:1rem">
         <div class="field">
-          <label for="city">Primary metro <span class="req">*</span></label>
-          <select id="city">
-            <option value="">Choose a metro&hellip;</option>
-            <option>Los Angeles</option>
-            <option>Houston</option>
-            <option>Dallas</option>
-            <option>Other</option>
-          </select>
-          <span class="err">Pick the metro you work in.</span>
+          <label for="zip">Your base ZIP <span class="opt">optional</span></label>
+          <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" placeholder="90001">
         </div>
         <div class="field">
-          <label for="zip">Base ZIP <span class="opt">optional</span></label>
-          <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" placeholder="90001">
+          <label for="radius">How far will you travel? <span class="opt">optional</span></label>
+          <input id="radius" placeholder="e.g. 25 miles, or all of Harris County">
         </div>
       </div>
       <div class="field">
-        <label for="radius">How far will you travel? <span class="opt">optional</span></label>
-        <input id="radius" placeholder="e.g. 25 miles, or all of Harris County">
+        <label for="areas">ZIP codes or areas you cover <span class="opt">optional</span></label>
+        <input id="areas" placeholder="e.g. 90001, 90003, 90011, or 'South LA and Inglewood'">
       </div>
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend><span class="legend-n">03</span>What you can do</legend>
-      <p class="hint">Check anything that applies. Nothing here is required.</p>
+      <legend><span class="legend-n">03</span>What you provide</legend>
+      <p class="hint">Check anything that applies.</p>
       <div class="checks">
         <label class="check"><input type="checkbox" name="svc" value="Supply sets"><span>Supply washer/dryer sets</span></label>
         <label class="check"><input type="checkbox" name="svc" value="Delivery &amp; install"><span>Delivery &amp; installation</span></label>
@@ -171,19 +173,76 @@ a{color:var(--ink)}
         <label class="check"><input type="checkbox" name="svc" value="Haul-away"><span>Haul away old units</span></label>
         <label class="check"><input type="checkbox" name="svc" value="Storage"><span>Storage / warehousing</span></label>
       </div>
-    </fieldset>
-
-    <fieldset class="fieldset">
-      <legend><span class="legend-n">04</span>Notes &amp; requirements</legend>
-      <p class="hint">Optional. Anything we should know: your rates, capacity, scheduling limits, insurance, the exact areas you cover, or what you'd need from us to make this work.</p>
+      <div class="field" style="margin-top:1rem">
+        <label>Dryers you can provide <span class="opt">optional</span></label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="dryer" value="Electric"><span>Electric dryers</span></label>
+          <label class="check"><input type="checkbox" name="dryer" value="Gas"><span>Gas dryers</span></label>
+        </div>
+      </div>
       <div class="field">
-        <label for="notes" class="opt" style="font-weight:500">Free text</label>
-        <textarea id="notes" placeholder="Type as much or as little as you want."></textarea>
+        <label for="hookup">Hookup requirements <span class="opt">optional</span></label>
+        <textarea id="hookup" placeholder="240V outlet, venting, water lines, floor space, upper-floor limits. Anything you need in place before you'll install."></textarea>
       </div>
     </fieldset>
 
     <fieldset class="fieldset">
-      <legend><span class="legend-n">05</span>Send</legend>
+      <legend><span class="legend-n">04</span>Pricing &amp; terms</legend>
+      <p class="hint">Rough numbers and ranges are fine.</p>
+      <div class="grid2">
+        <div class="field">
+          <label for="price">Monthly rental price, washer + dryer <span class="opt">optional</span></label>
+          <input id="price" placeholder="e.g. $65/mo">
+        </div>
+        <div class="field">
+          <label for="fee">Delivery &amp; install fee <span class="opt">optional</span></label>
+          <input id="fee" placeholder="e.g. $75 flat, or included">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="pay">How you collect payment <span class="opt">optional</span></label>
+          <input id="pay" placeholder="Autopay card, Zelle, cash, etc.">
+        </div>
+        <div class="field">
+          <label for="term">Minimum term / contract <span class="opt">optional</span></label>
+          <input id="term" placeholder="e.g. 3-month minimum, no contract">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">05</span>Capacity &amp; scheduling</legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="cap">New installs you can handle <span class="opt">optional</span></label>
+          <input id="cap" placeholder="e.g. 2 a day / 8 a week">
+        </div>
+        <div class="field">
+          <label for="hours">Days &amp; times you normally install <span class="opt">optional</span></label>
+          <input id="hours" placeholder="e.g. Mon to Sat, 8am to 4pm">
+        </div>
+      </div>
+      <label class="consent" style="margin-top:.6rem">
+        <input type="checkbox" id="leadsnow">
+        <span>I can start taking leads right away.</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">06</span>Requirements</legend>
+      <div class="field">
+        <label for="wont">Customers you won't take <span class="opt">optional</span></label>
+        <textarea id="wont" placeholder="Anything that's an automatic no for you."></textarea>
+      </div>
+      <div class="field">
+        <label for="notes">Anything else required before you'll accept a customer <span class="opt">optional</span></label>
+        <textarea id="notes" placeholder="Deposits, ID checks, credit checks, proof of address, insurance, etc."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend><span class="legend-n">07</span>Send</legend>
       <label class="consent">
         <input type="checkbox" id="ok">
         <span>I'd like to partner with Squeaky Clean Co and I'm OK being contacted about it. <span class="req">*</span></span>
@@ -231,8 +290,8 @@ a{color:var(--ink)}
     var stamp = String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0");
     return "SCV-" + stamp + "-" + Math.random().toString(36).slice(2,6).toUpperCase();
   }
-  function services(){
-    return Array.prototype.slice.call(form.querySelectorAll('input[name="svc"]:checked'))
+  function checkedVals(name){
+    return Array.prototype.slice.call(form.querySelectorAll('input[name="' + name + '"]:checked'))
       .map(function(c){ return c.value.replace(/&amp;/g, "&"); }).join(", ");
   }
 
@@ -241,7 +300,9 @@ a{color:var(--ink)}
     ok = mark("name", val("name").length >= 2) && ok;
     ok = mark("phone", digits(val("phone")) >= 10) && ok;
     ok = mark("email", /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("email"))) && ok;
-    ok = mark("city", val("city") !== "") && ok;
+    var cityOk = form.querySelectorAll('input[name="city"]:checked').length > 0;
+    document.getElementById("cityErr").style.display = cityOk ? "none" : "block";
+    if(!cityOk) ok = false;
     var okBox = document.getElementById("ok").checked;
     document.getElementById("okErr").style.display = okBox ? "none" : "block";
     if(!okBox) ok = false;
@@ -259,11 +320,22 @@ a{color:var(--ink)}
         "Name / Business": val("name"),
         "Phone": val("phone"),
         "Email": val("email"),
-        "Primary City": val("city"),
+        "Cities Serviced": checkedVals("city"),
         "Base ZIP": val("zip"),
+        "ZIP Codes / Areas": val("areas"),
         "Travel / Radius": val("radius"),
-        "Services": services(),
-        "Notes & Requirements": val("notes")
+        "Services": checkedVals("svc"),
+        "Dryer Types": checkedVals("dryer"),
+        "Hookup Requirements": val("hookup"),
+        "Monthly Rental Price": val("price"),
+        "Delivery / Install Fee": val("fee"),
+        "Payment / Autopay": val("pay"),
+        "Min Term / Contract": val("term"),
+        "Installs Per Day/Week": val("cap"),
+        "Install Days / Times": val("hours"),
+        "Wants Leads Now": document.getElementById("leadsnow").checked ? "Yes" : "No",
+        "Customers Won't Take": val("wont"),
+        "Other Requirements": val("notes")
       }
     };
   }
@@ -291,6 +363,7 @@ a{color:var(--ink)}
   form.addEventListener("input", function(e){
     var f = e.target.closest(".field"); if(f) f.classList.remove("bad");
     if(e.target.id === "ok") document.getElementById("okErr").style.display = "none";
+    if(e.target.name === "city") document.getElementById("cityErr").style.display = "none";
   });
 
   form.addEventListener("submit", async function(e){

@@ -71,8 +71,11 @@ var APPLICATION_HEADERS = [
 
 var VENDOR_LEAD_HEADERS = [
   'Submission ID', 'Submitted At', 'Name / Business', 'Phone', 'Email',
-  'Primary City', 'Base ZIP', 'Travel / Radius', 'Services',
-  'Notes & Requirements', 'Review Status'
+  'Cities Serviced', 'Base ZIP', 'ZIP Codes / Areas', 'Travel / Radius',
+  'Services', 'Dryer Types', 'Hookup Requirements',
+  'Monthly Rental Price', 'Delivery / Install Fee', 'Payment / Autopay', 'Min Term / Contract',
+  'Installs Per Day/Week', 'Install Days / Times', 'Wants Leads Now',
+  "Customers Won't Take", 'Other Requirements', 'Review Status'
 ];
 
 /* ===================== ENDPOINT ===================== */
@@ -415,11 +418,25 @@ function createVendorLeadsTab_() {
   return sh;
 }
 
-/** Run from the menu if you want the tab ready first. Not required —
- *  appendVendorLead_ creates it automatically on the first submission. */
+/**
+ * Run from the menu if you want the tab ready first. Not required —
+ * appendVendorLead_ creates it automatically on the first submission.
+ * If the tab already exists but has no data rows yet, its header row is
+ * refreshed to the current VENDOR_LEAD_HEADERS (safe — nothing to
+ * misalign). Once real rows exist it leaves the headers alone.
+ */
 function setupVendorLeadsTab() {
   var ss = SpreadsheetApp.openById(SHEET_ID);
-  if (!ss.getSheetByName(VENDOR_LEADS_TAB)) createVendorLeadsTab_();
+  var sh = ss.getSheetByName(VENDOR_LEADS_TAB);
+  if (!sh) {
+    createVendorLeadsTab_();
+  } else if (sh.getLastRow() <= 1) {
+    sh.getRange(1, 1, 1, VENDOR_LEAD_HEADERS.length)
+      .setValues([VENDOR_LEAD_HEADERS])
+      .setFontWeight('bold').setBackground('#2e5c9a').setFontColor('#ffffff');
+    sh.setFrozenRows(1);
+    sh.autoResizeColumns(1, VENDOR_LEAD_HEADERS.length);
+  }
   SpreadsheetApp.getUi().alert('"' + VENDOR_LEADS_TAB + '" is ready.');
 }
 

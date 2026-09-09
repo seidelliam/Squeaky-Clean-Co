@@ -142,7 +142,7 @@ up the click-handling code. No new Vercel env vars — `api/click.js` reuses
 
 ## Vendor / partner intake — `/vendor`
 
-A short standalone form for recruiting suppliers and service partners:
+A standalone intake form for recruiting suppliers and service partners:
 [site/vendor/index.html](site/vendor/index.html) → `api/vendor.js` →
 Apps Script → the **Vendor Leads** tab (creates itself on first submit,
 or **Squeaky Clean → Set up Vendor Leads tab**). Plain notification
@@ -150,6 +150,14 @@ email, no attachments. It never writes to your real Vendors tab — copy a
 lead across by hand when you onboard someone. Reuses the same
 `APPS_SCRIPT_URL` / `APPS_SCRIPT_TOKEN`, no new env vars. Share the link
 as `https://YOUR-DOMAIN/vendor`.
+
+It captures coverage (cities / ZIPs / travel), what they provide,
+electric vs. gas dryers, hookup requirements, pricing and terms, install
+capacity and hours, whether they want leads now, who they won't take,
+and any pre-acceptance requirements. If you already created the Vendor
+Leads tab under the old shorter column set, re-run **Set up Vendor
+Leads tab** — it refreshes the header row as long as the tab has no
+data rows yet.
 
 ## Internal dashboard — `/internal`
 
