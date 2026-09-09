@@ -157,6 +157,17 @@ td.clip{max-width:20rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsi
       };}
     },
     {
+      id:"vendors", label:"Vendors", dataKey:"vendors",
+      status:"Status", date:"Start Date",
+      columns:[],                 // real Vendors tab — schema unknown here, so show every column it has
+      order:["Active"],
+      card:function(r){ return {
+        title:r["Vendor Name"]||r["Name"]||r["Business"]||r["Vendor ID"]||r["ID"]||"(vendor)",
+        id:r["Vendor ID"]||r["ID"]||"",
+        lines:[r["City"], r["Zip"]||r["ZIP"]||r["Base ZIP"], r["Phone"], r["Email"], r["Status"]]
+      };}
+    },
+    {
       id:"applications", label:"Applications", dataKey:"applications",
       status:"Review Status", date:"Submitted At",
       columns:["Application ID","Submitted At","Full Name","Phone","City","Review Status","Promoted to Renter ID","Ref"],

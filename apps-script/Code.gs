@@ -34,6 +34,9 @@ var RENTERS_TAB      = 'Renters';
 var CLICKS_TAB        = 'Clicks';
 var REF_REPORT_TAB    = 'Ref Report';
 var VENDOR_LEADS_TAB  = 'Vendor Leads';   // partner intake from /vendor — leads only, never the real Vendors tab
+var VENDORS_TAB       = 'Vendors';        // the real vendor directory (Assigned Vendor ID -> Vendor Name). Read-only from doGet.
+var VENDORS_HEADER_ROW     = 2;           // banner on row 1, column names on row 2 — same layout as Renters
+var VENDORS_FIRST_DATA_ROW = 3;
 
 /** Renters puts its column names on row 2 — row 1 is the merged title banner. */
 var RENTERS_HEADER_ROW = 2;
@@ -123,8 +126,8 @@ function reply_(obj) {
 /**
  * Read-only snapshot for the internal dashboard (site/internal, via
  * api/internal.js). Gated by INTERNAL_KEY passed as ?key=. Returns
- * Renters, Applications, and Vendor Leads as arrays of plain objects.
- * A bare visit with no key just gets {ok:false} — harmless.
+ * Renters, Vendors, Applications, and Vendor Leads as arrays of plain
+ * objects. A bare visit with no key just gets {ok:false} — harmless.
  */
 function doGet(e) {
   try {
@@ -134,7 +137,8 @@ function doGet(e) {
     return reply_({
       ok: true,
       generatedAt: new Date().toISOString(),
-      renters:      readTab_(RENTERS_TAB,      RENTERS_HEADER_ROW, RENTERS_FIRST_DATA_ROW, 'Renter ID'),
+      renters:      readTab_(RENTERS_TAB,      RENTERS_HEADER_ROW,   RENTERS_FIRST_DATA_ROW,   'Renter ID'),
+      vendors:      readTab_(VENDORS_TAB,      VENDORS_HEADER_ROW,   VENDORS_FIRST_DATA_ROW,   ['Vendor ID', 'ID', 'VendorID', 'Vendor Name']),
       applications: readTab_(APPLICATIONS_TAB, 1, 2, 'Application ID'),
       vendorLeads:  readTab_(VENDOR_LEADS_TAB, 1, 2, 'Submission ID')
     });
@@ -145,9 +149,10 @@ function doGet(e) {
 
 /**
  * One tab as an array of objects keyed by its header row. Rows whose
- * keyField cell is blank are skipped — Renters keeps its formulas filled
- * down past the real data. Dates come back as ISO strings so they survive
- * JSON.
+ * key cell is blank are skipped — Renters (and Vendors) keep their
+ * formulas filled down past the real data. keyField may be a single
+ * header name or a list of candidates (first one that exists wins).
+ * Dates come back as ISO strings so they survive JSON.
  */
 function readTab_(name, headerRow, firstDataRow, keyField) {
   var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(name);
@@ -157,7 +162,14 @@ function readTab_(name, headerRow, firstDataRow, keyField) {
 
   var headers = sh.getRange(headerRow, 1, 1, lastCol).getValues()[0]
     .map(function (h) { return String(h).trim(); });
-  var keyIdx = headers.indexOf(keyField);
+
+  var keyIdx = -1;
+  var candidates = [].concat(keyField);
+  for (var c = 0; c < candidates.length; c++) {
+    var idx = headers.indexOf(candidates[c]);
+    if (idx > -1) { keyIdx = idx; break; }
+  }
+
   var rows = sh.getRange(firstDataRow, 1, lastRow - firstDataRow + 1, lastCol).getValues();
 
   var out = [];
