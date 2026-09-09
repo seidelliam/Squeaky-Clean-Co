@@ -2,7 +2,9 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/", "destination": "/site" },
-    { "source": "/vendor", "destination": "/site/vendor/index.html" },
-    { "source": "/internal", "destination": "/site/internal/index.html" }
+    { "source": "/vendor", "destination": "/site/vendor" },
+    { "source": "/vendor/", "destination": "/site/vendor" },
+    { "source": "/internal", "destination": "/site/internal" },
+    { "source": "/internal/", "destination": "/site/internal" }
   ]
 }
